@@ -2,6 +2,11 @@
 
 A new Flutter project.
 
+## How to run 
+- [run app] flutter run
+- [run app in chrome with disable -web-security] flutter run -d chrome --web-browser-flag "--disable-web-security"
+- [run api] node getUserDetails.js
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
