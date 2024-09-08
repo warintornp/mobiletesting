@@ -1,6 +1,7 @@
 // lib/screens/pin_entry_screen.dart
 
 import 'package:flutter/material.dart';
+import '../pin_validator.dart';
 
 class PinEntryScreen extends StatefulWidget {
   @override
@@ -10,39 +11,17 @@ class PinEntryScreen extends StatefulWidget {
 class _PinEntryScreenState extends State<PinEntryScreen> {
   final _pinController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final String correctPin = "123456"; // Set the correct PIN for validation
+  final PinValidator _pinValidator = PinValidator();
 
   void _validatePin() {
     if (_formKey.currentState?.validate() ?? false) {
       final enteredPin = _pinController.text;
-      if (_hasSequentialDigits(enteredPin) || _hasRepeatingDigits(enteredPin)){
+      if (_pinValidator.validatePin(enteredPin)){
         _showDialog('Success', 'The PIN is valid');
       } else {
         _showDialog('Error', 'The PIN is invalid.');
       }
     }
-  }
-
-  bool _hasSequentialDigits(String pin) {    
-    // Check for sequential digits     
-    for (int i = 0; i < 5; i++) {       
-      if (pin[i].codeUnitAt(0) + 1 == pin[i + 1].codeUnitAt(0)) {         
-        return true; // Found sequential digits       
-      }     
-    }
-    return false;   
-  }
-
-  bool _hasRepeatingDigits(String pin) {     
-    // Check for repeating digits     
-    Set<String> digitSet = Set<String>();     
-    for (int i = 0; i < pin.length; i++) {       
-      if (digitSet.contains(pin[i])) {         
-        return true; // Found repeating digit       
-      }      
-      digitSet.add(pin[i]);     
-    }     
-    return false;   
   }
 
   void _showDialog(String title, String content) {
