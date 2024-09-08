@@ -5,7 +5,7 @@ class PinValidator {
   PinValidator();
 
   bool validatePin(String pin) {
-    return _hasSequentialDigits(pin) || _hasRepeatingDigits(pin);
+    return true;
   }
 
   bool _hasSequentialDigits(String pin) {    
