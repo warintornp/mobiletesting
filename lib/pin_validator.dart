@@ -1,11 +1,9 @@
-import 'dart:math';
-
 class PinValidator {
 
   PinValidator();
 
   bool validatePin(String pin) {
-    return true;
+    return _hasSequentialDigits(pin) || _hasRepeatingDigits(pin);
   }
 
   bool _hasSequentialDigits(String pin) {    

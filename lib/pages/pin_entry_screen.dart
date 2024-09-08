@@ -1,6 +1,8 @@
 // lib/screens/pin_entry_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:mobiletesting/pages/user_details_screen.dart';
+import 'package:mobiletesting/user_service.dart';
 import '../pin_validator.dart';
 
 class PinEntryScreen extends StatefulWidget {
@@ -12,19 +14,32 @@ class _PinEntryScreenState extends State<PinEntryScreen> {
   final _pinController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final PinValidator _pinValidator = PinValidator();
+  late UserService _userService;
+  String? _dialogTitle;
+  String? _dialogContent;
 
-  void _validatePin() {
+  @override
+  void initState() {
+    super.initState();
+    _userService = UserService();
+  }
+
+
+  Future<void> _validatePin() async{
     if (_formKey.currentState?.validate() ?? false) {
       final enteredPin = _pinController.text;
+      
+      // final userDetails = await _userService.fetchUserDetails(enteredPin);
+
       if (_pinValidator.validatePin(enteredPin)){
-        _showDialog('Success', 'The PIN is valid');
+        _showDialog('Success', 'The PIN is valid', '');
       } else {
-        _showDialog('Error', 'The PIN is invalid.');
-      }
+        _showDialog('Error', 'The PIN is invalid.', '');
+      } 
     }
   }
 
-  void _showDialog(String title, String content) {
+  void _showDialog(String title, String content, String userDetails) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -35,6 +50,9 @@ class _PinEntryScreenState extends State<PinEntryScreen> {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
+                if(userDetails == '') { 
+                  _navigateToUserDetailsScreen('Test');
+                  }
               },
               child: Text('OK'),
             ),
@@ -44,6 +62,13 @@ class _PinEntryScreenState extends State<PinEntryScreen> {
     );
   }
 
+void _navigateToUserDetailsScreen(String userDetails) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => UserDetailsScreen(userDetails: userDetails),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
