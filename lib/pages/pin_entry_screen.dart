@@ -1,7 +1,7 @@
 // lib/screens/pin_entry_screen.dart
 
 import 'package:flutter/material.dart';
-import 'package:mobiletesting/pages/user_details_screen.dart';
+import 'package:mobiletesting/pages/home_screen.dart';
 import 'package:mobiletesting/user_service.dart';
 import '../pin_validator.dart';
 
@@ -64,7 +64,7 @@ class _PinEntryScreenState extends State<PinEntryScreen> {
 void _navigateToUserDetailsScreen(Map<String, dynamic> userDetails) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => UserDetailsScreen(userDetails: userDetails),
+        builder: (context) => HomeScreen(userDetails: userDetails),
       ),
     );
 }
