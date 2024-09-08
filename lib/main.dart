@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'pages/pin_entry_screen.dart';
-import 'lib.dart';
 
 void main() {
   runApp(MyApp());
