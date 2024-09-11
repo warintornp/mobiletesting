@@ -1,6 +1,7 @@
 // lib/main.dart
 
 import 'package:flutter/material.dart';
+import 'package:mobiletesting/user_service.dart';
 import 'pages/pin_entry_screen.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: PinEntryScreen(),
+      home: PinEntryScreen(userService: UserService()),
     );
   }
 }

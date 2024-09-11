@@ -6,6 +6,9 @@ import 'package:mobiletesting/user_service.dart';
 import '../pin_validator.dart';
 
 class PinEntryScreen extends StatefulWidget {
+  final UserService userService;
+  PinEntryScreen({required this.userService});
+  
   @override
   _PinEntryScreenState createState() => _PinEntryScreenState();
 }
@@ -14,21 +17,14 @@ class _PinEntryScreenState extends State<PinEntryScreen> {
   final _pinController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final PinValidator _pinValidator = PinValidator();
-  late UserService _userService;
   
-  @override
-  void initState() {
-    super.initState();
-    _userService = UserService();
-  }
-
   Future<void> _validatePin() async {
     if (_formKey.currentState?.validate() ?? false) {
       final enteredPin = _pinController.text;
       
       if (_pinValidator.validatePin(enteredPin)){
         // Fetch user details from API
-        final userDetails = await _userService.fetchUserDetails(enteredPin);
+        final userDetails = await widget.userService.fetchUserDetails(enteredPin);
 
         if (userDetails != null) {
           _navigateToUserDetailsScreen(userDetails);
