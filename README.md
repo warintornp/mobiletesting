@@ -7,6 +7,9 @@ A new Flutter project.
 - [run app in chrome with disable -web-security] flutter run -d chrome --web-browser-flag "--disable-web-security"
 - [run api] node getUserDetails.js
 
+## Update Goldens Reference Image 
+flutter test --update-goldens
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
