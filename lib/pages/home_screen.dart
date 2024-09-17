@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:mobiletesting/pages/pin_entry_screen.dart';
+import 'package:mobiletesting/pages/news_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final Map<String, dynamic> userDetails;
 
   HomeScreen({required this.userDetails});
 
+// List of news images
+  final List<String> newsImages = [
+    'https://via.placeholder.com/600x400.png?text=News+1',
+    'https://via.placeholder.com/600x400.png?text=News+2',
+    'https://via.placeholder.com/600x400.png?text=News+3',
+    'https://via.placeholder.com/600x400.png?text=News+4',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
       body: Column(
         children: [
           // Header
@@ -17,50 +30,92 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-              // Background gradient container
-              Container(
-                height: 150,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.blueAccent, Colors.lightBlueAccent],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(40),
-                    bottomRight: Radius.circular(40),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 50,
-                left: 0,
-                right: 0,
-                child: Column(
-                  children: [
-                    // User Name
-                    Text(
-                      userDetails['name'],
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                    // Background gradient container
+                    Container(
+                      height: 100,
+                      width: double.maxFinite,
+                      margin: EdgeInsets.symmetric(horizontal: 8.0),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Colors.blueAccent, Colors.lightBlueAccent],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
                     ),
-                    SizedBox(height: 5),
-                    // User Email
-                    Text(
-                      userDetails['email'],
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white70,
-                      ),
+                    Positioned(
+                      top: 20,
+                      left: 0,
+                      right: 0,
+                      child: Column(
+                      children: [
+                        // User Name
+                        Text(
+                          userDetails['name'],
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        // User Email
+                        Text(
+                          userDetails['email'],
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white70,
+                          ),
+                        ),
+                      ],
                     ),
+                  ),
                   ],
                 ),
-              ),
-            ],
+                SizedBox(height: 150),
+                //News Section Header
+                Padding(
+                  padding: EdgeInsets.all(16),
+                  child: 
+                  Text(
+                    'Latest News',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ),
+                // Image Carousel
+                Container(
+                  height: 150.0, // Set the height of the carousel
+                  width: 70.0,
+                  child: PageView.builder(
+                    itemCount: newsImages.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          // Navigate to the DetailsPage
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NewsScreen(imageURL: newsImages[index]),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15.0), // Adjust radius here
+                            child: Image.network(
+                              newsImages[index],
+                              fit: BoxFit.cover,
+                              width: double.infinity, // Stretch image to fill width
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ]
             ),
