@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobiletesting/pages/pin_entry_screen.dart';
 import 'package:mobiletesting/pages/news_screen.dart';
+import 'package:mobiletesting/pages/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final Map<String, dynamic> userDetails;
@@ -135,13 +136,17 @@ class HomeScreen extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
+
                 // Handle Search button press
               },
             ),
             IconButton(
-              icon: Icon(Icons.notifications),
+              icon: Icon(Icons.settings),
               onPressed: () {
-                // Handle Notifications button press
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileScreen()),
+                );  
               },
             ),
         ]),
