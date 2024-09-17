@@ -8,34 +8,61 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home Screen'),
-      ),
       body: Column(
         children: [
           // Header
           Container(
-            color: Colors.blueAccent,
-            padding: EdgeInsets.all(16.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  'Name: ${userDetails['name']}',
-                  style: TextStyle(fontSize: 24, color: Colors.white),
+                Stack(
+                  children: [
+              // Background gradient container
+              Container(
+                height: 150,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.blueAccent, Colors.lightBlueAccent],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(40),
+                  ),
                 ),
-                Text(
-                  'Email: ${userDetails['email']}',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+              Positioned(
+                top: 50,
+                left: 0,
+                right: 0,
+                child: Column(
+                  children: [
+                    // User Name
+                    Text(
+                      userDetails['name'],
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    // User Email
+                    Text(
+                      userDetails['email'],
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          // Body
-          Expanded(
-            child: Center(
-              child: Text('Welcome to the Home Screen!',
-                  style: TextStyle(fontSize: 18)),
+              ),
+            ],
+                ),
+              ]
             ),
           ),
         ],
@@ -62,14 +89,7 @@ class HomeScreen extends StatelessWidget {
                 // Handle Notifications button press
               },
             ),
-            IconButton(
-              icon: Icon(Icons.account_circle),
-              onPressed: () {
-                // Handle Profile button press
-              },
-            ),
-          ],
-        ),
+        ]),
       ),
     );
   }

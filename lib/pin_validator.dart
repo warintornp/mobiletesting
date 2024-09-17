@@ -18,7 +18,7 @@ class PinValidator {
 
   bool _hasRepeatingDigits(String pin) {     
     // Check for repeating digits     
-    Set<String> digitSet = Set<String>();     
+    Set<String> digitSet = <String>{};     
     for (int i = 0; i < pin.length; i++) {       
       if (digitSet.contains(pin[i])) {         
         return true; // Found repeating digit       
