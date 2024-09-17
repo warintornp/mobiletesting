@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
+  final Map<String, dynamic> userDetails;
+
+  ProfileScreen({required this.userDetails});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +29,7 @@ class ProfileScreen extends StatelessWidget {
                   SizedBox(height: 10),
                   // User Name
                   Text(
-                    'John Doe',
+                    userDetails['name'],
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -34,7 +38,7 @@ class ProfileScreen extends StatelessWidget {
                   SizedBox(height: 5),
                   // User Email
                   Text(
-                    'john.doe@example.com',
+                    userDetails['email'],
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey[700],
@@ -45,41 +49,6 @@ class ProfileScreen extends StatelessWidget {
             ),
 
             Divider(),
-
-            // Profile Information Section
-            ListTile(
-              leading: Icon(Icons.phone),
-              title: Text('Phone'),
-              subtitle: Text('+123 456 7890'),
-            ),
-            ListTile(
-              leading: Icon(Icons.location_on),
-              title: Text('Location'),
-              subtitle: Text('123 Main St, City, Country'),
-            ),
-            ListTile(
-              leading: Icon(Icons.work),
-              title: Text('Occupation'),
-              subtitle: Text('Software Developer'),
-            ),
-
-            Divider(),
-
-            // Other Options
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-              onTap: () {
-                // Navigate to settings
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Logout'),
-              onTap: () {
-                // Handle logout
-              },
-            ),
           ],
         ),
       ),
