@@ -5,26 +5,27 @@ import 'package:mobiletesting/pages/home_screen.dart';
 import 'package:mobiletesting/user_service.dart';
 import '../pin_validator.dart';
 
-class PinEntryScreen extends StatefulWidget {
+class LoginWithPinScreen extends StatefulWidget {
   final UserService userService;
-  PinEntryScreen({required this.userService});
-  
+  LoginWithPinScreen({required this.userService});
+
   @override
-  _PinEntryScreenState createState() => _PinEntryScreenState();
+  _LoginWithPinScreenState createState() => _LoginWithPinScreenState();
 }
 
-class _PinEntryScreenState extends State<PinEntryScreen> {
+class _LoginWithPinScreenState extends State<LoginWithPinScreen> {
   final _pinController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final PinValidator _pinValidator = PinValidator();
-  
+
   Future<void> _validatePin() async {
     if (_formKey.currentState?.validate() ?? false) {
       final enteredPin = _pinController.text;
-      
-      if (_pinValidator.validatePin(enteredPin)){
+
+      if (_pinValidator.validatePin(enteredPin)) {
         // Fetch user details from API
-        final userDetails = await widget.userService.fetchUserDetails(enteredPin);
+        final userDetails =
+            await widget.userService.fetchUserDetails(enteredPin);
 
         if (userDetails != null) {
           _navigateToUserDetailsScreen(userDetails);
@@ -57,13 +58,13 @@ class _PinEntryScreenState extends State<PinEntryScreen> {
     );
   }
 
-void _navigateToUserDetailsScreen(Map<String, dynamic> userDetails) {
+  void _navigateToUserDetailsScreen(Map<String, dynamic> userDetails) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => HomeScreen(userDetails: userDetails),
       ),
     );
-}
+  }
 
   @override
   Widget build(BuildContext context) {

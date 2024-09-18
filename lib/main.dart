@@ -1,14 +1,15 @@
 // lib/main.dart
 
 import 'package:flutter/material.dart';
-import 'package:mobiletesting/user_service.dart';
-import 'pages/pin_entry_screen.dart';
+import 'package:mobiletesting/pages/login_with_pin_screen_v2.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: PinEntryScreen(userService: UserService()),
+      // home: LoginWithPinScreen(userService: UserService()),
+      home: const LoginWithPinScreen(),
     );
   }
 }

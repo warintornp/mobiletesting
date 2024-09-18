@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:mobiletesting/pages/pin_entry_screen.dart';
+import 'package:mobiletesting/pages/login_with_pin_screen.dart';
 import 'package:mobiletesting/user_service.dart';
 import 'package:mobiletesting/pages/home_screen.dart';
 
@@ -20,13 +20,14 @@ void main() {
   testWidgets('PinEntryScreen test - Valid PIN and successful API call',
       (WidgetTester tester) async {
     // Set up mock response for the API call
-    when(mockUserService.fetchUserDetails('132435'))
-        .thenAnswer((_) async => {'name': 'John Doe', 'email': 'john.doe@example.com'});
+    when(mockUserService.fetchUserDetails('132435')).thenAnswer(
+        (_) async => {'name': 'John Doe', 'email': 'john.doe@example.com'});
 
     // Build the widget tree with the mock user service
     await tester.pumpWidget(
       MaterialApp(
-        home: PinEntryScreen(userService: mockUserService), // Pass the mock user service
+        home: LoginWithPinScreen(
+            userService: mockUserService), // Pass the mock user service
       ),
     );
 
@@ -51,17 +52,14 @@ void main() {
     expect(find.text('Email: john.doe@example.com'), findsOneWidget);
   });
 
-  testWidgets('PinEntryScreen Test - Invalid PIN should not perform API call', 
-    (WidgetTester tester,) async {
-      // Set up mock response for the API call
-    when(mockUserService.fetchUserDetails('123'))
-        .thenAnswer((_) async => null);
+  testWidgets('PinEntryScreen Test - Invalid PIN should not perform API call', (
+    WidgetTester tester,
+  ) async {
+    // Set up mock response for the API call
+    when(mockUserService.fetchUserDetails('123')).thenAnswer((_) async => null);
 
     await tester.pumpWidget(
-      MaterialApp(
-        home: PinEntryScreen(userService: mockUserService)
-      )
-    );
+        MaterialApp(home: LoginWithPinScreen(userService: mockUserService)));
 
     expect(find.byType(TextFormField), findsOneWidget);
     expect(find.text('Enter PIN'), findsOneWidget);
@@ -74,23 +72,23 @@ void main() {
     await tester.tap(find.text('Submit'));
     await tester.pumpAndSettle();
 
-    // Verify the API call should not made 
+    // Verify the API call should not made
     verifyNever(mockUserService.fetchUserDetails('123'));
     expect(find.byType(TextFormField), findsOneWidget);
     expect(find.text('PIN must be 6 digits'), findsOneWidget);
   });
 
-  testWidgets('PinEntryScreen Test - Valid PIN and successful API call but get no data', 
-    (WidgetTester tester,) async {
-      // Set up mock response for the API call
+  testWidgets(
+      'PinEntryScreen Test - Valid PIN and successful API call but get no data',
+      (
+    WidgetTester tester,
+  ) async {
+    // Set up mock response for the API call
     when(mockUserService.fetchUserDetails('243546'))
         .thenAnswer((_) async => null);
 
     await tester.pumpWidget(
-      MaterialApp(
-        home: PinEntryScreen(userService: mockUserService)
-      )
-    );
+        MaterialApp(home: LoginWithPinScreen(userService: mockUserService)));
 
     expect(find.byType(TextFormField), findsOneWidget);
     expect(find.text('Enter PIN'), findsOneWidget);
@@ -103,12 +101,11 @@ void main() {
     await tester.tap(find.text('Submit'));
     await tester.pumpAndSettle();
 
-    // Verify the API call should not made 
+    // Verify the API call should not made
     verify(mockUserService.fetchUserDetails('243546')).called(1);
 
     expect(find.byType(AlertDialog), findsOneWidget);
     expect(find.text('Error'), findsOneWidget);
     expect(find.text('Failed to fetch user details.'), findsOneWidget);
   });
-
 }
