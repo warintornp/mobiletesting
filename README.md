@@ -3,9 +3,9 @@
 A new Flutter project.
 
 ## How to run 
-- [run app] flutter run
+- [run app] `flutter run`
 - [run app in chrome with disable -web-security] flutter run -d chrome --web-browser-flag "--disable-web-security"
-- [run api] node getUserDetails.js
+- [run api] `node getUserDetails.js`
 
 ## Update Goldens Reference Image 
 flutter test --update-goldens
