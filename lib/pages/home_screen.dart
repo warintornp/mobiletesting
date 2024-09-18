@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: const Text('Home'),
       ),
       body: Column(
         children: [
@@ -35,8 +35,8 @@ class HomeScreen extends StatelessWidget {
                       Container(
                         height: 100,
                         width: double.maxFinite,
-                        margin: EdgeInsets.symmetric(horizontal: 8.0),
-                        decoration: BoxDecoration(
+                        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                        decoration: const BoxDecoration(
                           gradient: LinearGradient(
                             colors: [Colors.blueAccent, Colors.lightBlueAccent],
                             begin: Alignment.topLeft,
@@ -54,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                             // User Name
                             Text(
                               userDetails['name'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
@@ -63,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                             // User Email
                             Text(
                               userDetails['email'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.white70,
                               ),
@@ -73,9 +73,9 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 150),
+                  const SizedBox(height: 150),
                   //News Section Header
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(16),
                     child: Text(
                       'Latest News',
