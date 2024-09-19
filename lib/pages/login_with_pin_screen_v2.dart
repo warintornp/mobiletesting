@@ -1,7 +1,11 @@
 // pin_page.dart
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:mobiletesting/pages/login_with_pin_view_model.dart';
 import 'package:mobiletesting/pages/pin_grid_view.dart';
+import 'package:mobiletesting/pages/sort_order.dart';
+import 'package:mobiletesting/user_service.dart';
 
 import 'package:provider/provider.dart';
 
@@ -14,7 +18,8 @@ class LoginWithPinScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => LoginWithPinViewModel(),
+      create: (_) => LoginWithPinViewModel(UserService(),
+          Random().nextBool() ? SortOrder.ascending : SortOrder.descending),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Enter PIN'),
@@ -49,7 +54,10 @@ class LoginWithPinScreen extends StatelessWidget {
                               sortOrder: viewModel.keyPadsortOrder,
                               deleteButtonOnPressed:
                                   viewModel.onDeleteButtonPressed,
-                              numberButtonOnPressed: viewModel.onDigitPressed),
+                              numberButtonOnPressed: (pressedDigit) => {
+                                    viewModel.onDigitPressed(
+                                        pressedDigit, context)
+                                  }),
                         ),
 
 //

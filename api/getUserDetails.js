@@ -5,8 +5,8 @@ const port = 3000
 
 // Mock database
 const users = {
-  132435: { name: 'John Doe', email: 'john.doe@example.com' },
-  243546: { name: 'Jane Smith', email: 'jane.smith@example.com' },
+  132495: { name: 'John Doe', email: 'john.doe@example.com' },
+  243596: { name: 'Jane Smith', email: 'jane.smith@example.com' },
   987123: { name: 'Patties Brown', email: 'pat@example.com' },
 }
 

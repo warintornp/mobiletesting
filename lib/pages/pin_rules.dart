@@ -8,7 +8,7 @@ class PinRule {
 }
 
 class PinRules {
-  List<PinRule> _rules = [
+  final List<PinRule> _rules = [
     PinRule((pin) => sixLength(pin), "Must be 6 characters long"),
     PinRule((pin) => containsOnlyDigits(pin), "PIN must contain only digits"),
     PinRule((pin) => !isSequential(pin), "PIN must not be sequential"),
@@ -21,14 +21,25 @@ class PinRules {
   //   return _rules.every((rule) => rule.rule(pin));
   // }
 
-  bool validate(String pin) {
-    return _rules.map((rule) {
-      if (!rule.condition(pin)) {
-        print("validate failed: " + rule.description);
-        return false;
+  // String? validate(String pin) {
+  //   return _rules.map((rule) {
+  //     if (!rule.condition(pin)) {
+  //       print("validate failed: " + rule.description);
+  //       return false;
+  //       // return rule.description;
+  //     }
+  //     return true;
+  //     // return null;
+  //   }).every((result) => result);
+  // }
+
+  String? validate(String pin) {
+    for (int i = 0; i < _rules.length; i++) {
+      if (!_rules[i].condition(pin)) {
+        return _rules[i].description;
       }
-      return true;
-    }).every((result) => result);
+    }
+    return null;
   }
 
   static bool sixLength(String pin) {
@@ -65,12 +76,13 @@ class PinRules {
   }
 
   static bool hasSameNumber(String pin) {
-    for (int i = 0; i < pin.length - 1; i++) {
-      if (pin[i] == pin[i + 1]) {
-        return true;
-      }
+    Set<String> distinctChars = {};
+
+    for (int i = 0; i < pin.length; i++) {
+      distinctChars.add(pin[i]);
     }
-    return false;
+
+    return distinctChars.join().length < pin.length;
   }
 
   static bool totalEqualsToThirteen(String pin) {
