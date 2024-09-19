@@ -17,7 +17,6 @@ app.use(bodyParser.json())
 app.get('/getUserDetails', (req, res) => {
   const pin = req.query.pin
 
-  // Check if pin exists in the mock database
   if (users[pin]) {
     res.status(200).json(users[pin])
   } else {
@@ -26,13 +25,11 @@ app.get('/getUserDetails', (req, res) => {
 })
 
 app.post('/v1/api/pin/validate', (req, res) => {
-  if (
-    req.body.pin === undefined ||
-    req.body.pin === null ||
-    req.body.pin === ''
-  ) {
+  const pin = req.body.pin
+  // const pin = req.body.body //hidden bug for scenario#2
+  if (pin === undefined || pin === null || pin === '') {
     res.status(400).json({ error: 'Invalid request' })
-  } else if (users[req.body.pin] === undefined) {
+  } else if (users[pin] === undefined) {
     res.status(401).json({ error: 'Unauthorised' })
     console.log('401 ja')
   } else {

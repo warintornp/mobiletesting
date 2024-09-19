@@ -21,7 +21,9 @@ describe('POST /v1/api/pin/validate', () => {
   })
 
   it('400 pin is absent', async () => {
-    const response = await request(app).post('/v1/api/pin/validate').send({})
+    const response = await request(app)
+      .post('/v1/api/pin/validate')
+      .send({ body: '243546' })
 
     expect(response.status).toBe(400)
   })
