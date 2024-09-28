@@ -33,6 +33,7 @@ class LoginWithPinViewModel extends ChangeNotifier {
     }
 
     final failedMessage = PinRules().validate(_inputtedPin);
+    //hidden issue#1: failedMessage = null
     if (failedMessage != null) {
       _showErrorDialog(failedMessage, context);
     } else {
@@ -52,7 +53,7 @@ class LoginWithPinViewModel extends ChangeNotifier {
     notifyListeners();
 
     // await Future.delayed(const Duration(seconds: 4));
-    final userDetails = await userService.fetchUserDetails(_inputtedPin);
+    final userDetails = await userService.fetchUserDetails2(_inputtedPin);
 
     _isLoading = false;
     notifyListeners();
