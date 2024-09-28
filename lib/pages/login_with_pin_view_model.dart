@@ -61,7 +61,8 @@ class LoginWithPinViewModel extends ChangeNotifier {
       _navigateToUserDetailsScreen(userDetails, context);
     } else {
       if (context.mounted) {
-        _showErrorDialog('Invalid pin. please try again.', context);
+        _showErrorDialog(
+            'Invalid pin or network issue. please try again.', context);
       }
     }
   }
