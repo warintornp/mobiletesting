@@ -38,4 +38,14 @@ class MockUserService extends _i1.Mock implements _i2.UserService {
         ),
         returnValue: _i3.Future<Map<String, dynamic>?>.value(),
       ) as _i3.Future<Map<String, dynamic>?>);
+
+  @override
+  _i3.Future<Map<String, dynamic>?> fetchUserDetails2(String? pin) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchUserDetails2,
+          [pin],
+        ),
+        returnValue: _i3.Future<Map<String, dynamic>?>.value(),
+      ) as _i3.Future<Map<String, dynamic>?>);
 }
