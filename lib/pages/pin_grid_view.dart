@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mobiletesting/pages/sort_order.dart';
 
-class PinGridView extends StatelessWidget {
+class PinGrid extends StatelessWidget {
   final SortOrder sortOrder;
   final VoidCallback deleteButtonOnPressed;
   final void Function(int) numberButtonOnPressed;
-  const PinGridView(
+  const PinGrid(
       {super.key,
       required this.sortOrder,
       required this.deleteButtonOnPressed,

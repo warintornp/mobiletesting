@@ -35,11 +35,11 @@ class LoginWithPinScreen extends StatelessWidget {
                     color: Colors.green,
                   ),
                   const SizedBox(height: 50.0),
-                  PinDot(viewModel: viewModel),
+                  Dot(viewModel: viewModel),
                   const SizedBox(height: 50.0),
                   viewModel.isLoading
                       ? const LoadingIndicator()
-                      : PinGridViewWidget(viewModel: viewModel),
+                      : PinGridWidget(viewModel: viewModel),
                 ],
               );
             },
@@ -50,10 +50,9 @@ class LoginWithPinScreen extends StatelessWidget {
   }
 }
 
-class PinDot extends StatelessWidget {
+class Dot extends StatelessWidget {
   final LoginWithPinViewModel viewModel;
-
-  const PinDot({required this.viewModel});
+  const Dot({required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -85,15 +84,14 @@ class PinDot extends StatelessWidget {
   }
 }
 
-class PinGridViewWidget extends StatelessWidget {
+class PinGridWidget extends StatelessWidget {
   final LoginWithPinViewModel viewModel;
-
-  const PinGridViewWidget({required this.viewModel});
+  const PinGridWidget({required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: PinGridView(
+      child: PinGrid(
         sortOrder: viewModel.keyPadsortOrder,
         deleteButtonOnPressed: viewModel.onDeleteButtonPressed,
         numberButtonOnPressed: (pressedDigit) => viewModel.onDigitPressed(pressedDigit, context),
@@ -104,7 +102,6 @@ class PinGridViewWidget extends StatelessWidget {
 
 class LoadingIndicator extends StatelessWidget {
   const LoadingIndicator();
-
   @override
   Widget build(BuildContext context) {
     return const CircularProgressIndicator(

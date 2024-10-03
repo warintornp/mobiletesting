@@ -28,6 +28,27 @@ void main() {
     );
   });
 
+testWidgets('pin dot default state',
+      (WidgetTester tester) async {
+
+    final mockViewModel = MockLoginWithPinViewModel();
+    when(mockViewModel.inputtedPin).thenReturn(''); 
+
+    await tester.pumpWidget(
+      MaterialApp(home: Scaffold(
+        body: Dot(viewModel: mockViewModel)
+      )),
+    );
+
+    await tester.pumpAndSettle();
+
+    // Take a screenshot and compare it with a golden file
+    await expectLater(
+      find.byType(Dot),
+      matchesGoldenFile('goldens/ref/pin_key_default.png'),
+    );
+  });
+
   testWidgets('pin dot when enter`1234`',
       (WidgetTester tester) async {
 
@@ -36,7 +57,7 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp(home: Scaffold(
-        body: PinDot(viewModel: mockViewModel)
+        body: Dot(viewModel: mockViewModel)
       )),
     );
 
@@ -44,32 +65,12 @@ void main() {
 
     // Take a screenshot and compare it with a golden file
     await expectLater(
-      find.byType(PinDot),
+      find.byType(Dot),
       matchesGoldenFile('goldens/ref/pin_key.png'),
     );
   });
 
-  testWidgets('pin dot default state',
-      (WidgetTester tester) async {
-
-    final mockViewModel = MockLoginWithPinViewModel();
-    when(mockViewModel.inputtedPin).thenReturn(''); 
-
-    await tester.pumpWidget(
-      MaterialApp(home: Scaffold(
-        body: PinDot(viewModel: mockViewModel)
-      )),
-    );
-
-    await tester.pumpAndSettle();
-
-    // Take a screenshot and compare it with a golden file
-    await expectLater(
-      find.byType(PinDot),
-      matchesGoldenFile('goldens/ref/pin_key_default.png'),
-    );
-  });
-
+  
   testWidgets('Loading Indicator', (WidgetTester tester) async {
 
     await tester.pumpWidget(
@@ -93,7 +94,7 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp(home: Scaffold(
-        body: PinGridViewWidget(viewModel: mockViewModel)
+        body: PinGridWidget(viewModel: mockViewModel)
       )),
     );
 
@@ -101,7 +102,7 @@ void main() {
 
     // Take a screenshot and compare it with a golden file
     await expectLater(
-      find.byType(PinGridViewWidget),
+      find.byType(PinGridWidget),
       matchesGoldenFile('goldens/ref/pin_grid_view_widget.png'),
     );
   });
