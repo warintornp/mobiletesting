@@ -29,7 +29,7 @@ class LoginWithPinScreen extends StatelessWidget {
             builder: (context, viewModel, child) {
               return Column(
                 children: <Widget>[
-                  dot(viewModel),
+                  Dot(viewModel: viewModel,),
                   viewModel.isLoading
                       ? const CircularProgressIndicator(
                           color: Color.fromARGB(255, 37, 9, 131),
@@ -44,17 +44,6 @@ class LoginWithPinScreen extends StatelessWidget {
     );
   }
 
-  Widget dot(LoginWithPinViewModel viewModel) {
-    return Container(
-      padding: const EdgeInsets.all(30),
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-        ...List<int>.generate(6, (i) => i + 1).map<Widget>(
-          (number) => createCircle(number, viewModel),
-        )
-      ]),
-    );
-  }
-
   Widget pinGridViewWidget(
       LoginWithPinViewModel viewModel, BuildContext context) {
     return Expanded(
@@ -63,6 +52,23 @@ class LoginWithPinScreen extends StatelessWidget {
           deleteButtonOnPressed: viewModel.onDeleteButtonPressed,
           numberButtonOnPressed: (pressedDigit) =>
               {viewModel.onDigitPressed(pressedDigit, context)}),
+    );
+  }
+}
+
+class Dot extends StatelessWidget {
+  final LoginWithPinViewModel viewModel;
+  const Dot({super.key, required this.viewModel});
+
+  @override
+  Widget build(Object context) {
+    return Container(
+      padding: const EdgeInsets.all(30),
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+        ...List<int>.generate(6, (i) => i + 1).map<Widget>(
+          (number) => createCircle(number, viewModel),
+        )
+      ]),
     );
   }
 
@@ -85,4 +91,3 @@ class LoginWithPinScreen extends StatelessWidget {
     );
   }
 }
-
