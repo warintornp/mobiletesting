@@ -1,0 +1,84 @@
+# name: Dart
+
+# on:
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       # Note: This workflow uses the latest stable version of the Dart SDK.
+#       # You can specify other versions if desired, see documentation here:
+#       # https://github.com/dart-lang/setup-dart/blob/main/README.md
+#       # - uses: dart-lang/setup-dart@v1
+#       - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+
+#       - name: Install dependencies
+#         run: dart pub get
+
+#       # Uncomment this step to verify the use of 'dart format' on each commit.
+#       # - name: Verify formatting
+#       #   run: dart format --output=none --set-exit-if-changed .
+
+#       # Consider passing '--fatal-infos' for slightly stricter analysis.
+#       - name: Analyze project source
+#         run: dart analyze
+
+#       # Your project will need to have tests in test/ and a dependency on
+#       # package:test for this step to succeed. Note that Flutter projects will
+#       # want to change this to 'flutter test'.
+#       - name: Run tests
+#         run: dart test
+
+
+name: Flutter CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.18.0' # Specify your Flutter version
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    - name: Run unit tests
+      run: flutter test --tags unit
+
+    - name: Run golden tests
+      run: flutter test --tags golden
+
+    - name: Run widget tests
+      run: flutter test --tags widget
+
+    - name: Build APK
+      run: flutter build apk --release
+
+    - name: Upload to Firebase App Distribution
+      uses: wzieba/Firebase-Distribution-Github-Action@v1
+      with:
+        appId: ${{ secrets.FIREBASE_APP_ID }}
+        token: ${{ secrets.FIREBASE_TOKEN }}
+        groups: testers
+        file: build/app/outputs/flutter-apk/app-release.apk
