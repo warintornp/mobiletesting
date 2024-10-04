@@ -16,7 +16,7 @@ void main() {
     mockUserService = MockUserService();
   });
 
-  testWidgets('Widget Golden Test - PinEntryScreen',
+  testWidgets('Widget Golden Test aka snapshot testing - PinEntryScreen',
       (WidgetTester tester) async {
     when(mockUserService.fetchUserDetails("132435")).thenAnswer(
         (_) async => {'name': 'John Doe', 'email': 'john.doe@example.com'});

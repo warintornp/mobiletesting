@@ -8,6 +8,7 @@ import 'package:mobiletesting/pages/home_screen.dart';
 
 import 'pin_entry_screen_test.mocks.dart';
 
+//Note: This is a widget test, can position as UI test(black-box) and integration test(white-box).
 // Generate the mock for UserService
 @GenerateMocks([UserService])
 void main() {

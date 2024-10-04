@@ -35,6 +35,7 @@ class LoginWithPinScreen extends StatelessWidget {
                     size: 50.0,
                     color: Colors.green,
                   ),
+                  Text(viewModel.inputtedPin),
                   const SizedBox(height: 50.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
