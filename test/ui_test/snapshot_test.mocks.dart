@@ -3,6 +3,7 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:async' as _i8;
 import 'dart:ui' as _i7;
 
 import 'package:flutter/material.dart' as _i6;
@@ -149,4 +150,33 @@ class MockLoginWithPinViewModel extends _i1.Mock
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [UserService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockUserService extends _i1.Mock implements _i2.UserService {
+  MockUserService() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i8.Future<Map<String, dynamic>?> fetchUserDetails(String? pin) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchUserDetails,
+          [pin],
+        ),
+        returnValue: _i8.Future<Map<String, dynamic>?>.value(),
+      ) as _i8.Future<Map<String, dynamic>?>);
+
+  @override
+  _i8.Future<Map<String, dynamic>?> fetchUserDetails2(String? pin) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchUserDetails2,
+          [pin],
+        ),
+        returnValue: _i8.Future<Map<String, dynamic>?>.value(),
+      ) as _i8.Future<Map<String, dynamic>?>);
 }
