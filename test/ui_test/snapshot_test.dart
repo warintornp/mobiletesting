@@ -54,11 +54,8 @@ void main() {
   });
 
   testGoldens('Home screen', (WidgetTester tester) async {
-    // final mockUserDetails = {'name': 'John Doe', 'email': 'john.doe@example.com'};
-    final mockUserService = MockUserService();
-    when(mockUserService.fetchUserDetails('132435')).thenAnswer(
-        (_) async => {'name': 'John Doe', 'email': 'john.doe@example.com'});
-    await tester.pumpWidgetBuilder(HomeScreen(userDetails: {'name': 'John Doe', 'email': 'john.doe@example.com'}));
+    await tester.pumpWidgetBuilder(HomeScreen(
+      userDetails: {'name': 'John Doe', 'email': 'john.doe@example.com'}));
     await multiScreenGolden(tester, 'home_screen');
   });
 }
