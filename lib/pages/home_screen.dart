@@ -62,7 +62,7 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
+// News section header
   Widget newsheader() {
     return const Padding(
       padding: EdgeInsets.all(16),
@@ -77,6 +77,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+// Image Carousel
 class ImageCarousel extends StatelessWidget {
   // List of news images
   final List<String> newsImages = [

@@ -58,4 +58,26 @@ void main() {
       userDetails: {'name': 'John Doe', 'email': 'john.doe@example.com'}));
     await multiScreenGolden(tester, 'home_screen');
   });
+
+  testGoldens('Profile Widget', (WidgetTester tester) async {
+    final mockUserDetails = {'name': 'John Doe', 'email': 'john.doe@example.com'};
+    final builder = GoldenBuilder.column()
+    ..addScenario('user_profile_widget', UserProfileWidget(userDetails: mockUserDetails))
+    ..addTextScaleScenario('Large font size', UserProfileWidget(userDetails: mockUserDetails), textScaleFactor: 2.0)
+    ..addTextScaleScenario('Largest font size', UserProfileWidget(userDetails: mockUserDetails), textScaleFactor: 5.0);
+
+    await tester.pumpWidgetBuilder(builder.build());
+    await multiScreenGolden(tester, 'user_profile_widget');
+  });
+
+  testGoldens('Profile Widget - Logn user info', (WidgetTester tester) async {
+    final mockUserDetails = {'name': 'John Doe Re Me Fa Sol La Te Doeeeee', 'email': 'john.doe@example.commmmmmmmmmmmmmmmmmmmmmm'};
+    final builder = GoldenBuilder.column()
+    ..addScenario('user_profile_widget', UserProfileWidget(userDetails: mockUserDetails))
+    ..addTextScaleScenario('Large font size', UserProfileWidget(userDetails: mockUserDetails), textScaleFactor: 2.0)
+    ..addTextScaleScenario('Largest font size', UserProfileWidget(userDetails: mockUserDetails), textScaleFactor: 5.0);
+
+    await tester.pumpWidgetBuilder(builder.build());
+    await multiScreenGolden(tester, 'user_profile_widget_long_text');
+  });
 }
