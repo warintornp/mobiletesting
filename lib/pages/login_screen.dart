@@ -29,7 +29,9 @@ class LoginScreen extends StatelessWidget {
             builder: (context, viewModel, child) {
               return Column(
                 children: <Widget>[
-                  Dot(viewModel: viewModel,),
+                  Dot(
+                    viewModel: viewModel,
+                  ),
                   viewModel.isLoading
                       ? const CircularProgressIndicator(
                           color: Color.fromARGB(255, 37, 9, 131),
@@ -44,8 +46,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget pinGridViewWidget(
-      LoginViewModel viewModel, BuildContext context) {
+  Widget pinGridViewWidget(LoginViewModel viewModel, BuildContext context) {
     return Expanded(
       child: PinGridView(
           sortOrder: viewModel.keyPadsortOrder,
