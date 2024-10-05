@@ -12,7 +12,7 @@ void main() {
           'PIN must not have repeating digits');
       expect(pinRules.getErrorMessage("243546"),
           'PIN must not have repeating digits');
-    });
+    }, tags: 'unit');
 
     test('return no error message WHEN rules are compiled', () {
       // Arrange
@@ -22,6 +22,6 @@ void main() {
       expect(pinRules.getErrorMessage("132495"), null);
       expect(pinRules.getErrorMessage("243596"), null);
       expect(pinRules.getErrorMessage("987123"), null);
-    });
+    }, tags: 'unit');
   });
 }
