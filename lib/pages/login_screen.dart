@@ -2,7 +2,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:mobiletesting/pages/login_with_pin_view_model.dart';
+import 'package:mobiletesting/pages/login_view_model.dart';
 import 'package:mobiletesting/pages/pin_grid_view.dart';
 import 'package:mobiletesting/pages/sort_order.dart';
 import 'package:mobiletesting/user_service.dart';
@@ -11,21 +11,21 @@ import 'package:provider/provider.dart';
 
 //MVVM with ChangeNotifierProvider
 //the alternative of mvvm is delegation pattern with mixin https://betterprogramming.pub/how-to-implement-the-delegation-design-pattern-in-dart-d782de77c886
-class LoginWithPinScreen extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
   static const routeName = 'pin-page';
 
-  const LoginWithPinScreen({super.key});
+  const LoginScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => LoginWithPinViewModel(UserService(),
+      create: (_) => LoginViewModel(UserService(),
           Random().nextBool() ? SortOrder.ascending : SortOrder.descending),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Enter PIN'),
         ),
         body: Center(
-          child: Consumer<LoginWithPinViewModel>(
+          child: Consumer<LoginViewModel>(
             builder: (context, viewModel, child) {
               print(viewModel.inputtedPin);
               return Column(
@@ -71,7 +71,7 @@ class LoginWithPinScreen extends StatelessWidget {
     );
   }
 
-  Widget createCircle(int index, LoginWithPinViewModel viewModel) {
+  Widget createCircle(int index, LoginViewModel viewModel) {
     return Container(
       width: 15.0,
       height: 15.0,

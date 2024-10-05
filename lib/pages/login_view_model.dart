@@ -6,7 +6,7 @@ import 'package:mobiletesting/pages/pin_rules.dart';
 import 'package:mobiletesting/pages/sort_order.dart';
 import 'package:mobiletesting/user_service.dart';
 
-class LoginWithPinViewModel extends ChangeNotifier {
+class LoginViewModel extends ChangeNotifier {
   String _inputtedPin = '';
   bool _isLoading = false;
   // bool _shouldNavigateToUserDetailsScreen = false;
@@ -16,7 +16,7 @@ class LoginWithPinViewModel extends ChangeNotifier {
   final UserService userService;
   final SortOrder keyPadsortOrder;
 
-  LoginWithPinViewModel(this.userService, this.keyPadsortOrder);
+  LoginViewModel(this.userService, this.keyPadsortOrder);
 
   String get inputtedPin => _inputtedPin;
   bool get isLoading => _isLoading;
