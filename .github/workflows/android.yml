@@ -85,16 +85,14 @@ jobs:
         build-tools: 33.0.2
 
     - name: Create AVD
-      run: sdkmanager --install "system-images;android-33;google_apis;x86_64" && yes | avdmanager list device | avdmanager create avd -n test -k "system-images;android-33;google_apis;x86_64" --device "pixel_3a"
-
+      run: sdkmanager --install "system-images;android-33;google_apis;x86_64" && yes | avdmanager create avd -n test -k "system-images;android-33;google_apis;x86_64" --device "pixel_3a"
+    - name: list emulators
+      run: avdmanager list device
     - name: Start AVD
       run: |
         nohup emulator -avd test -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect &
         adb wait-for-device
         adb shell input keyevent 82
-
-
-
 
 
     - name: Run golden tests
