@@ -68,7 +68,7 @@ jobs:
       run: flutter test --tags unit
 
     - name: Run golden tests
-      run: flutter test --tags golden
+      run: flutter test --tags=golden
 
     - name: Run widget tests
       run: flutter test --tags widget
