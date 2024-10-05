@@ -59,7 +59,7 @@ jobs:
       uses: subosito/flutter-action@v2
       with:
         flutter-version: 3.24.3
-    - run: flutter --version && flutter devices
+    - run: flutter --version | flutter devices
 
     - name: Install dependencies
       run: flutter pub get
@@ -85,7 +85,7 @@ jobs:
         build-tools: 33.0.2
 
     - name: Create AVD
-      run: sdkmanager --install "system-images;android-33;google_apis;x86_64" && yes | avdmanager create avd -n test -k "system-images;android-33;google_apis;x86_64" --device "pixel_8a"
+      run: sdkmanager --install "system-images;android-33;google_apis;x86_64" && yes | avdmanager list device | avdmanager create avd -n test -k "system-images;android-33;google_apis;x86_64" --device "pixel_3a"
 
     - name: Start AVD
       run: |
