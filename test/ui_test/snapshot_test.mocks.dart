@@ -7,7 +7,7 @@ import 'dart:async' as _i8;
 import 'dart:ui' as _i7;
 
 import 'package:flutter/material.dart' as _i6;
-import 'package:mobiletesting/pages/login_with_pin_view_model.dart' as _i3;
+import 'package:mobiletesting/pages/login_view_model.dart' as _i3;
 import 'package:mobiletesting/pages/sort_order.dart' as _i4;
 import 'package:mobiletesting/user_service.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -36,12 +36,11 @@ class _FakeUserService_0 extends _i1.SmartFake implements _i2.UserService {
         );
 }
 
-/// A class which mocks [LoginWithPinViewModel].
+/// A class which mocks [LoginViewModel].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoginWithPinViewModel extends _i1.Mock
-    implements _i3.LoginWithPinViewModel {
-  MockLoginWithPinViewModel() {
+class MockLoginViewModel extends _i1.Mock implements _i3.LoginViewModel {
+  MockLoginViewModel() {
     _i1.throwOnMissingStub(this);
   }
 

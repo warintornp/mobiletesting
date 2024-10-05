@@ -4,8 +4,6 @@ import 'package:mobiletesting/user_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'uitest/pin_entry_screen_test.mocks.dart';
-
 @GenerateMocks([UserService])
 void main() {
   // late MockUserService mockUserService;
