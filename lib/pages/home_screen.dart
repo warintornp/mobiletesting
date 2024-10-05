@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobiletesting/pages/login_with_pin_screen.dart';
 import 'package:mobiletesting/pages/news_screen.dart';
 import 'package:mobiletesting/pages/profile_screen.dart';
 
