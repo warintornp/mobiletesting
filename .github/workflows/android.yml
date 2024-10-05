@@ -90,10 +90,9 @@ jobs:
       run: avdmanager list device
     - name: Start AVD
       run: |
-        nohup emulator -avd test -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect &
-        adb wait-for-device
-        adb shell input keyevent 82
-
+        timeout 120s nohup emulator -avd test -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect &
+        timeout 120s adb wait-for-device
+        timeout 120s adb shell input keyevent 82
 
     - name: Run golden tests
       run: flutter test --tags=golden
