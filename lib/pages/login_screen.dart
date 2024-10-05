@@ -27,47 +27,48 @@ class LoginScreen extends StatelessWidget {
         body: Center(
           child: Consumer<LoginViewModel>(
             builder: (context, viewModel, child) {
-              print(viewModel.inputtedPin);
               return Column(
                 children: <Widget>[
-                  const Icon(
-                    Icons.add,
-                    size: 50.0,
-                    color: Colors.green,
-                  ),
-                  Text(viewModel.inputtedPin),
-                  const SizedBox(height: 50.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ...List<int>.generate(6, (i) => i + 1).map<Widget>(
-                        (number) => createCircle(number, viewModel),
-                      )
-                    ],
-                  ),
-                  const SizedBox(height: 50.0),
+                  Dot(viewModel: viewModel,),
                   viewModel.isLoading
                       ? const CircularProgressIndicator(
-                          color: Colors.orange,
+                          color: Color.fromARGB(255, 37, 9, 131),
                         )
-                      : Expanded(
-                          child: PinGridView(
-                              sortOrder: viewModel.keyPadsortOrder,
-                              deleteButtonOnPressed:
-                                  viewModel.onDeleteButtonPressed,
-                              numberButtonOnPressed: (pressedDigit) => {
-                                    viewModel.onDigitPressed(
-                                        pressedDigit, context)
-                                  }),
-                        ),
-
-//
+                      : pinGridViewWidget(viewModel, context),
                 ],
               );
             },
           ),
         ),
       ),
+    );
+  }
+
+  Widget pinGridViewWidget(
+      LoginViewModel viewModel, BuildContext context) {
+    return Expanded(
+      child: PinGridView(
+          sortOrder: viewModel.keyPadsortOrder,
+          deleteButtonOnPressed: viewModel.onDeleteButtonPressed,
+          numberButtonOnPressed: (pressedDigit) =>
+              {viewModel.onDigitPressed(pressedDigit, context)}),
+    );
+  }
+}
+
+class Dot extends StatelessWidget {
+  final LoginViewModel viewModel;
+  const Dot({super.key, required this.viewModel});
+
+  @override
+  Widget build(Object context) {
+    return Container(
+      padding: const EdgeInsets.all(30),
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+        ...List<int>.generate(6, (i) => i + 1).map<Widget>(
+          (number) => createCircle(number, viewModel),
+        )
+      ]),
     );
   }
 

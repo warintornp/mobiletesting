@@ -1,15 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:mobiletesting/user_service.dart';
-import 'package:mobiletesting/pages/home_screen.dart';
 
-import 'pin_entry_screen_test.mocks.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_test/flutter_test.dart';
+// import 'package:mockito/annotations.dart';
+// import 'package:mockito/mockito.dart';
+// import 'package:mobiletesting/pages/login_with_pin_screen.dart';
+// import 'package:mobiletesting/user_service.dart';
+// import 'package:mobiletesting/pages/home_screen.dart';
+// import 'pin_entry_screen_test.mocks.dart';
 
 //Note: This is a widget test, can position as UI test(black-box) and integration test(white-box).
-// Generate the mock for UserService
-@GenerateMocks([UserService])
 void main() {
   // late MockUserService mockUserService;
 
@@ -109,3 +108,4 @@ void main() {
   //   expect(find.text('Failed to fetch user details.'), findsOneWidget);
   // });
 }
+

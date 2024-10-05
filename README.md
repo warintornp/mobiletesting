@@ -4,15 +4,20 @@ A new Flutter project.
 
 ## How to run 
 - [run app] `flutter run`
-- [run app in chrome with disable -web-security] flutter run -d chrome --web-browser-flag "--disable-web-security"
+- [run app in chrome with disable -web-security] `flutter run -d chrome --web-browser-flag "--disable-web-security"`
 - [run api] `node getUserDetails.js`
 
+## Generate Mock for test class 
+`dart run build_runner build`
 
 ## e2e testing
 `npx jest app.test.js`
 
+## Goldens test
+`flutter test --update-goldens --tags=golden` 
+
 ## Update Goldens Reference Image 
-flutter test --update-goldens
+`flutter test --update-goldens`
 
 ## Getting Started
 

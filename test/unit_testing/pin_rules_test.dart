@@ -13,11 +13,9 @@ void main() {
       expect(pinRules.getErrorMessage("243546"),
           'PIN must not have repeating digits');
     });
-
     test('return true when rules are compiled', () {
       // Arrange
       final pinRules = PinRules();
-
       // Assert
       expect(pinRules.getErrorMessage("132495"), null);
       expect(pinRules.getErrorMessage("243596"), null);
