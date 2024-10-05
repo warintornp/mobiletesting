@@ -101,14 +101,7 @@ jobs:
 
     
 
-    - name: Run golden tests
-      run: flutter test --tags=golden
-    - name: Upload test failures
-      if: failure()
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-failures
-        path: /home/runner/work/mobiletesting/mobiletesting/test/ui_test/failures
+
 
 
     - name: Run widget tests
@@ -124,3 +117,15 @@ jobs:
         token: ${{ secrets.FIREBASE_TOKEN }}
         groups: testers
         file: build/app/outputs/flutter-apk/app-release.apk
+
+
+
+
+    - name: Run golden tests
+      run: flutter test --tags=golden
+    - name: Upload test failures
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-failures
+        path: /home/runner/work/mobiletesting/mobiletesting/test/ui_test/failures
