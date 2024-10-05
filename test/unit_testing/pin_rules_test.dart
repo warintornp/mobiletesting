@@ -8,9 +8,8 @@ void main() {
       final pinRules = PinRules();
 
       // Assert
-      expect(pinRules.validate("132435"), false);
-      expect(pinRules.validate("243546"),
-          false); // Replace 'Expected Result' with the actual expected result
+      expect(pinRules.validate("132435"), 'PIN must not have repeating digits');
+      expect(pinRules.validate("243546"), 'PIN must not have repeating digits');
     });
 
     test('return true when rules are compiled', () {
@@ -18,10 +17,9 @@ void main() {
       final pinRules = PinRules();
 
       // Assert
-      expect(pinRules.validate("132495"), true);
-      expect(pinRules.validate("243596"), true);
-      expect(pinRules.validate("987123"),
-          true); // Replace 'Expected Result' with the actual expected result
+      expect(pinRules.validate("132495"), null);
+      expect(pinRules.validate("243596"), null);
+      expect(pinRules.validate("987123"), null);
     });
   });
 }
