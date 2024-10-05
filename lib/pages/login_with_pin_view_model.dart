@@ -32,10 +32,10 @@ class LoginWithPinViewModel extends ChangeNotifier {
       return;
     }
 
-    final failedMessage = PinRules().validate(_inputtedPin);
+    final errorMessage = PinRules().getErrorMessage(_inputtedPin);
     //hidden issue#1: failedMessage = null
-    if (failedMessage != null) {
-      _showErrorDialog(failedMessage, context);
+    if (errorMessage != null) {
+      _showErrorDialog(errorMessage, context);
     } else {
       _submitPin(context);
     }

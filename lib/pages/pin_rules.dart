@@ -33,7 +33,7 @@ class PinRules {
   //   }).every((result) => result);
   // }
 
-  String? validate(String pin) {
+  String? getErrorMessage(String pin) {
     for (int i = 0; i < _rules.length; i++) {
       if (!_rules[i].condition(pin)) {
         return _rules[i].description;
