@@ -88,11 +88,18 @@ jobs:
       run: sdkmanager --install "system-images;android-33;google_apis;x86_64" && yes | avdmanager create avd -n test -k "system-images;android-33;google_apis;x86_64" --device "pixel_3a"
     - name: list emulators
       run: avdmanager list device
+    - name: Set up environment variables
+      run: echo "ANDROID_HOME=$ANDROID_SDK_ROOT" >> $GITHUB_ENV
+
     - name: Start AVD
       run: |
+        export PATH=$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/tools/bin:$ANDROID_SDK_ROOT/platform-tools:$PATH
         timeout 120s nohup emulator -avd test -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect &
         timeout 120s adb wait-for-device
         timeout 120s adb shell input keyevent 82
+
+
+    
 
     - name: Run golden tests
       run: flutter test --tags=golden
