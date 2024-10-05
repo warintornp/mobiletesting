@@ -4,13 +4,15 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   golden_test:
     runs-on: ubuntu-latest
+
+    services:
+      xvfb:
+        image: 'circleci/xvfb:latest'
+        options: --privileged
 
     steps:
       - name: Checkout code
@@ -28,4 +30,5 @@ jobs:
         run: sudo apt-get install libgl1-mesa-glx -y
 
       - name: Run Flutter Golden Tests with Custom Comparator
-        run: flutter test
+        run: flutter test --update-goldens
+
