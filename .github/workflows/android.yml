@@ -85,7 +85,7 @@ jobs:
         build-tools: 33.0.2
 
     - name: Create AVD
-      run: sdkmanager --install "system-images;android-33;google_apis;x86_64" && yes | avdmanager create avd -n test -k "system-images;android-33;google_apis;x86_64" --device "pixel_3a"
+      run: sdkmanager --install "system-images;android-33;google_apis;x86_64" && yes
     - name: list emulators
       run: avdmanager list device
     - name: Set up environment variables
