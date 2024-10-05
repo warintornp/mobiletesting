@@ -17,14 +17,14 @@ void main() {
 
   testGoldens('Login with Pin Screen Golden', (WidgetTester tester) async {
     await tester.pumpWidgetBuilder(LoginScreen());
-    await multiScreenGolden(tester, 'login_sreen');
+    await screenMatchesGolden(tester, 'login_sreen');
   });
 
   testGoldens('Dot Golden', (WidgetTester tester) async {
     final mockLoginWithPinViewModel = MockLoginViewModel();
     when(mockLoginWithPinViewModel.inputtedPin).thenReturn('1234');
     await tester.pumpWidgetBuilder(Dot(viewModel: mockLoginWithPinViewModel));
-    await multiScreenGolden(tester, 'dot_when_input_1234');
+    await screenMatchesGolden(tester, 'dot_when_input_1234');
   });
 
   testGoldens('Dot widget', (WidgetTester tester) async {
@@ -37,7 +37,7 @@ void main() {
     ..addTextScaleScenario('Largest font size', Dot(viewModel: mockLoginViewModel), textScaleFactor: 3.0);
 
     await tester.pumpWidgetBuilder(builder.build());
-    await multiScreenGolden(tester, 'dot_default_state');
+    await screenMatchesGolden(tester, 'dot_default_state');
   });
 
   testGoldens('Pin Grid View', (WidgetTester tester) async {
@@ -50,13 +50,13 @@ void main() {
       deleteButtonOnPressed: () {}, 
       numberButtonOnPressed: (int number) {}));
 
-    await multiScreenGolden(tester, 'pin_grid_view');
+    await screenMatchesGolden(tester, 'pin_grid_view');
   });
 
   testGoldens('Home screen', (WidgetTester tester) async {
     await tester.pumpWidgetBuilder(HomeScreen(
       userDetails: {'name': 'John Doe', 'email': 'john.doe@example.com'}));
-    await multiScreenGolden(tester, 'home_screen');
+    await screenMatchesGolden(tester, 'home_screen');
   });
 
   testGoldens('Profile Widget', (WidgetTester tester) async {
@@ -67,7 +67,7 @@ void main() {
     ..addTextScaleScenario('Largest font size', UserProfileWidget(userDetails: mockUserDetails), textScaleFactor: 5.0);
 
     await tester.pumpWidgetBuilder(builder.build());
-    await multiScreenGolden(tester, 'user_profile_widget');
+    await screenMatchesGolden(tester, 'user_profile_widget');
   });
 
   testGoldens('Profile Widget - Logn user info', (WidgetTester tester) async {
@@ -78,6 +78,6 @@ void main() {
     ..addTextScaleScenario('Largest font size', UserProfileWidget(userDetails: mockUserDetails), textScaleFactor: 5.0);
 
     await tester.pumpWidgetBuilder(builder.build());
-    await multiScreenGolden(tester, 'user_profile_widget_long_text');
+    await screenMatchesGolden(tester, 'user_profile_widget_long_text');
   });
 }
