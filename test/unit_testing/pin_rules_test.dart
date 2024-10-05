@@ -3,7 +3,7 @@ import 'package:mobiletesting/pages/pin_rules.dart';
 
 void main() {
   group('PinRules', () {
-    test('return false when has same digit', () {
+    test('return error message WHEN pin contains specific digit twices', () {
       // Arrange
       final pinRules = PinRules();
 
@@ -14,7 +14,7 @@ void main() {
           'PIN must not have repeating digits');
     });
 
-    test('return true when rules are compiled', () {
+    test('return no error message WHEN rules are compiled', () {
       // Arrange
       final pinRules = PinRules();
 
