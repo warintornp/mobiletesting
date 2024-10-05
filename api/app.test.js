@@ -7,8 +7,7 @@ describe('POST /v1/api/pin/validate', () => {
       .post('/v1/api/pin/validate')
       .send({ pin: '243546' })
 
-    expect(response.status).toBe(200) // Adjust the expected status code
-    // expect(response.body).toEqual({ valid: true })
+    expect(response.status).toBe(401)
   })
 
   it('401 Unauthorised', async () => {

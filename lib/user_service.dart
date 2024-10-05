@@ -2,10 +2,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class UserService {
-  final String _apiUrl = 'http://localhost:3000/getUserDetails'; // Replace with your server URL
+  final String _apiUrl = 'http://localhost:3000/getUserDetails';
 
   Future<Map<String, dynamic>?> fetchUserDetails(String pin) async {
-    final url = Uri.parse('$_apiUrl?pin=$pin'); // Use GET request with query parameters
+    final url =
+        Uri.parse('$_apiUrl?pin=$pin'); // Use GET request with query parameters
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
