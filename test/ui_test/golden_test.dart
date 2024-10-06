@@ -17,6 +17,7 @@ void main() {
   });
 
   testGoldens('Dot with no input', (WidgetTester tester) async {
+    tester.view.physicalSize = const Size(800, 600);
     tester.view.devicePixelRatio = 1.0;
 
     final mockLoginWithPinViewModel = MockLoginViewModel();
@@ -41,7 +42,7 @@ void main() {
           }
         );
     await tester.pumpDeviceBuilder(builder);
-    await screenMatchesGolden(tester, 'dot_default_default_pixel');
+    await screenMatchesGolden(tester, 'dot_default_default_pixel_physical');
 
   });
 
