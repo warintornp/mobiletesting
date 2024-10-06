@@ -1,4 +1,3 @@
----
 name: Golden Test
 on:
   push:
