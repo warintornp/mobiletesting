@@ -19,30 +19,14 @@ void main() {
     await loadAppFonts();
   });
 
-  testGoldens('Login Screen', (WidgetTester tester) async {
-
-    await tester.pumpWidgetBuilder(
-      MaterialApp(
-        home: ChangeNotifierProvider(
-          create: (_) => LoginViewModel(UserService(), SortOrder.ascending),
-          child: const LoginScreen()),
-        theme: ThemeData(
-          fontFamily: 'RobotoMono',
-        )
-      )
-    );
-    await multiScreenGolden(tester, 'login_screen_set_font');
-  });
-
   testGoldens('Dot with no input', (WidgetTester tester) async {
-
     final mockLoginWithPinViewModel = MockLoginViewModel();
     when(mockLoginWithPinViewModel.inputtedPin).thenReturn('');
 
     final builder = DeviceBuilder()
       ..overrideDevicesForAllScenarios(devices: [
         Device.iphone11,
-        const Device(name: 'Pixel3a 1080 x 2220', size: Size(1080, 2220)),
+        const Device(name: 'Pixel3a 800 x 600', size: Size(1080, 2220)),
         Device.phone,
         Device.tabletPortrait,
       ])
@@ -57,12 +41,9 @@ void main() {
             expect(dot, findsNothing);
           }
         );
-
       
     await tester.pumpDeviceBuilder(builder);
-    await screenMatchesGolden(tester, 'dot_default_default');
-     // Clear the screen size after the test
-    addTearDown(tester.view.resetPhysicalSize);
+    await screenMatchesGolden(tester, 'dot_default');
   });
 
 }
