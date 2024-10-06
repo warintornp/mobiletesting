@@ -1,0 +1,24 @@
+# Describes the targets run in continuous integration environment.
+#
+# Flutter infra uses this file to generate a checklist of tasks to be performed
+# for every commit.
+#
+# The recipes mentioned below refer to those in this repo:
+#   https://flutter.googlesource.com/recipes/+/refs/heads/main/recipes/
+#
+# The "flutter_drone" recipe just defers to dev/bots/test.dart in this repo,
+# with the shard set according to the "shard" key in this file.
+#
+# More information at:
+#  * https://github.com/flutter/cocoon/blob/main/CI_YAML.md
+enabled_branches:
+  - master
+  - flutter-\d+\.\d+-candidate\.\d+
+
+targets:
+  - name: Linux framework_tests_widgets
+    properties:
+      dependencies: >-
+        [
+          {"dependency": "goldctl", "version": "git_revision:2387d6fff449587eecbb7e45b2692ca0710b63b9"}
+        ]
