@@ -1,4 +1,4 @@
-name: Golden Test iOS
+name: Golden Test Android
 
 on:
   push:
