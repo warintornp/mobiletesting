@@ -39,7 +39,7 @@ void main() {
           }
         );
     await tester.pumpDeviceBuilder(builder);
-    await screenMatchesGolden(tester, 'dot_default');
+    await screenMatchesGolden(tester, 'dot_default_default');
 
   });
 
