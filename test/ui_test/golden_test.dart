@@ -44,7 +44,7 @@ void main() {
 
       
     await tester.pumpDeviceBuilder(builder);
-    await screenMatchesGolden(tester, 'dot_default_default_pixel_physical');
+    await screenMatchesGolden(tester, 'dot_default_default');
      // Clear the screen size after the test
     addTearDown(tester.view.resetPhysicalSize);
   });
