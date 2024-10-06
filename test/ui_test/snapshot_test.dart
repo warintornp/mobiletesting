@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mobiletesting/pages/home_screen.dart';
@@ -16,14 +17,24 @@ import 'snapshot_test.mocks.dart';
 void main() {
 
   testGoldens('Login with Pin Screen Golden', (WidgetTester tester) async {
-    await tester.pumpWidgetBuilder(LoginScreen());
+    await tester.pumpWidgetBuilder(MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'RobotoMono'
+      ),
+      home: LoginScreen(),
+    ));
     await screenMatchesGolden(tester, 'login_sreen');
   });
 
   testGoldens('Dot Golden', (WidgetTester tester) async {
     final mockLoginWithPinViewModel = MockLoginViewModel();
     when(mockLoginWithPinViewModel.inputtedPin).thenReturn('1234');
-    await tester.pumpWidgetBuilder(Dot(viewModel: mockLoginWithPinViewModel));
+    await tester.pumpWidgetBuilder(MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'RobotoMono'
+      ),
+      home: Dot(viewModel: mockLoginWithPinViewModel),
+    ));
     await screenMatchesGolden(tester, 'dot_when_input_1234');
   });
 
