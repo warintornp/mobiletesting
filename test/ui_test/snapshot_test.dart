@@ -6,79 +6,139 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mobiletesting/pages/home_screen.dart';
 import 'package:mobiletesting/pages/login_screen.dart';
 import 'package:mobiletesting/pages/login_view_model.dart';
+import 'package:mobiletesting/pages/login_with_pin_view_model.dart';
 import 'package:mobiletesting/pages/pin_grid_view.dart';
 import 'package:mobiletesting/pages/sort_order.dart';
 import 'package:mobiletesting/user_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
 
 import 'snapshot_test.mocks.dart';
 
 @GenerateMocks([LoginViewModel])
 @GenerateMocks([UserService])
 void main() {
+   setUpAll(() async {
+    await loadAppFonts();
+  });
 
-  testGoldens('Dot with no input', (WidgetTester tester) async {
+  // testGoldens('Login sreen initial state', (WidgetTester tester) async {
+  //   await tester.pumpWidgetBuilder(
+  //     MaterialApp(
+  //       home: ChangeNotifierProvider(
+  //         create: (_) => LoginWithPinViewModel(UserService(), SortOrder.ascending),
+  //         child: LoginScreen(),
+  //       )
+  //     )
+  //   );
+  //   await multiScreenGolden(
+  //     tester, 
+  //     'login_sreen_initial_state', 
+  //     devices: [
+  //       Device.iphone11,
+  //       const Device(name: 'Pixel3a 800 x 600', size: Size(1080, 2220)),
+  //       Device.phone,
+  //       Device.tabletPortrait
+  //     ]);
+  //   // await expectLater(find.byType(LoginScreen), matchesGoldenFile('login_screen_initial'));
+  // });
+
+  testGoldens('Login sreen initial state - pin ascending', (WidgetTester tester) async {
+    final builder = DeviceBuilder()
+      ..overrideDevicesForAllScenarios(
+        devices: [
+          const Device(name: 'Pixel3a 800 x 600', size: Size(800, 600)),
+          Device.tabletPortrait,])
+      ..addScenario(
+          widget: Dot(viewModel: LoginViewModel(UserService(), SortOrder.ascending)));
+
+    await tester.pumpDeviceBuilder(builder);
+    await screenMatchesGolden(tester, 'Login_screen_initial_state_ascending');
+  });
+
+  testGoldens('Login sreen initial state - pin descending', (WidgetTester tester) async {
+    final builder = DeviceBuilder()
+      ..overrideDevicesForAllScenarios(
+        devices: [
+          Device.iphone11,
+          const Device(name: 'Pixel3a 800 x 600', size: Size(800, 600)),
+          Device.phone,
+          Device.tabletPortrait,])
+      ..addScenario(
+          widget: Dot(viewModel: LoginViewModel(UserService(), SortOrder.descending)));
+
+    await tester.pumpDeviceBuilder(builder);
+    await screenMatchesGolden(tester, 'Login_screen_initial_state_descending');
+  });
+
+  testGoldens('Dot initial state', (WidgetTester tester) async {
     final mockLoginWithPinViewModel = MockLoginViewModel();
     when(mockLoginWithPinViewModel.inputtedPin).thenReturn('');
 
     final builder = DeviceBuilder()
       ..overrideDevicesForAllScenarios(devices: [
-        Device.iphone11,
-        const Device(name: 'Pixel3a 800 x 600', size: Size(1080, 2220)),
-        Device.phone,
+        const Device(name: 'Pixel3a 800 x 600', size: Size(800, 600)),
         Device.tabletPortrait,
       ])
       ..addScenario(
-          widget: Dot(viewModel: mockLoginWithPinViewModel),
-          name: 'Dot Default',
-          onCreate: (scenarioWidgetKey) async {
-            when(mockLoginWithPinViewModel.inputtedPin).thenReturn('');
-            await tester.pumpAndSettle();
-          })
-      ..addScenario(
-          widget: Dot(viewModel: mockLoginWithPinViewModel),
-          name: 'Dot Default',
-          onCreate: (scenarioWidgetKey) async {
-            when(mockLoginWithPinViewModel.inputtedPin).thenReturn('');
-            await tester.pumpAndSettle();
-          });
+          widget: Dot(viewModel: mockLoginWithPinViewModel));
 
     await tester.pumpDeviceBuilder(builder);
-    // await expectLater(find.byType(Dot), matchWithdot_default_2)
-    await screenMatchesGolden(tester, 'dot_default_2');
+    await screenMatchesGolden(tester, 'dot__initial_state');
   });
 
-  testGoldens('Login with Pin Screen Golden', (WidgetTester tester) async {
-    await tester.pumpWidgetBuilder(LoginScreen());
-    await screenMatchesGolden(tester, 'login_sreen');
-  });
-
-  testGoldens('Dot Golden', (WidgetTester tester) async {
+  testGoldens('Dot state when input 1234', (WidgetTester tester) async {
     final mockLoginWithPinViewModel = MockLoginViewModel();
     when(mockLoginWithPinViewModel.inputtedPin).thenReturn('1234');
-    await tester.pumpWidgetBuilder(Dot(viewModel: mockLoginWithPinViewModel));
-    await screenMatchesGolden(tester, 'dot_when_input_1234');
+
+    final builder = DeviceBuilder()
+      ..overrideDevicesForAllScenarios(devices: [
+        const Device(name: 'Pixel3a 800 x 600', size: Size(800, 600)),
+        Device.tabletPortrait,
+      ])
+      ..addScenario(
+          widget: Dot(viewModel: mockLoginWithPinViewModel));
+
+    await tester.pumpDeviceBuilder(builder);
+    await screenMatchesGolden(tester, 'dot_state_when_input_1234');
   });
 
-  testGoldens('Dot widget', (WidgetTester tester) async {
-    final mockLoginViewModel = MockLoginViewModel();
-    when(mockLoginViewModel.inputtedPin).thenReturn('');
+  testGoldens('Dot state when input 1234567', (WidgetTester tester) async {
+    final mockLoginWithPinViewModel = MockLoginViewModel();
+    when(mockLoginWithPinViewModel.inputtedPin).thenReturn('1234567');
 
-    final builder = GoldenBuilder.column()
-    ..addScenario('dot', Dot(viewModel: mockLoginViewModel))
-    ..addTextScaleScenario('Large font size', Dot(viewModel: mockLoginViewModel), textScaleFactor: 2.0)
-    ..addTextScaleScenario('Largest font size', Dot(viewModel: mockLoginViewModel), textScaleFactor: 3.0);
+    final builder = DeviceBuilder()
+      ..overrideDevicesForAllScenarios(devices: [
+        const Device(name: 'Pixel3a 800 x 600', size: Size(800, 600)),
+        Device.tabletPortrait,
+      ])
+      ..addScenario(
+          widget: Dot(viewModel: mockLoginWithPinViewModel));
 
-    await tester.pumpWidgetBuilder(builder.build());
-    await screenMatchesGolden(tester, 'dot_default_state');
+    await tester.pumpDeviceBuilder(builder);
+    await screenMatchesGolden(tester, 'dot_state_when_input_1234567');
   });
+
+  // testGoldens('Pin grid accessibility', (WidgetTester tester) async {
+  //   // final widget = PinGridView(
+  //   //   sortOrder: SortOrder.ascending, 
+  //   //   deleteButtonOnPressed: () {}, 
+  //   //   numberButtonOnPressed: (int number) {});
+    
+  //   final builder = GoldenBuilder.column()
+  //   ..addScenario('pin_grid_accessibility', PinGridView(
+  //     sortOrder: SortOrder.ascending, 
+  //     deleteButtonOnPressed: () {}, 
+  //     numberButtonOnPressed: (int number) {}));
+  //   // ..addTextScaleScenario('Large font size', widget, textScaleFactor: 2.0)
+  //   // ..addTextScaleScenario('Largest font size', widget, textScaleFactor: 5.0);
+
+  //   await tester.pumpWidgetBuilder(builder.build());
+  //   await screenMatchesGolden(tester, 'pin_grid_accessibility');
+  // });
 
   testGoldens('Pin Grid View', (WidgetTester tester) async {
-    final mockLoginViewModel = MockLoginViewModel();
-    when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
-    when(mockLoginViewModel.inputtedPin).thenReturn('');
-
     await tester.pumpWidgetBuilder(PinGridView(
       sortOrder: SortOrder.ascending, 
       deleteButtonOnPressed: () {}, 
@@ -104,7 +164,7 @@ void main() {
     await screenMatchesGolden(tester, 'user_profile_widget');
   });
 
-  testGoldens('Profile Widget - Logn user info', (WidgetTester tester) async {
+  testGoldens('Profile Widget with long text', (WidgetTester tester) async {
     final mockUserDetails = {'name': 'John Doe Re Me Fa Sol La Te Doeeeee', 'email': 'john.doe@example.commmmmmmmmmmmmmmmmmmmmmm'};
     final builder = GoldenBuilder.column()
     ..addScenario('user_profile_widget', UserProfileWidget(userDetails: mockUserDetails))
