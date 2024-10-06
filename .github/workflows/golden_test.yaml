@@ -26,7 +26,7 @@ jobs:
       run: flutter pub get
 
     - name: Run golden tests
-      run: flutter test --tags=golden
+      run: flutter test --tags=golden --device-pixel-ratio=1.0 --no-shuffle
       
     - name: Upload test failures
       if: failure()
