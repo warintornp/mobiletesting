@@ -5,8 +5,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mobiletesting/pages/login_screen.dart';
 import 'package:mobiletesting/pages/login_view_model.dart';
+import 'package:mobiletesting/pages/sort_order.dart';
+import 'package:mobiletesting/user_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
 
 import 'snapshot_test.mocks.dart';
 
@@ -16,20 +19,33 @@ void main() {
     await loadAppFonts();
   });
 
+  testGoldens('Login Screen', (WidgetTester tester) async {
+
+    await tester.pumpWidgetBuilder(
+      MaterialApp(
+        home: ChangeNotifierProvider(
+          create: (_) => LoginViewModel(UserService(), SortOrder.ascending),
+          child: const LoginScreen()),
+        theme: ThemeData(
+          fontFamily: 'RobotoMono',
+        )
+      )
+    );
+    await multiScreenGolden(tester, 'login_screen_set_font');
+  });
+
   testGoldens('Dot with no input', (WidgetTester tester) async {
-    tester.view.physicalSize = const Size(800, 600);
-    tester.view.devicePixelRatio = 5.0;
 
     final mockLoginWithPinViewModel = MockLoginViewModel();
     when(mockLoginWithPinViewModel.inputtedPin).thenReturn('');
 
     final builder = DeviceBuilder()
-      // ..overrideDevicesForAllScenarios(devices: [
-      //   Device.iphone11,
-      //   const Device(name: 'Pixel3a 1080 x 2220', size: Size(1080, 2220)),
-      //   Device.phone,
-      //   Device.tabletPortrait,
-      // ])
+      ..overrideDevicesForAllScenarios(devices: [
+        Device.iphone11,
+        const Device(name: 'Pixel3a 1080 x 2220', size: Size(1080, 2220)),
+        Device.phone,
+        Device.tabletPortrait,
+      ])
       ..addScenario(
           widget: Dot(viewModel: mockLoginWithPinViewModel),
           name: 'Dot Default',
