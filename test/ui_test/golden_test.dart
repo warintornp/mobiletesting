@@ -39,11 +39,9 @@ void main() {
               matching: find.byKey(Key('dot_default')),
             );
             expect(dot, findsNothing);
-          }
-        );
-      
+          });
+
     await tester.pumpDeviceBuilder(builder);
     await screenMatchesGolden(tester, 'dot_default');
   });
-
 }
