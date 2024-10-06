@@ -17,6 +17,8 @@ void main() {
   });
 
   testGoldens('Dot with no input', (WidgetTester tester) async {
+    tester.view.devicePixelRatio = 1.0;
+
     final mockLoginWithPinViewModel = MockLoginViewModel();
     when(mockLoginWithPinViewModel.inputtedPin).thenReturn('');
 
@@ -39,7 +41,7 @@ void main() {
           }
         );
     await tester.pumpDeviceBuilder(builder);
-    await screenMatchesGolden(tester, 'dot_default_default');
+    await screenMatchesGolden(tester, 'dot_default_default_pixel');
 
   });
 
