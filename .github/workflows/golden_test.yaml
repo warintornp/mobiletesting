@@ -25,9 +25,33 @@ jobs:
     - name: Install dependencies
       run: flutter pub get
 
+      # Install dependencies needed for consistent rendering (fonts and other libraries)
+      - name: Install dependencies for consistent rendering
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libglib2.0-dev libpango1.0-dev libatk1.0-dev libcairo2-dev fonts-droid-fallback
+
     - name: Run golden tests
       run: flutter test --tags=golden
-      
+      env:
+          # Environment variables to set consistent font rendering
+          FONTCONFIG_FILE: /etc/fonts/fonts.conf
+          HOME: /github/home
+          CI: true
+          
+     # Compare the golden files with the ones stored in the repository
+    - name: Compare Golden Files
+      run: |
+        git diff --exit-code golden/ || (echo "Golden files do not match!" && exit 1)
+
+    # If the tests fail (mismatch in golden files), upload the changed files for debugging
+    - name: Upload Golden File Differences
+      if: failure()
+      uses: actions/upload-artifact@v2
+      with:
+        name: golden-diff
+        path: golden/
+
     - name: Upload test failures
       if: failure()
       uses: actions/upload-artifact@v3
