@@ -18,7 +18,7 @@ void main() {
 
   testGoldens('Dot with no input', (WidgetTester tester) async {
     tester.view.physicalSize = const Size(800, 600);
-    tester.view.devicePixelRatio = 1.0;
+    tester.view.devicePixelRatio = 5.0;
 
     final mockLoginWithPinViewModel = MockLoginViewModel();
     when(mockLoginWithPinViewModel.inputtedPin).thenReturn('');
@@ -41,9 +41,12 @@ void main() {
             expect(dot, findsNothing);
           }
         );
+
+      
     await tester.pumpDeviceBuilder(builder);
     await screenMatchesGolden(tester, 'dot_default_default_pixel_physical');
-
+     // Clear the screen size after the test
+    addTearDown(tester.view.resetPhysicalSize);
   });
 
 }
