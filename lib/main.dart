@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'PIN Validator',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'RobotoMono'
       ),
       // home: LoginWithPinScreen(userService: UserService()),
       home: const LoginScreen(),
