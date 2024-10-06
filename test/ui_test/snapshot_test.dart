@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mobiletesting/pages/home_screen.dart';
@@ -14,6 +17,37 @@ import 'snapshot_test.mocks.dart';
 @GenerateMocks([LoginViewModel])
 @GenerateMocks([UserService])
 void main() {
+
+  testGoldens('Dot with no input', (WidgetTester tester) async {
+    final mockLoginWithPinViewModel = MockLoginViewModel();
+    when(mockLoginWithPinViewModel.inputtedPin).thenReturn('');
+
+    final builder = DeviceBuilder()
+      ..overrideDevicesForAllScenarios(devices: [
+        Device.iphone11,
+        const Device(name: 'Pixel3a 800 x 600', size: Size(1080, 2220)),
+        Device.phone,
+        Device.tabletPortrait,
+      ])
+      ..addScenario(
+          widget: Dot(viewModel: mockLoginWithPinViewModel),
+          name: 'Dot Default',
+          onCreate: (scenarioWidgetKey) async {
+            when(mockLoginWithPinViewModel.inputtedPin).thenReturn('');
+            await tester.pumpAndSettle();
+          })
+      ..addScenario(
+          widget: Dot(viewModel: mockLoginWithPinViewModel),
+          name: 'Dot Default',
+          onCreate: (scenarioWidgetKey) async {
+            when(mockLoginWithPinViewModel.inputtedPin).thenReturn('');
+            await tester.pumpAndSettle();
+          });
+
+    await tester.pumpDeviceBuilder(builder);
+    // await expectLater(find.byType(Dot), matchWithdot_default_2)
+    await screenMatchesGolden(tester, 'dot_default_2');
+  });
 
   testGoldens('Login with Pin Screen Golden', (WidgetTester tester) async {
     await tester.pumpWidgetBuilder(LoginScreen());
