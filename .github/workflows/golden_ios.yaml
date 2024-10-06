@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
     - name: Checkout repository
@@ -23,21 +23,11 @@ jobs:
         
     - run: flutter --version | flutter devices
 
-    - name: Install dependencies for consistent rendering
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libgtk-3-dev libglib2.0-dev libpango1.0-dev libatk1.0-dev libcairo2-dev fonts-droid-fallback
-          
     - name: Install dependencies
       run: flutter pub get
 
     - name: Run golden tests
       run: flutter test --tags=golden
-      env:
-          # Environment variables to set consistent font rendering
-        FONTCONFIG_FILE: /etc/fonts/fonts.conf
-        HOME: /github/home
-        CI: true
       
     - name: Upload test failures
       if: failure()
