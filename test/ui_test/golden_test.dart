@@ -24,12 +24,12 @@ void main() {
     when(mockLoginWithPinViewModel.inputtedPin).thenReturn('');
 
     final builder = DeviceBuilder()
-      ..overrideDevicesForAllScenarios(devices: [
-        Device.iphone11,
-        const Device(name: 'Pixel3a 1080 x 2220', size: Size(1080, 2220)),
-        Device.phone,
-        Device.tabletPortrait,
-      ])
+      // ..overrideDevicesForAllScenarios(devices: [
+      //   Device.iphone11,
+      //   const Device(name: 'Pixel3a 1080 x 2220', size: Size(1080, 2220)),
+      //   Device.phone,
+      //   Device.tabletPortrait,
+      // ])
       ..addScenario(
           widget: Dot(viewModel: mockLoginWithPinViewModel),
           name: 'Dot Default',
