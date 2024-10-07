@@ -27,8 +27,10 @@ app.get('/getUserDetails', (req, res) => {
 app.post('/v1/api/pin/validate', (req, res) => {
   const pin = req.body.pin
   // const pin = req.body.body //hidden bug for scenario#2
+  console.log(`req.body + ${JSON.stringify(req.body)}`)
   if (pin === undefined || pin === null || pin === '') {
     res.status(400).json({ error: 'Invalid request' })
+    console.log('400')
   } else if (users[pin] === undefined) {
     res.status(401).json({ error: 'Unauthorised' })
     console.log('401 ja')
