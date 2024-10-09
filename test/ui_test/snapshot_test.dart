@@ -11,6 +11,7 @@ import 'package:mobiletesting/pages/sort_order.dart';
 import 'package:mobiletesting/user_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
 
 import 'snapshot_test.mocks.dart';
 
@@ -21,7 +22,7 @@ void main() {
     await loadAppFonts();
   });
 
-  //ถามพี่แอนว่าทำไมมันไม่ผ่าน
+  //Need P'Ann Assist - Numpad keeps changing randomly 0->1, 9->0 even 
   // testGoldens('Login sreen initial state with ascending pin order', (WidgetTester tester) async {
   //   final builder = DeviceBuilder()
   //     ..overrideDevicesForAllScenarios(devices: 
@@ -30,7 +31,10 @@ void main() {
   //       Device.tabletLandscape,
   //     ])
   //     ..addScenario(widget: MaterialApp(
-  //         home: LoginScreen(),
+  //       home: ChangeNotifierProvider(
+  //         create: (_) => LoginViewModel(UserService(), SortOrder.ascending),
+  //         child: const LoginScreen(),
+  //       ),
   //     ));
   //   await tester.pumpDeviceBuilder(builder);
   //   await screenMatchesGolden(tester, 'login_screen');
