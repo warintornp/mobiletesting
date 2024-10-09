@@ -22,23 +22,23 @@ void main() {
     await loadAppFonts();
   });
 
-  //Need P'Ann Assist - Numpad keeps changing randomly 0->1, 9->0 even 
-  // testGoldens('Login sreen initial state with ascending pin order', (WidgetTester tester) async {
-  //   final builder = DeviceBuilder()
-  //     ..overrideDevicesForAllScenarios(devices: 
-  //     [
-  //       Device.iphone11,
-  //       Device.tabletLandscape,
-  //     ])
-  //     ..addScenario(widget: MaterialApp(
-  //       home: ChangeNotifierProvider(
-  //         create: (_) => LoginViewModel(UserService(), SortOrder.ascending),
-  //         child: const LoginScreen(),
-  //       ),
-  //     ));
-  //   await tester.pumpDeviceBuilder(builder);
-  //   await screenMatchesGolden(tester, 'login_screen');
-  // });
+  testGoldens('Login screen initial state with ascending pin order',
+      (WidgetTester tester) async {
+    final builder = DeviceBuilder()
+      ..overrideDevicesForAllScenarios(devices: [
+        Device.iphone11,
+        Device.tabletLandscape,
+      ])
+      ..addScenario(
+          widget: MaterialApp(
+        home: ChangeNotifierProvider(
+          create: (_) => LoginViewModel(UserService(), SortOrder.ascending),
+          child: const LoginScreen(),
+        ),
+      ));
+    await tester.pumpDeviceBuilder(builder);
+    await screenMatchesGolden(tester, 'login_screen');
+  });
 
   testGoldens('Dot initial state', (tester) async {
     final mockLoginWithPinViewModel = MockLoginViewModel();
@@ -55,7 +55,7 @@ void main() {
     await tester.pumpDeviceBuilder(builder);
     await screenMatchesGolden(tester, 'dot_initial_state');
   });
-  
+
   testGoldens('Dot state when input 1234', (tester) async {
     final mockLoginWithPinViewModel = MockLoginViewModel();
     when(mockLoginWithPinViewModel.inputtedPin).thenReturn('1234');
@@ -73,39 +73,35 @@ void main() {
 
   testGoldens('Pin grid view ascending', (tester) async {
     await tester.pumpWidgetBuilder(
-      PinGridView(
-          sortOrder: SortOrder.ascending,
-          deleteButtonOnPressed: () {},
-          numberButtonOnPressed: (int number) {}
-      )
-      ,surfaceSize: Size(400, 900)
-      ,textScaleSize: 1.0
-    );
+        PinGridView(
+            sortOrder: SortOrder.ascending,
+            deleteButtonOnPressed: () {},
+            numberButtonOnPressed: (int number) {}),
+        surfaceSize: Size(400, 900),
+        textScaleSize: 1.0);
     await screenMatchesGolden(tester, 'pin_grid_view_ascending');
   });
 
   testGoldens('Pin grid view descending', (WidgetTester tester) async {
     await tester.pumpWidgetBuilder(
-      PinGridView(
-          sortOrder: SortOrder.descending,
-          deleteButtonOnPressed: () {},
-          numberButtonOnPressed: (int number) {}
-      )
-      ,surfaceSize: Size(400, 900)
-      ,textScaleSize: 1.0
-    );
+        PinGridView(
+            sortOrder: SortOrder.descending,
+            deleteButtonOnPressed: () {},
+            numberButtonOnPressed: (int number) {}),
+        surfaceSize: Size(400, 900),
+        textScaleSize: 1.0);
     await screenMatchesGolden(tester, 'pin_grid_view_descending');
   });
 
   testGoldens('Home screen', (WidgetTester tester) async {
     final builder = DeviceBuilder()
-    ..overrideDevicesForAllScenarios(devices: [
-      Device.iphone11, 
-      Device.tabletLandscape
-    ])..addScenario(widget: 
-        HomeScreen(
-          userDetails: {'name': 'John Doe', 'email': 'john.doe@example.com'}
-    ));
+      ..overrideDevicesForAllScenarios(
+          devices: [Device.iphone11, Device.tabletLandscape])
+      ..addScenario(
+          widget: HomeScreen(userDetails: {
+        'name': 'John Doe',
+        'email': 'john.doe@example.com'
+      }));
     await tester.pumpDeviceBuilder(builder);
     await screenMatchesGolden(tester, 'home_screen');
   });
