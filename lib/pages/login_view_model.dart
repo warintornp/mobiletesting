@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mobiletesting/pages/home_screen.dart';
 import 'package:mobiletesting/pages/pin_rules.dart';
 import 'package:mobiletesting/pages/sort_order.dart';
-import 'package:mobiletesting/user_service.dart';
+import 'package:mobiletesting/login_service.dart';
 
 class LoginViewModel extends ChangeNotifier {
   String _inputtedPin = '';
