@@ -3,10 +3,10 @@ name: iOS
 on:
   push:
     branches:
-      - main
+      - all_workshop_output
   pull_request:
     branches:
-      - main
+      - all_workshop_output
 
 jobs:
   build:
