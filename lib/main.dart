@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       ),
       // home: LoginWithPinScreen(userService: UserService()),
       home: ChangeNotifierProvider(
-        create: (_) => LoginViewModel(UserService(),
+        create: (_) => LoginViewModel(LoginService(),
             Random().nextBool() ? SortOrder.ascending : SortOrder.descending),
         child: LoginScreen(),
       ),

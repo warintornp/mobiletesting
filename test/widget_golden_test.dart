@@ -4,7 +4,7 @@ import 'package:mobiletesting/user_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-@GenerateMocks([UserService])
+@GenerateMocks([LoginService])
 void main() {
   // late MockUserService mockUserService;
 

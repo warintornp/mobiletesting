@@ -11,10 +11,10 @@ import 'login_view_model_test.mocks.dart';
 void main() {
   group('LoginViewModel', () {
     late LoginViewModel loginViewModel;
-    late UserService userService;
+    late LoginService userService;
 
     setUp(() {
-      userService = UserService();
+      userService = LoginService();
       loginViewModel = LoginViewModel(userService, SortOrder.ascending);
     });
 

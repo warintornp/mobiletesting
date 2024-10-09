@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class UserService {
-  Future<Map<String, dynamic>?> fetchUserDetails2(String pin) async {
+class LoginService {
+  Future<Map<String, dynamic>?> authenticate(String pin) async {
     final url = Uri.parse('http://localhost:3000/v1/api/pin/validate');
     final body = jsonEncode({'pin': pin});
 

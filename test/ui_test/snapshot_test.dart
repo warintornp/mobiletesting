@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 import 'snapshot_test.mocks.dart';
 
 @GenerateMocks([LoginViewModel])
-@GenerateMocks([UserService])
+@GenerateMocks([LoginService])
 void main() {
   setUpAll(() async {
     await loadAppFonts();
@@ -32,7 +32,7 @@ void main() {
       ..addScenario(
           widget: MaterialApp(
         home: ChangeNotifierProvider(
-          create: (_) => LoginViewModel(UserService(), SortOrder.ascending),
+          create: (_) => LoginViewModel(LoginService(), SortOrder.ascending),
           child: const LoginScreen(),
         ),
       ));

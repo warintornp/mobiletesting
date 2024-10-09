@@ -26,7 +26,7 @@ import 'package:mockito/src/dummies.dart' as _i5;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeUserService_0 extends _i1.SmartFake implements _i2.UserService {
+class _FakeUserService_0 extends _i1.SmartFake implements _i2.LoginService {
   _FakeUserService_0(
     Object parent,
     Invocation parentInvocation,
@@ -45,13 +45,13 @@ class MockLoginViewModel extends _i1.Mock implements _i3.LoginViewModel {
   }
 
   @override
-  _i2.UserService get userService => (super.noSuchMethod(
+  _i2.LoginService get userService => (super.noSuchMethod(
         Invocation.getter(#userService),
         returnValue: _FakeUserService_0(
           this,
           Invocation.getter(#userService),
         ),
-      ) as _i2.UserService);
+      ) as _i2.LoginService);
 
   @override
   _i4.SortOrder get keyPadsortOrder => (super.noSuchMethod(
@@ -154,7 +154,7 @@ class MockLoginViewModel extends _i1.Mock implements _i3.LoginViewModel {
 /// A class which mocks [UserService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserService extends _i1.Mock implements _i2.UserService {
+class MockUserService extends _i1.Mock implements _i2.LoginService {
   MockUserService() {
     _i1.throwOnMissingStub(this);
   }
@@ -170,7 +170,7 @@ class MockUserService extends _i1.Mock implements _i2.UserService {
       ) as _i8.Future<Map<String, dynamic>?>);
 
   @override
-  _i8.Future<Map<String, dynamic>?> fetchUserDetails2(String? pin) =>
+  _i8.Future<Map<String, dynamic>?> authenticate(String? pin) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchUserDetails2,

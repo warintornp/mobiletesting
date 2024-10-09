@@ -14,7 +14,7 @@ import 'login_screen_test.mocks.dart';
 
 //Widget testing should validate only app state changes.
 //snapshot testing should validate the UI changes.
-@GenerateMocks([UserService])
+@GenerateMocks([LoginService])
 void main() {
   late MockUserService mockUserService;
 
@@ -27,7 +27,7 @@ void main() {
     // when(mockUserService.fetchUserDetails2('132495'))
     //     .thenAnswer((_) async => null);
 
-    when(mockUserService.fetchUserDetails2('132495')).thenAnswer((_) async => {
+    when(mockUserService.authenticate('132495')).thenAnswer((_) async => {
           'name': 'John Doe',
           'email': 'john.doe@example.com',
         });
@@ -58,7 +58,7 @@ void main() {
 
     //Assertion
     expect(find.byType(AlertDialog), findsNothing);
-    verify(mockUserService.fetchUserDetails2('132495')).called(1);
+    verify(mockUserService.authenticate('132495')).called(1);
   }, tags: 'widget');
 
   testWidgets('Invalid (FE rule) PIN with dialog', (WidgetTester tester) async {
@@ -68,7 +68,7 @@ void main() {
 
     await tester.pumpWidget(MaterialApp(
       home: ChangeNotifierProvider(
-        create: (_) => LoginViewModel(UserService(), SortOrder.ascending),
+        create: (_) => LoginViewModel(LoginService(), SortOrder.ascending),
         child: LoginScreen(),
       ),
     ));
@@ -86,8 +86,7 @@ void main() {
   }, tags: 'widget');
 
   testWidgets('Invalid (BE rule) PIN with dialog', (WidgetTester tester) async {
-    when(mockUserService.fetchUserDetails2('132495'))
-        .thenAnswer((_) async => null);
+    when(mockUserService.authenticate('132495')).thenAnswer((_) async => null);
 
     //Set screen size, if not will show default size which not cover the page
     final TestWidgetsFlutterBinding binding =
@@ -117,6 +116,6 @@ void main() {
     expect(find.byType(AlertDialog), findsOneWidget);
     expect(find.text('Invalid pin or network issue. please try again.'),
         findsOneWidget);
-    verify(mockUserService.fetchUserDetails2('132495')).called(1);
+    verify(mockUserService.authenticate('132495')).called(1);
   }, tags: 'widget');
 }

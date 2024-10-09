@@ -13,7 +13,7 @@ class LoginViewModel extends ChangeNotifier {
   // Map<String, dynamic>? _userDetails = {};
   // String _errorDialogMessage = '';
 
-  final UserService userService;
+  final LoginService userService;
   final SortOrder keyPadsortOrder;
 
   LoginViewModel(this.userService, this.keyPadsortOrder);
@@ -53,7 +53,7 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
 
     // await Future.delayed(const Duration(seconds: 4));
-    final userDetails = await userService.fetchUserDetails2(_inputtedPin);
+    final userDetails = await userService.authenticate(_inputtedPin);
 
     _isLoading = false;
     notifyListeners();

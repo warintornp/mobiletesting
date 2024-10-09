@@ -24,7 +24,7 @@ import 'package:mockito/mockito.dart' as _i1;
 /// A class which mocks [UserService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserService extends _i1.Mock implements _i2.UserService {
+class MockUserService extends _i1.Mock implements _i2.LoginService {
   MockUserService() {
     _i1.throwOnMissingStub(this);
   }
@@ -40,7 +40,7 @@ class MockUserService extends _i1.Mock implements _i2.UserService {
       ) as _i3.Future<Map<String, dynamic>?>);
 
   @override
-  _i3.Future<Map<String, dynamic>?> fetchUserDetails2(String? pin) =>
+  _i3.Future<Map<String, dynamic>?> authenticate(String? pin) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchUserDetails2,
