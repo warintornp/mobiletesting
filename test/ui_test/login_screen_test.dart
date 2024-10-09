@@ -24,9 +24,6 @@ void main() {
 
   testWidgets('successful validate PIN both FE and BE',
       (WidgetTester tester) async {
-    // when(mockUserService.fetchUserDetails2('132495'))
-    //     .thenAnswer((_) async => null);
-
     when(mockLoginService.authenticate('132495')).thenAnswer((_) async => {
           'name': 'John Doe',
           'email': 'john.doe@example.com',

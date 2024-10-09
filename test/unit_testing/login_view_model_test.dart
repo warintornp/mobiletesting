@@ -11,11 +11,11 @@ import 'login_view_model_test.mocks.dart';
 void main() {
   group('LoginViewModel', () {
     late LoginViewModel loginViewModel;
-    late LoginService userService;
+    late LoginService loginService;
 
     setUp(() {
-      userService = LoginService();
-      loginViewModel = LoginViewModel(userService, SortOrder.ascending);
+      loginService = LoginService();
+      loginViewModel = LoginViewModel(loginService, SortOrder.ascending);
     });
 
     test('onDigitPressed adds digit to inputtedPin', () {
