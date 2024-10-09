@@ -17,30 +17,26 @@ class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => LoginViewModel(UserService(),
-          Random().nextBool() ? SortOrder.ascending : SortOrder.descending),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Enter PIN'),
-        ),
-        body: Center(
-          child: Consumer<LoginViewModel>(
-            builder: (context, viewModel, child) {
-              return Column(
-                children: <Widget>[
-                  Dot(
-                    viewModel: viewModel,
-                  ),
-                  viewModel.isLoading
-                      ? const CircularProgressIndicator(
-                          color: Color.fromARGB(255, 37, 9, 131),
-                        )
-                      : pinGridViewWidget(viewModel, context),
-                ],
-              );
-            },
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Enter PIN'),
+      ),
+      body: Center(
+        child: Consumer<LoginViewModel>(
+          builder: (context, viewModel, child) {
+            return Column(
+              children: <Widget>[
+                Dot(
+                  viewModel: viewModel,
+                ),
+                viewModel.isLoading
+                    ? const CircularProgressIndicator(
+                        color: Color.fromARGB(255, 37, 9, 131),
+                      )
+                    : pinGridViewWidget(viewModel, context),
+              ],
+            );
+          },
         ),
       ),
     );
