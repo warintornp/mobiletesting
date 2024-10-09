@@ -26,8 +26,8 @@ import 'package:mockito/src/dummies.dart' as _i5;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeUserService_0 extends _i1.SmartFake implements _i2.LoginService {
-  _FakeUserService_0(
+class _FakeLoginService_0 extends _i1.SmartFake implements _i2.LoginService {
+  _FakeLoginService_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -45,11 +45,11 @@ class MockLoginViewModel extends _i1.Mock implements _i3.LoginViewModel {
   }
 
   @override
-  _i2.LoginService get userService => (super.noSuchMethod(
-        Invocation.getter(#userService),
-        returnValue: _FakeUserService_0(
+  _i2.LoginService get loginService => (super.noSuchMethod(
+        Invocation.getter(#loginService),
+        returnValue: _FakeLoginService_0(
           this,
-          Invocation.getter(#userService),
+          Invocation.getter(#loginService),
         ),
       ) as _i2.LoginService);
 
@@ -151,29 +151,19 @@ class MockLoginViewModel extends _i1.Mock implements _i3.LoginViewModel {
       );
 }
 
-/// A class which mocks [UserService].
+/// A class which mocks [LoginService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserService extends _i1.Mock implements _i2.LoginService {
-  MockUserService() {
+class MockLoginService extends _i1.Mock implements _i2.LoginService {
+  MockLoginService() {
     _i1.throwOnMissingStub(this);
   }
-
-  @override
-  _i8.Future<Map<String, dynamic>?> fetchUserDetails(String? pin) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #fetchUserDetails,
-          [pin],
-        ),
-        returnValue: _i8.Future<Map<String, dynamic>?>.value(),
-      ) as _i8.Future<Map<String, dynamic>?>);
 
   @override
   _i8.Future<Map<String, dynamic>?> authenticate(String? pin) =>
       (super.noSuchMethod(
         Invocation.method(
-          #fetchUserDetails2,
+          #authenticate,
           [pin],
         ),
         returnValue: _i8.Future<Map<String, dynamic>?>.value(),

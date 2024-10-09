@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: LoginWithPinScreen(userService: UserService()),
       home: ChangeNotifierProvider(
         create: (_) => LoginViewModel(LoginService(),
             Random().nextBool() ? SortOrder.ascending : SortOrder.descending),

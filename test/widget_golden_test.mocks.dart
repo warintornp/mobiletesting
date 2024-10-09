@@ -21,29 +21,19 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-/// A class which mocks [UserService].
+/// A class which mocks [LoginService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserService extends _i1.Mock implements _i2.LoginService {
-  MockUserService() {
+class MockLoginService extends _i1.Mock implements _i2.LoginService {
+  MockLoginService() {
     _i1.throwOnMissingStub(this);
   }
-
-  @override
-  _i3.Future<Map<String, dynamic>?> fetchUserDetails(String? pin) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #fetchUserDetails,
-          [pin],
-        ),
-        returnValue: _i3.Future<Map<String, dynamic>?>.value(),
-      ) as _i3.Future<Map<String, dynamic>?>);
 
   @override
   _i3.Future<Map<String, dynamic>?> authenticate(String? pin) =>
       (super.noSuchMethod(
         Invocation.method(
-          #fetchUserDetails2,
+          #authenticate,
           [pin],
         ),
         returnValue: _i3.Future<Map<String, dynamic>?>.value(),
