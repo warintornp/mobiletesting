@@ -9,9 +9,6 @@ import 'package:mobiletesting/login_service.dart';
 class LoginViewModel extends ChangeNotifier {
   String _inputtedPin = '';
   bool _isLoading = false;
-  // bool _shouldNavigateToUserDetailsScreen = false;
-  // Map<String, dynamic>? _userDetails = {};
-  // String _errorDialogMessage = '';
 
   final LoginService loginService;
   final SortOrder keyPadsortOrder;
@@ -20,10 +17,6 @@ class LoginViewModel extends ChangeNotifier {
 
   String get inputtedPin => _inputtedPin;
   bool get isLoading => _isLoading;
-  // bool get shouldNavigateToUserDetailsScreen =>
-  //     _shouldNavigateToUserDetailsScreen;
-  // Map<String, dynamic>? get userDetails => _userDetails;
-  // String get errorDialogMessage => _errorDialogMessage;
 
   void onDigitPressed(int digit, BuildContext context) {
     addPinDigit(digit);

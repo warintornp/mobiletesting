@@ -62,6 +62,7 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
 // News section header
   Widget newsheader() {
     return const Padding(
