@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:mobiletesting/pages/home_view_model.dart';
 import 'package:mobiletesting/pages/news_screen.dart';
 import 'package:mobiletesting/pages/profile_screen.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen();
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final Map<String, dynamic> userDetails = {
-    'name': 'John Doe',
-    'email': 'john.doe@example.com'
-  };
+  @override
+  void initState() {
+    Provider.of<HomeViewModel>(context, listen: false).onDidLoad();
+    super.initState();
+  }
 
-  //on StatelessWidget did load print sth
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,21 +27,19 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           // Header
-          Container(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  //User profile
-                  UserProfileWidget(
-                    userDetails: userDetails,
-                  ),
-                  const SizedBox(height: 150),
-                  //News Section Header
-                  newsheader(),
-                  // Image Carousel
-                  ImageCarousel(),
-                ]),
-          ),
+          Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            //User profile
+            Consumer<HomeViewModel>(builder: (context, viewModel, child) {
+              return UserProfileWidget(
+                userDetails: viewModel.userDetails,
+              );
+            }),
+            const SizedBox(height: 150),
+            //News Section Header
+            newsheader(),
+            // Image Carousel
+            ImageCarousel(),
+          ]),
         ],
       ),
       bottomNavigationBar: BottomAppBar(
@@ -56,17 +56,19 @@ class _HomeScreenState extends State<HomeScreen> {
               // Handle Search button press
             },
           ),
-          IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        ProfileScreen(userDetails: userDetails)),
-              );
-            },
-          ),
+          Consumer<HomeViewModel>(builder: (context, viewModel, child) {
+            return IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ProfileScreen(userDetails: viewModel.userDetails)),
+                );
+              },
+            );
+          }),
         ]),
       ),
     );
@@ -163,7 +165,7 @@ class UserProfileWidget extends StatelessWidget {
             children: [
               // User Name
               Text(
-                userDetails['name'],
+                userDetails['name'] ?? '',
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -172,7 +174,7 @@ class UserProfileWidget extends StatelessWidget {
               ),
               // User Email
               Text(
-                userDetails['email'],
+                userDetails['email'] ?? '',
                 style: const TextStyle(
                   fontSize: 16,
                   color: Colors.white70,

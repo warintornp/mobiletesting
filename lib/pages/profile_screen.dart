@@ -24,12 +24,13 @@ class ProfileScreen extends StatelessWidget {
                   // User Avatar
                   CircleAvatar(
                     radius: 50,
-                    backgroundImage: AssetImage('assets/avatar.jpg'), // Use your own image path or network image
+                    backgroundImage: AssetImage(
+                        'assets/avatar.jpg'), // Use your own image path or network image
                   ),
                   SizedBox(height: 10),
                   // User Name
                   Text(
-                    userDetails['name'],
+                    userDetails['name'] ?? '',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -38,7 +39,7 @@ class ProfileScreen extends StatelessWidget {
                   SizedBox(height: 5),
                   // User Email
                   Text(
-                    userDetails['email'],
+                    userDetails['email'] ?? '',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey[700],

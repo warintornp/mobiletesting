@@ -2,9 +2,11 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:mobiletesting/pages/home_screen.dart';
+import 'package:mobiletesting/pages/home_view_model.dart';
 import 'package:mobiletesting/pages/pin_rules.dart';
 import 'package:mobiletesting/pages/sort_order.dart';
 import 'package:mobiletesting/login_service.dart';
+import 'package:provider/provider.dart';
 
 class LoginViewModel extends ChangeNotifier {
   String _inputtedPin = '';
@@ -64,7 +66,10 @@ class LoginViewModel extends ChangeNotifier {
   void _navigateToUserDetailsScreen(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => HomeScreen(),
+        builder: (context) => ChangeNotifierProvider(
+          create: (_) => HomeViewModel(),
+          child: HomeScreen(),
+        ),
       ),
     );
   }
