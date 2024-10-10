@@ -69,6 +69,9 @@ describe('GET user detail', () => {
       name: 'John Doe',
       email: 'john.doe@example.com',
     })
+    expect(response.header.authorization).toEqual(
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+    )
   })
 
   it('401 Unauthorised WHEN authToken is invalid token', async () => {
@@ -87,8 +90,20 @@ describe('GET user detail', () => {
     expect(response.status).toBe(400)
     expect(response.body).toEqual({ error: 'Invalid request' })
   })
-  it('400 WHEN authToken is absent', async () => {})
-  it('401 WHEN authToken is empty string', async () => {})
+  it('401 Unauthorised WHEN authToken is absent', async () => {
+    const response = await request(app).get('/v1/api/user')
+
+    expect(response.status).toBe(401)
+    expect(response.body).toEqual({ error: 'Unauthorised' })
+  })
+  it('400 WHEN authToken is empty string', async () => {
+    const response = await request(app)
+      .get('/v1/api/user')
+      .set('authorization', '')
+
+    expect(response.status).toBe(400)
+    expect(response.body).toEqual({ error: 'Invalid request' })
+  })
 
   afterAll((done) => {
     app.close()

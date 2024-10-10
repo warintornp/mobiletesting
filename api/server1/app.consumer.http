@@ -42,3 +42,8 @@ content-type: application/json
 {
     "pin": "22"
 }
+
+### http 200
+GET http://localhost:3000/v1/api/user HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9

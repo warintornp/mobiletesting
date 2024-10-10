@@ -44,12 +44,20 @@ app.post('/v1/api/pin/validate', (req, res) => {
 })
 
 app.get('/v1/api/user', (req, res) => {
+  if (req.headers.authorization == undefined) {
+    res.status(401).json({ error: 'Unauthorised' })
+    return
+  }
+
   const authToken = req.headers.authorization.split(' ')[1]
+  console.log(`authToken: ${authToken}`)
+  //return http response 401 if authToken is missing.
   if (authToken === undefined || authToken === '') {
     res.status(400).json({ error: 'Invalid request' })
   } else if (users[authToken] === undefined) {
     res.status(401).json({ error: 'Unauthorised' })
   } else {
+    res.setHeader('Authorization', req.headers.authorization)
     res.status(200).json(users[authToken])
   }
 })
