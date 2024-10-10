@@ -3,9 +3,12 @@ import 'package:mobiletesting/pages/news_screen.dart';
 import 'package:mobiletesting/pages/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  final Map<String, dynamic> userDetails;
+  final Map<String, dynamic> userDetails = {
+    "name": 'Anne Doe',
+    "email": 'john.doe@example.com',
+  };
 
-  HomeScreen({required this.userDetails});
+  HomeScreen();
 
   @override
   Widget build(BuildContext context) {

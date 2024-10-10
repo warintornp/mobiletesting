@@ -7,9 +7,9 @@ import 'dart:async' as _i8;
 import 'dart:ui' as _i7;
 
 import 'package:flutter/material.dart' as _i6;
+import 'package:mobiletesting/login_service.dart' as _i2;
 import 'package:mobiletesting/pages/login_view_model.dart' as _i3;
 import 'package:mobiletesting/pages/sort_order.dart' as _i4;
-import 'package:mobiletesting/login_service.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i5;
 
@@ -160,12 +160,11 @@ class MockLoginService extends _i1.Mock implements _i2.LoginService {
   }
 
   @override
-  _i8.Future<Map<String, dynamic>?> authenticate(String? pin) =>
-      (super.noSuchMethod(
+  _i8.Future<bool> authenticate(String? pin) => (super.noSuchMethod(
         Invocation.method(
           #authenticate,
           [pin],
         ),
-        returnValue: _i8.Future<Map<String, dynamic>?>.value(),
-      ) as _i8.Future<Map<String, dynamic>?>);
+        returnValue: _i8.Future<bool>.value(false),
+      ) as _i8.Future<bool>);
 }

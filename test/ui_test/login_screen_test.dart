@@ -24,10 +24,11 @@ void main() {
 
   testWidgets('successful validate PIN both FE and BE',
       (WidgetTester tester) async {
-    when(mockLoginService.authenticate('132495')).thenAnswer((_) async => {
-          'name': 'John Doe',
-          'email': 'john.doe@example.com',
-        });
+    // when(mockLoginService.authenticate('132495')).thenAnswer((_) async => {
+    //       'name': 'John Doe',
+    //       'email': 'john.doe@example.com',
+    //     });
+    when(mockLoginService.authenticate('132495')).thenAnswer((_) async => true);
 
     //Set screen size, if not will show default size which not cover the page
     final TestWidgetsFlutterBinding binding =
@@ -83,7 +84,8 @@ void main() {
   }, tags: 'widget');
 
   testWidgets('Invalid (BE rule) PIN with dialog', (WidgetTester tester) async {
-    when(mockLoginService.authenticate('132495')).thenAnswer((_) async => null);
+    when(mockLoginService.authenticate('132495'))
+        .thenAnswer((_) async => false);
 
     //Set screen size, if not will show default size which not cover the page
     final TestWidgetsFlutterBinding binding =

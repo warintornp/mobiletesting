@@ -46,12 +46,13 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
 
     // await Future.delayed(const Duration(seconds: 4));
-    final userDetails = await loginService.authenticate(_inputtedPin);
+    final isAuthenticated = await loginService.authenticate(_inputtedPin);
 
     _isLoading = false;
     notifyListeners();
-    if (userDetails != null && userDetails.isNotEmpty && context.mounted) {
-      _navigateToUserDetailsScreen(userDetails, context);
+    // if (isAuthenticated != null && isAuthenticated.isNotEmpty && context.mounted) {
+    if (isAuthenticated && context.mounted) {
+      _navigateToUserDetailsScreen(context);
     } else {
       if (context.mounted) {
         _showErrorDialog(
@@ -60,11 +61,10 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
-  void _navigateToUserDetailsScreen(
-      Map<String, dynamic> userDetails, BuildContext context) {
+  void _navigateToUserDetailsScreen(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => HomeScreen(userDetails: userDetails),
+        builder: (context) => HomeScreen(),
       ),
     );
   }

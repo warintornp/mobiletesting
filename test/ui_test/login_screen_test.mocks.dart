@@ -30,12 +30,11 @@ class MockLoginService extends _i1.Mock implements _i2.LoginService {
   }
 
   @override
-  _i3.Future<Map<String, dynamic>?> authenticate(String? pin) =>
-      (super.noSuchMethod(
+  _i3.Future<bool> authenticate(String? pin) => (super.noSuchMethod(
         Invocation.method(
           #authenticate,
           [pin],
         ),
-        returnValue: _i3.Future<Map<String, dynamic>?>.value(),
-      ) as _i3.Future<Map<String, dynamic>?>);
+        returnValue: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
 }
