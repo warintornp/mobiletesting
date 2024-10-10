@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:mobiletesting/pages/news_screen.dart';
 import 'package:mobiletesting/pages/profile_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  HomeScreen();
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final Map<String, dynamic> userDetails = {
     'name': 'John Doe',
     'email': 'john.doe@example.com'
   };
 
-  HomeScreen();
-
+  //on StatelessWidget did load print sth
   @override
   Widget build(BuildContext context) {
     return Scaffold(
