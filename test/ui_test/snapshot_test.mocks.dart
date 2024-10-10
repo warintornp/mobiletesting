@@ -8,6 +8,7 @@ import 'dart:ui' as _i7;
 
 import 'package:flutter/material.dart' as _i6;
 import 'package:mobiletesting/login_service.dart' as _i2;
+import 'package:mobiletesting/pages/home_view_model.dart' as _i9;
 import 'package:mobiletesting/pages/login_view_model.dart' as _i3;
 import 'package:mobiletesting/pages/sort_order.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
@@ -167,4 +168,71 @@ class MockLoginService extends _i1.Mock implements _i2.LoginService {
         ),
         returnValue: _i8.Future<bool>.value(false),
       ) as _i8.Future<bool>);
+}
+
+/// A class which mocks [HomeViewModel].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockHomeViewModel extends _i1.Mock implements _i9.HomeViewModel {
+  MockHomeViewModel() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  Map<String, dynamic> get userDetails => (super.noSuchMethod(
+        Invocation.getter(#userDetails),
+        returnValue: <String, dynamic>{},
+      ) as Map<String, dynamic>);
+
+  @override
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  _i8.Future<void> onDidLoad() => (super.noSuchMethod(
+        Invocation.method(
+          #onDidLoad,
+          [],
+        ),
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
+
+  @override
+  void addListener(_i7.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeListener(_i7.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }

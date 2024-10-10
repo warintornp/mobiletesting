@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mobiletesting/pages/dot_view.dart';
 import 'package:mobiletesting/pages/home_screen.dart';
+import 'package:mobiletesting/pages/home_view_model.dart';
 import 'package:mobiletesting/pages/login_screen.dart';
 import 'package:mobiletesting/pages/login_view_model.dart';
 import 'package:mobiletesting/pages/pin_grid_view.dart';
@@ -16,8 +17,7 @@ import 'package:provider/provider.dart';
 
 import 'snapshot_test.mocks.dart';
 
-@GenerateMocks([LoginViewModel])
-@GenerateMocks([LoginService])
+@GenerateMocks([LoginViewModel, LoginService, HomeViewModel])
 void main() {
   setUpAll(() async {
     await loadAppFonts();
@@ -95,10 +95,21 @@ void main() {
   });
 
   testGoldens('Home screen', (WidgetTester tester) async {
+    final mockHomeViewModel = MockHomeViewModel();
+    when(mockHomeViewModel.userDetails).thenReturn({
+      'name': 'John Doe',
+      'email': 'john.doe@example.com',
+    });
+
     final builder = DeviceBuilder()
       ..overrideDevicesForAllScenarios(
           devices: [Device.iphone11, Device.tabletLandscape])
-      ..addScenario(widget: HomeScreen());
+      ..addScenario(
+          widget: ChangeNotifierProvider<HomeViewModel>(
+              create: (_) => mockHomeViewModel,
+              child: const MaterialApp(
+                home: HomeScreen(),
+              )));
     await tester.pumpDeviceBuilder(builder);
     await screenMatchesGolden(tester, 'home_screen');
   });
