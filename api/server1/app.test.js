@@ -62,7 +62,7 @@ describe('GET user detail', () => {
   it('200 with user detail WHEN authToken is valid', async () => {
     const response = await request(app)
       .get('/v1/api/user')
-      .set('authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9')
+      .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9')
 
     expect(response.status).toBe(200)
     expect(response.body).toEqual({
@@ -77,7 +77,7 @@ describe('GET user detail', () => {
   it('401 Unauthorised WHEN authToken is invalid token', async () => {
     const response = await request(app)
       .get('/v1/api/user')
-      .set('authorization', 'Bearer 11111')
+      .set('Authorization', 'Bearer 11111')
 
     expect(response.status).toBe(401)
     expect(response.body).toEqual({ error: 'Unauthorised' })
@@ -85,7 +85,7 @@ describe('GET user detail', () => {
   it('400  WHEN authToken is invalid format', async () => {
     const response = await request(app)
       .get('/v1/api/user')
-      .set('authorization', 'Bearer11111')
+      .set('Authorization', 'Bearer11111')
 
     expect(response.status).toBe(400)
     expect(response.body).toEqual({ error: 'Invalid request' })
@@ -99,7 +99,7 @@ describe('GET user detail', () => {
   it('400 WHEN authToken is empty string', async () => {
     const response = await request(app)
       .get('/v1/api/user')
-      .set('authorization', '')
+      .set('Authorization', '')
 
     expect(response.status).toBe(400)
     expect(response.body).toEqual({ error: 'Invalid request' })
@@ -110,31 +110,3 @@ describe('GET user detail', () => {
     done()
   })
 })
-
-// it('200 with valid token', async () => {
-//   const response = await request(app)
-//     .post('/v1/api/pin/validate')
-//     .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9')
-//     .send({ pin: '243596' })
-
-//   expect(response.status).toBe(200)
-// })
-
-// it('401 with invalid token', async () => {
-//   const response = await request(app)
-//     .post('/v1/api/pin/validate')
-//     .set('Authorization', 'Bearer invalid_token')
-//     .send({ pin: '132495' })
-
-//   expect(response.status).toBe(401)
-//   expect(response.body).toEqual({ error: 'Unauthorised' })
-// })
-
-// it('401 without token', async () => {
-//   const response = await request(app)
-//     .post('/v1/api/pin/validate')
-//     .send({ pin: '132495' })
-
-//   expect(response.status).toBe(401)
-//   expect(response.body).toEqual({ error: 'Unauthorised' })
-// })
