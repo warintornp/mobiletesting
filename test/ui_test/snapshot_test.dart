@@ -107,8 +107,8 @@ void main() {
       ..addScenario(
           widget: ChangeNotifierProvider<HomeViewModel>(
               create: (_) => mockHomeViewModel,
-              child: const MaterialApp(
-                home: HomeScreen(),
+              child: const Scaffold(
+                body: HomeScreen(),
               )));
     await tester.pumpDeviceBuilder(builder);
     await screenMatchesGolden(tester, 'home_screen');
