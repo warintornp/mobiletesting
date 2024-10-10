@@ -10,20 +10,7 @@ const users = {
   987123: { name: 'Patties Brown', email: 'pat@example.com' },
 }
 
-// Middleware
 app.use(bodyParser.json())
-
-// Endpoint to get user details by PIN
-app.get('/getUserDetails', (req, res) => {
-  const pin = req.query.pin
-
-  if (users[pin]) {
-    res.status(200).json(users[pin])
-  } else {
-    res.status(404).json({ error: 'User not found' })
-  }
-})
-
 app.post('/v1/api/pin/validate', (req, res) => {
   const pin = req.body.pin
   // const pin = req.body.body //hidden bug for scenario#2
