@@ -1,5 +1,5 @@
 const request = require('supertest')
-const app = require('./server_1')
+const app = require('./app')
 
 describe('POST /v1/api/pin/validate', () => {
   it('200', async () => {

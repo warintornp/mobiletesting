@@ -23,10 +23,10 @@ A new Flutter project.
 2. pull server dependency
 `npm install`
 3. start server
-`node server_1.js`
-4. verify server health by running `server_1_consumer.http`
+`node app.js`
+4. verify server health by running `app.consumer.http`. Need to install vscode extension, [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) first.
 5. Run e2e testing
-`npx jest server_1.test.js`
+`npx jest app.test.js`
 
 
 ## Step to start Node.js server2
