@@ -4,8 +4,8 @@ import 'package:mobiletesting/pages/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final Map<String, dynamic> userDetails = {
-    "name": 'Anne Doe',
-    "email": 'john.doe@example.com',
+    'name': 'John Doe',
+    'email': 'john.doe@example.com'
   };
 
   HomeScreen();

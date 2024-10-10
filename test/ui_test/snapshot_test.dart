@@ -98,11 +98,7 @@ void main() {
     final builder = DeviceBuilder()
       ..overrideDevicesForAllScenarios(
           devices: [Device.iphone11, Device.tabletLandscape])
-      ..addScenario(
-          widget: HomeScreen(userDetails: {
-        'name': 'John Doe',
-        'email': 'john.doe@example.com'
-      }));
+      ..addScenario(widget: HomeScreen());
     await tester.pumpDeviceBuilder(builder);
     await screenMatchesGolden(tester, 'home_screen');
   });
