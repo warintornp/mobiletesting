@@ -43,6 +43,17 @@ app.post('/v1/api/pin/validate', (req, res) => {
   }
 })
 
+app.get('/v1/api/user', (req, res) => {
+  const authToken = req.headers.authorization.split(' ')[1]
+  if (authToken === undefined || authToken === '') {
+    res.status(400).json({ error: 'Invalid request' })
+  } else if (users[authToken] === undefined) {
+    res.status(401).json({ error: 'Unauthorised' })
+  } else {
+    res.status(200).json(users[authToken])
+  }
+})
+
 var server = app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`)
 })

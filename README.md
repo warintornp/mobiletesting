@@ -28,5 +28,7 @@ A new Flutter project.
 5. Run e2e testing
 `npx jest app.test.js`
 
+Note: To run specific describe in test file, `npx jest app.test.js -t {describe name}`
+
 
 ## Step to start Node.js server2
