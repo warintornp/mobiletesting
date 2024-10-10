@@ -17,7 +17,7 @@ A new Flutter project.
 `flutter test --update-goldens`
 
 
-## 4 step to start Node.js server1
+## 4 steps to start Node.js server1
 1. navigate to server1's location. Given now terminal is at root project folder
 `cd api/server1`
 2. pull server dependency
