@@ -46,3 +46,11 @@ Note: To run specific describe in test file, `npx jest app.test.js -t {describe 
 ## Troubleshooting
 Error: cocopod not install or not invalid state. Solution [Intel one](https://stackoverflow.com/questions/62593939/cocoapods-not-installed-or-not-in-valid-state), [ARM one](https://stackoverflow.com/questions/64901180/how-to-run-cocoapods-on-apple-silicon-m1)
 
+
+## Steps to run integration test (E2E)
+1. Require server1 running
+`cd api/server1`
+`node app.js`
+2. Running integration test 
+`flutter test integration_test/app_test.dart`
+
