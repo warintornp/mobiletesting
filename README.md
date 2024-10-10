@@ -32,3 +32,11 @@ Note: To run specific describe in test file, `npx jest app.test.js -t {describe 
 
 
 ## Step to start Node.js server2
+
+
+## Steps to install and run maestro (e2e test framework)
+1. Install [curl -fsSL "https://get.maestro.mobile.dev" | bash ](https://maestro.mobile.dev/getting-started/installing-maestro)
+2. Locate to maestro test folder
+`cd e2e_test`
+3. run e2e test
+`maestro test login.yaml`
