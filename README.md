@@ -17,12 +17,12 @@ A new Flutter project.
 `flutter test --update-goldens`
 
 
-## Node.js server1
-### navigate to server1's location. Given now terminal is at root project folder
+## 4 step to start Node.js server1
+1. navigate to server1's location. Given now terminal is at root project folder
 `cd api/server1`
-### pull server dependency
-`yarn install`
-### start server
-`node getUserDetails.js`
-### Run e2e testing
-`npx jest app.test.js`
+2. pull server dependency
+`npm install`
+3. start server
+`node server_1.js`
+4. Run e2e testing
+`npx jest server_1.test.js`
