@@ -25,14 +25,14 @@ POST http://localhost:3000/v1/api/pin/validate HTTP/1.1
 content-type: application/json
 
 {
-    "pin": null,
+    "pin": null
 }
 ### http 400
 POST http://localhost:3000/v1/api/pin/validate HTTP/1.1
 content-type: application/json
 
 {
-    "pin": "",
+    "pin": ""
 }
 
 ### http 401
@@ -40,6 +40,5 @@ POST http://localhost:3000/v1/api/pin/validate HTTP/1.1
 content-type: application/json
 
 {
-    "pin": "22",
+    "pin": "22"
 }
-
