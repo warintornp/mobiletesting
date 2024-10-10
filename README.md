@@ -24,5 +24,6 @@ A new Flutter project.
 `npm install`
 3. start server
 `node server_1.js`
-4. Run e2e testing
+4. verify server health by running `server_1_consumer.http`
+5. Run e2e testing
 `npx jest server_1.test.js`
