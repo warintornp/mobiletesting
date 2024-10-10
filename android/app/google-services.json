@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1078292247264",
+    "project_id": "mock-app-android",
+    "storage_bucket": "mock-app-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078292247264:android:69418fcd60cdc409b01685",
+        "android_client_info": {
+          "package_name": "com.mobiletesting.mobiletesting"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpMhM3gxXIX1WTAQzsqeyzdreGLosP5-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
