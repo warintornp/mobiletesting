@@ -5,4 +5,9 @@ class SecureStorage {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(key, value);
   }
+
+  Future<String?> retrieve(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(key);
+  }
 }

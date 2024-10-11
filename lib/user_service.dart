@@ -1,21 +1,28 @@
 import 'dart:convert';
 
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mobiletesting/secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class UserService {
+  final http.Client client;
+  final SecureStorage secureStorage;
+
+  UserService({http.Client? client, SecureStorage? secureStorage})
+      : client = client ?? http.Client(),
+        secureStorage = secureStorage ?? SecureStorage();
+
   Future<Map<String, dynamic>> fetchUserDetails() async {
-    final url = Uri.parse('http://localhost:3000/v1/api/user');
-    final prefs = await SharedPreferences.getInstance();
-    final authToken = prefs.getString('authToken');
-
-    if (authToken == null) {
-      return {};
-    }
-
     try {
-      final response = await http.get(
-        url,
+      // final prefs = await SharedPreferences.getInstance();
+      // final authToken = prefs.getString('authToken');
+      final authToken = await secureStorage.retrieve('authToken');
+
+      if (authToken == null) {
+        return {};
+      }
+
+      final response = await client.get(
+        Uri.parse('http://localhost:3000/v1/api/user'),
         headers: {
           "content-type": "application/json",
           'Authorization': authToken,

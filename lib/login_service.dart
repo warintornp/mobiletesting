@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mobiletesting/secure_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginService {
   final http.Client client;
@@ -16,6 +15,7 @@ class LoginService {
     final body = jsonEncode({'pin': pin});
 
     try {
+      // http.post()
       final response = await client
           .post(url, body: body, headers: {"content-type": "application/json"});
 

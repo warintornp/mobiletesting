@@ -10,8 +10,8 @@ import 'login_service_test.mocks.dart';
 
 @GenerateMocks([http.Client, SecureStorage])
 void main() {
-  late MockClient mockClient = MockClient();
-  late MockSecureStorage mockSecureStorage = MockSecureStorage();
+  MockClient mockClient = MockClient();
+  MockSecureStorage mockSecureStorage = MockSecureStorage();
   late LoginService loginService;
 
   setUp(() {
