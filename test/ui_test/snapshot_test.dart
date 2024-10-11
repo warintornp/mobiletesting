@@ -11,6 +11,7 @@ import 'package:mobiletesting/pages/login_view_model.dart';
 import 'package:mobiletesting/pages/pin_grid_view.dart';
 import 'package:mobiletesting/pages/sort_order.dart';
 import 'package:mobiletesting/login_service.dart';
+import 'package:mobiletesting/pages/user_profile_view.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
@@ -120,13 +121,13 @@ void main() {
       'email': 'john.doe@example.com'
     };
     final builder = GoldenBuilder.column()
-      ..addScenario('user_profile_widget',
-          UserProfileWidget(userDetails: mockUserDetails))
+      ..addScenario(
+          'user_profile_widget', UserProfileView(userDetails: mockUserDetails))
       ..addTextScaleScenario(
-          'Large font size', UserProfileWidget(userDetails: mockUserDetails),
+          'Large font size', UserProfileView(userDetails: mockUserDetails),
           textScaleFactor: 2.0)
       ..addTextScaleScenario(
-          'Largest font size', UserProfileWidget(userDetails: mockUserDetails),
+          'Largest font size', UserProfileView(userDetails: mockUserDetails),
           textScaleFactor: 5.0);
 
     await tester.pumpWidgetBuilder(builder.build());
@@ -139,13 +140,13 @@ void main() {
       'email': 'john.doe@example.commmmmmmmmmmmmmmmmmmmmmm'
     };
     final builder = GoldenBuilder.column()
-      ..addScenario('user_profile_widget',
-          UserProfileWidget(userDetails: mockUserDetails))
+      ..addScenario(
+          'user_profile_widget', UserProfileView(userDetails: mockUserDetails))
       ..addTextScaleScenario(
-          'Large font size', UserProfileWidget(userDetails: mockUserDetails),
+          'Large font size', UserProfileView(userDetails: mockUserDetails),
           textScaleFactor: 2.0)
       ..addTextScaleScenario(
-          'Largest font size', UserProfileWidget(userDetails: mockUserDetails),
+          'Largest font size', UserProfileView(userDetails: mockUserDetails),
           textScaleFactor: 5.0);
 
     await tester.pumpWidgetBuilder(builder.build());
