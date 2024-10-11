@@ -4,7 +4,7 @@
 - [run app] `flutter run`
 - [run app in chrome with disable -web-security] `flutter run -d chrome --web-browser-flag "--disable-web-security"`
 
-### Generate Mock for test class 
+### Generate Mock component using Mockito for test class 
 `dart run build_runner build`
 
 ### Goldens test
