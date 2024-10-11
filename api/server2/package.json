@@ -1,13 +1,13 @@
 {
-  "name": "api",
+  "name": "server2",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
     "test": "jest"
   },
   "author": "Ann & Imm",
-  "license": "ISC",
-  "description": "This node js app is a simple API and owned by Mock team",
+  "license": "MIT",
+  "description": "This node js app is a simple API and owned by non-Mock team",
   "dependencies": {
     "express": "^4.20.0"
   },
