@@ -17,6 +17,21 @@ describe('GET user point', () => {
       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
     )
   })
+  it('200', async () => {
+    // Act
+    const response = await request(app)
+      .get('/v1/api/user/point')
+      .set('Authorization', 'Bearer eyJlbWFpbCI6InBhdEBleGFtcGxlLmNvbSJ9')
+
+    // Assert
+    expect(response.status).toBe(200)
+    expect(response.body).toEqual({
+      point: 200,
+    })
+    expect(response.header.authorization).toEqual(
+      'Bearer eyJlbWFpbCI6InBhdEBleGFtcGxlLmNvbSJ9'
+    )
+  })
   it('401 Unauthorised WHEN authToken is invalid token', async () => {
     // Act
     const response = await request(app)
@@ -78,6 +93,21 @@ describe('GET user tier', () => {
     })
     expect(response.header.authorization).toEqual(
       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+    )
+  })
+  it('200', async () => {
+    // Act
+    const response = await request(app)
+      .get('/v1/api/user/tier')
+      .set('Authorization', 'Bearer eyJlbWFpbCI6InBhdEBleGFtcGxlLmNvbSJ9')
+
+    // Assert
+    expect(response.status).toBe(200)
+    expect(response.body).toEqual({
+      tier: 'silver',
+    })
+    expect(response.header.authorization).toEqual(
+      'Bearer eyJlbWFpbCI6InBhdEBleGFtcGxlLmNvbSJ9'
     )
   })
   it('401 Unauthorised WHEN authToken is invalid token', async () => {

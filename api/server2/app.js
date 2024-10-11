@@ -47,7 +47,7 @@ app.get('/v1/api/user/tier', (req, res) => {
     res.status(401).json({ error: 'Unauthorised' })
   } else {
     res.setHeader('Authorization', req.headers.authorization)
-    res.status(200).json({ tier: 'bronze' })
+    res.status(200).json({ tier: tiers[authToken] })
   }
 })
 
