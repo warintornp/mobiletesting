@@ -29,19 +29,26 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           // Header
-          Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            //User profile
-            Consumer<HomeViewModel>(builder: (context, viewModel, child) {
-              return UserProfileView(
-                userDetails: viewModel.userDetails,
-              );
-            }),
-            const SizedBox(height: 150),
-            //News Section Header
-            newsheader(),
-            // Image Carousel
-            ImageCarousel(),
-          ]),
+          Consumer<HomeViewModel>(builder: (context, viewModel, child) {
+            return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  //User profile
+
+                  UserProfileView(
+                    userDetails: viewModel.userDetails,
+                  ),
+                  const SizedBox(height: 50),
+                  Text(
+                      'point: ${viewModel.userDetails['point']?.toString() ?? 'n/a'}'),
+                  const SizedBox(height: 150),
+                  //News Section Header
+                  newsheader(),
+
+                  // Image Carousel
+                  ImageCarousel(),
+                ]);
+          }),
         ],
       ),
       bottomNavigationBar: BottomAppBar(

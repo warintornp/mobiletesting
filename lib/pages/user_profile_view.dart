@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobiletesting/pages/user_tier.dart';
 
 class UserProfileView extends StatelessWidget {
   final Map<String, dynamic> userDetails;
@@ -6,15 +7,17 @@ class UserProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tier = UserTierExtension.fromString(userDetails['tier'] ?? '');
+
     return Stack(
       children: [
         Container(
           height: 100,
           width: double.maxFinite,
           margin: const EdgeInsets.symmetric(horizontal: 8.0),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.blueAccent, Colors.lightBlueAccent],
+              colors: [tier.color, Colors.lightBlueAccent],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
