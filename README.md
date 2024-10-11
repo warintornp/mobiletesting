@@ -40,14 +40,14 @@ Note: To run specific describe in test file, `npx jest app.test.js -t {describe 
 
 
 ## E2E testing (FE-BE)
-### Steps to install and run maestro (e2e test framework)
+### Steps to install and run E2E test using Maestro framework
 1. Install [curl -fsSL "https://get.maestro.mobile.dev" | bash ](https://maestro.mobile.dev/getting-started/installing-maestro)
 2. Locate to maestro test folder
 `cd e2e_test`
 3. run e2e test
 `maestro test login.yaml`
 
-### Steps to run integration test (E2E)
+### Steps to run E2E test using flutter framework
 1. Require server1 running
 `cd api/server1`
 `node app.js`
