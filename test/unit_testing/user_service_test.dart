@@ -117,11 +117,16 @@ void main() {
         "content-type": "application/json",
         'Authorization': 'Bearer token',
       })).thenAnswer((_) async => http.Response(
-          '{"name":"John Doe","email":"john.doe@example.com"}', 200));
+          '{"name":"John Doe","email":"john.doe@example.com", "tier": "gold"}',
+          200));
       // Act
       final result = await userService.fetchUserDetails();
       // Assert
-      expect(result, {'name': 'John Doe', 'email': 'john.doe@example.com'});
+      expect(result, {
+        'name': 'John Doe',
+        'email': 'john.doe@example.com',
+        'tier': 'gold'
+      });
     });
   }); // group
 }
