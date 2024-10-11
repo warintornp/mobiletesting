@@ -3,10 +3,11 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
 import 'package:http/http.dart' as _i2;
-import 'package:mobiletesting/login_service.dart' as _i3;
+import 'package:mobiletesting/login_service.dart' as _i4;
+import 'package:mobiletesting/secure_storage.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -32,10 +33,20 @@ class _FakeClient_0 extends _i1.SmartFake implements _i2.Client {
         );
 }
 
+class _FakeSecureStorage_1 extends _i1.SmartFake implements _i3.SecureStorage {
+  _FakeSecureStorage_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [LoginService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoginService extends _i1.Mock implements _i3.LoginService {
+class MockLoginService extends _i1.Mock implements _i4.LoginService {
   MockLoginService() {
     _i1.throwOnMissingStub(this);
   }
@@ -50,11 +61,20 @@ class MockLoginService extends _i1.Mock implements _i3.LoginService {
       ) as _i2.Client);
 
   @override
-  _i4.Future<bool> authenticate(String? pin) => (super.noSuchMethod(
+  _i3.SecureStorage get secureStorage => (super.noSuchMethod(
+        Invocation.getter(#secureStorage),
+        returnValue: _FakeSecureStorage_1(
+          this,
+          Invocation.getter(#secureStorage),
+        ),
+      ) as _i3.SecureStorage);
+
+  @override
+  _i5.Future<bool> authenticate(String? pin) => (super.noSuchMethod(
         Invocation.method(
           #authenticate,
           [pin],
         ),
-        returnValue: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+        returnValue: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
 }

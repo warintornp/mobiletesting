@@ -1,11 +1,15 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:mobiletesting/secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginService {
   final http.Client client;
+  final SecureStorage secureStorage;
 
-  LoginService({http.Client? client}) : client = client ?? http.Client();
+  LoginService({http.Client? client, SecureStorage? secureStorage})
+      : client = client ?? http.Client(),
+        secureStorage = secureStorage ?? SecureStorage();
 
   Future<bool> authenticate(String pin) async {
     final url = Uri.parse('http://localhost:3000/v1/api/pin/validate');
@@ -19,7 +23,9 @@ class LoginService {
         final authToken = response.headers['authorization'];
         if (authToken != null && authToken != '') {
           //business accept risk to not check authToken format
-          await _storeAuthToken(authToken);
+
+          // await _storeAuthToken(authToken);
+          await secureStorage.store('authToken', authToken);
           return true;
         }
       }
@@ -29,9 +35,9 @@ class LoginService {
     }
   }
 
-  Future<void> _storeAuthToken(String token) async {
-    // Store the token securely
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('authToken', token);
-  }
+  // Future<void> _storeAuthToken(String token) async {
+  //   // Store the token securely
+  //   final prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('authToken', token);
+  // }
 }

@@ -2,19 +2,23 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobiletesting/login_service.dart';
+import 'package:mobiletesting/secure_storage.dart';
 import 'package:mockito/annotations.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'login_service_test.mocks.dart';
 
-@GenerateMocks([http.Client])
+@GenerateMocks([http.Client, SecureStorage])
 void main() {
-  late MockClient mockClient;
+  late MockClient mockClient = MockClient();
+  late MockSecureStorage mockSecureStorage = MockSecureStorage();
   late LoginService loginService;
 
   setUp(() {
-    mockClient = MockClient();
-    loginService = LoginService(client: mockClient);
+    // SharedPreferences.setMockInitialValues({});
+
+    loginService =
+        LoginService(client: mockClient, secureStorage: mockSecureStorage);
   });
   group('authenticate', () {
     test('API call throw error', () async {
@@ -80,7 +84,8 @@ void main() {
         // Assert
         expect(result, false);
       });
-      test('API call return authorization token and failed store the token',
+
+      test('API call return authorization token and failed to store the token',
           () async {
         // Arrange
         when(mockClient.post(
@@ -90,7 +95,7 @@ void main() {
             .thenAnswer((_) async => http.Response("", 200, headers: {
                   'authorization': 'Bearer token',
                 }));
-        when(loginService.sharedPreferences.setString('authToken', 'Bearer'))
+        when(mockSecureStorage.store('authToken', 'Bearer token'))
             .thenThrow(Exception('error'));
         // Act
         final result = await loginService.authenticate('123456');
@@ -100,7 +105,22 @@ void main() {
 
       test(
           'API call return authorization token and successfully store the token',
-          () {});
+          () async {
+        // Arrange
+        when(mockClient.post(
+                Uri.parse('http://localhost:3000/v1/api/pin/validate'),
+                body: jsonEncode({'pin': '123456'}),
+                headers: {"content-type": "application/json"}))
+            .thenAnswer((_) async => http.Response("", 200, headers: {
+                  'authorization': 'Bearer token',
+                }));
+        when(mockSecureStorage.store('authToken', 'Bearer token'))
+            .thenAnswer((_) async {});
+        // Act
+        final result = await loginService.authenticate('123456');
+        // Assert
+        expect(result, true);
+      });
     });
   });
 }

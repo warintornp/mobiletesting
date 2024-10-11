@@ -3,17 +3,18 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i9;
-import 'dart:ui' as _i8;
+import 'dart:async' as _i10;
+import 'dart:ui' as _i9;
 
-import 'package:flutter/material.dart' as _i7;
+import 'package:flutter/material.dart' as _i8;
 import 'package:http/http.dart' as _i3;
 import 'package:mobiletesting/login_service.dart' as _i2;
-import 'package:mobiletesting/pages/home_view_model.dart' as _i10;
-import 'package:mobiletesting/pages/login_view_model.dart' as _i4;
-import 'package:mobiletesting/pages/sort_order.dart' as _i5;
+import 'package:mobiletesting/pages/home_view_model.dart' as _i11;
+import 'package:mobiletesting/pages/login_view_model.dart' as _i5;
+import 'package:mobiletesting/pages/sort_order.dart' as _i6;
+import 'package:mobiletesting/secure_storage.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i6;
+import 'package:mockito/src/dummies.dart' as _i7;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -48,10 +49,20 @@ class _FakeClient_1 extends _i1.SmartFake implements _i3.Client {
         );
 }
 
+class _FakeSecureStorage_2 extends _i1.SmartFake implements _i4.SecureStorage {
+  _FakeSecureStorage_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [LoginViewModel].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoginViewModel extends _i1.Mock implements _i4.LoginViewModel {
+class MockLoginViewModel extends _i1.Mock implements _i5.LoginViewModel {
   MockLoginViewModel() {
     _i1.throwOnMissingStub(this);
   }
@@ -66,15 +77,15 @@ class MockLoginViewModel extends _i1.Mock implements _i4.LoginViewModel {
       ) as _i2.LoginService);
 
   @override
-  _i5.SortOrder get keyPadsortOrder => (super.noSuchMethod(
+  _i6.SortOrder get keyPadsortOrder => (super.noSuchMethod(
         Invocation.getter(#keyPadsortOrder),
-        returnValue: _i5.SortOrder.ascending,
-      ) as _i5.SortOrder);
+        returnValue: _i6.SortOrder.ascending,
+      ) as _i6.SortOrder);
 
   @override
   String get inputtedPin => (super.noSuchMethod(
         Invocation.getter(#inputtedPin),
-        returnValue: _i6.dummyValue<String>(
+        returnValue: _i7.dummyValue<String>(
           this,
           Invocation.getter(#inputtedPin),
         ),
@@ -95,7 +106,7 @@ class MockLoginViewModel extends _i1.Mock implements _i4.LoginViewModel {
   @override
   void onDigitPressed(
     int? digit,
-    _i7.BuildContext? context,
+    _i8.BuildContext? context,
   ) =>
       super.noSuchMethod(
         Invocation.method(
@@ -127,7 +138,7 @@ class MockLoginViewModel extends _i1.Mock implements _i4.LoginViewModel {
       );
 
   @override
-  void addListener(_i8.VoidCallback? listener) => super.noSuchMethod(
+  void addListener(_i9.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #addListener,
           [listener],
@@ -136,7 +147,7 @@ class MockLoginViewModel extends _i1.Mock implements _i4.LoginViewModel {
       );
 
   @override
-  void removeListener(_i8.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i9.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],
@@ -181,19 +192,28 @@ class MockLoginService extends _i1.Mock implements _i2.LoginService {
       ) as _i3.Client);
 
   @override
-  _i9.Future<bool> authenticate(String? pin) => (super.noSuchMethod(
+  _i4.SecureStorage get secureStorage => (super.noSuchMethod(
+        Invocation.getter(#secureStorage),
+        returnValue: _FakeSecureStorage_2(
+          this,
+          Invocation.getter(#secureStorage),
+        ),
+      ) as _i4.SecureStorage);
+
+  @override
+  _i10.Future<bool> authenticate(String? pin) => (super.noSuchMethod(
         Invocation.method(
           #authenticate,
           [pin],
         ),
-        returnValue: _i9.Future<bool>.value(false),
-      ) as _i9.Future<bool>);
+        returnValue: _i10.Future<bool>.value(false),
+      ) as _i10.Future<bool>);
 }
 
 /// A class which mocks [HomeViewModel].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockHomeViewModel extends _i1.Mock implements _i10.HomeViewModel {
+class MockHomeViewModel extends _i1.Mock implements _i11.HomeViewModel {
   MockHomeViewModel() {
     _i1.throwOnMissingStub(this);
   }
@@ -211,17 +231,17 @@ class MockHomeViewModel extends _i1.Mock implements _i10.HomeViewModel {
       ) as bool);
 
   @override
-  _i9.Future<void> onDidLoad() => (super.noSuchMethod(
+  _i10.Future<void> onDidLoad() => (super.noSuchMethod(
         Invocation.method(
           #onDidLoad,
           [],
         ),
-        returnValue: _i9.Future<void>.value(),
-        returnValueForMissingStub: _i9.Future<void>.value(),
-      ) as _i9.Future<void>);
+        returnValue: _i10.Future<void>.value(),
+        returnValueForMissingStub: _i10.Future<void>.value(),
+      ) as _i10.Future<void>);
 
   @override
-  void addListener(_i8.VoidCallback? listener) => super.noSuchMethod(
+  void addListener(_i9.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #addListener,
           [listener],
@@ -230,7 +250,7 @@ class MockHomeViewModel extends _i1.Mock implements _i10.HomeViewModel {
       );
 
   @override
-  void removeListener(_i8.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i9.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],
