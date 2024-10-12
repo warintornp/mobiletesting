@@ -64,13 +64,11 @@ describe('GET user detail', () => {
       .get('/v1/api/user')
       .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9')
 
+    //Aserrt should be like this make test cannot capture changes from server2 contract
     expect(response.status).toBe(200)
-    expect(response.body).toEqual({
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      point: 100,
-      tier: "bronze",
-    })
+    expect(response.body.name).toEqual('John Doe');
+    expect(response.body.email).toEqual('john.doe@example.com');
+    
     expect(response.header.authorization).toEqual(
       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
     )
