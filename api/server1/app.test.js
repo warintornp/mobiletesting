@@ -68,6 +68,8 @@ describe('GET user detail', () => {
     expect(response.body).toEqual({
       name: 'John Doe',
       email: 'john.doe@example.com',
+      point: 100,
+      tier: "bronze",
     })
     expect(response.header.authorization).toEqual(
       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'

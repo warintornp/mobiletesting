@@ -93,7 +93,7 @@ function fetchUserPoint(authToken) {
           })
           response.on('end', () => {
             const userPoint = JSON.parse(data)
-            resolve(userPoint)
+            resolve({ point: userPoint.point })
           })
         }
       )
@@ -120,7 +120,7 @@ function fetchUserTier(authToken) {
           })
           response.on('end', () => {
             const userTier = JSON.parse(data)
-            resolve(userTier)
+            resolve({tier: userTier.tier})
           })
         }
       )
