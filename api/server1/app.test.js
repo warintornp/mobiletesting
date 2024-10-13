@@ -59,6 +59,9 @@ describe('POST pin validation', () => {
 })
 
 describe('GET user detail', () => {
+  it('200 ', async () => {
+    // TODO
+  })
   it('200 with user detail WHEN authToken is valid', async () => {
     const response = await request(app)
       .get('/v1/api/user')
