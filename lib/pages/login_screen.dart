@@ -27,6 +27,7 @@ class LoginScreen extends StatelessWidget {
           builder: (context, viewModel, child) {
             return Column(
               children: <Widget>[
+                //workshop 0 - ไม่แยก dot view ออกมา
                 Dot(
                   viewModel: viewModel,
                 ),

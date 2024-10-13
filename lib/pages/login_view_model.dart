@@ -20,6 +20,7 @@ class LoginViewModel extends ChangeNotifier {
   String get inputtedPin => _inputtedPin;
   bool get isLoading => _isLoading;
 
+  //workshop 1
   void onDigitPressed(int digit, BuildContext context) {
     addPinDigit(digit);
 
@@ -36,6 +37,7 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
+  //workshop 1
   void addPinDigit(int digit) {
     if (_inputtedPin.length < 6) {
       _inputtedPin = _inputtedPin + digit.toString();
@@ -43,6 +45,7 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
+  ////workshop 4 
   Future<void> _submitPin(BuildContext context) async {
     _isLoading = true;
     notifyListeners();
@@ -63,6 +66,7 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
+  //Workshop 7
   void _navigateToUserDetailsScreen(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -74,6 +78,7 @@ class LoginViewModel extends ChangeNotifier {
     );
   }
 
+  //workshop 0
   void _showErrorDialog(String content, BuildContext context) {
     showDialog(
       context: context,
@@ -94,6 +99,7 @@ class LoginViewModel extends ChangeNotifier {
     );
   }
 
+  //workshop 2
   void onDeleteButtonPressed() {
     if (_inputtedPin.isNotEmpty) {
       _inputtedPin = _inputtedPin.substring(0, _inputtedPin.length - 1);

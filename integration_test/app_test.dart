@@ -6,7 +6,7 @@ void main (){
 
   //
   // This is E2E Test (Integration test in Flutter)
-  // Require server to be start first before running the test
+  // Require server#1 to be start first before running the test
   //
 
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
