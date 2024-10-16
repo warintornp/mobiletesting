@@ -1,9 +1,9 @@
 const request = require('supertest')
-const app = require('./app')
+const {server} = require('./app')
 
 describe('POST pin validation', () => {
   it('200', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/v1/api/pin/validate')
       .send({ pin: '132495' })
 
@@ -14,7 +14,7 @@ describe('POST pin validation', () => {
   })
 
   it('401 Unauthorised', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/v1/api/pin/validate')
       .send({ pin: 'eiei' })
 
@@ -24,7 +24,7 @@ describe('POST pin validation', () => {
   })
 
   it('400 pin field is absent', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/v1/api/pin/validate')
       .send({ body: '243546' })
 
@@ -33,7 +33,7 @@ describe('POST pin validation', () => {
   })
 
   it('400 pin is null', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/v1/api/pin/validate')
       .send({ pin: null })
 
@@ -43,7 +43,7 @@ describe('POST pin validation', () => {
   })
 
   it('400 pin is empty string', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .post('/v1/api/pin/validate')
       .send({ pin: '' })
 
@@ -53,7 +53,7 @@ describe('POST pin validation', () => {
   })
 
   afterAll((done) => {
-    app.close()
+    server.close()
     done()
   })
 })
@@ -63,7 +63,7 @@ describe('GET user detail', () => {
     // TODO
   })
   it('200 with user detail WHEN authToken is valid', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .get('/v1/api/user')
       .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9')
 
@@ -78,7 +78,7 @@ describe('GET user detail', () => {
   })
 
   it('401 Unauthorised WHEN authToken is invalid token', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .get('/v1/api/user')
       .set('Authorization', 'Bearer 11111')
 
@@ -86,7 +86,7 @@ describe('GET user detail', () => {
     expect(response.body).toEqual({ error: 'Unauthorised' })
   })
   it('400  WHEN authToken is invalid format', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .get('/v1/api/user')
       .set('Authorization', 'Bearer11111')
 
@@ -94,13 +94,13 @@ describe('GET user detail', () => {
     expect(response.body).toEqual({ error: 'Invalid request' })
   })
   it('401 Unauthorised WHEN authToken is absent', async () => {
-    const response = await request(app).get('/v1/api/user')
+    const response = await request(server).get('/v1/api/user')
 
     expect(response.status).toBe(401)
     expect(response.body).toEqual({ error: 'Unauthorised' })
   })
   it('400 WHEN authToken is empty string', async () => {
-    const response = await request(app)
+    const response = await request(server)
       .get('/v1/api/user')
       .set('Authorization', '')
 
@@ -109,7 +109,7 @@ describe('GET user detail', () => {
   })
 
   afterAll((done) => {
-    app.close()
+    server.close()
     done()
   })
 })

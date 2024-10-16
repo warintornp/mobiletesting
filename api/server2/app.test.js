@@ -1,10 +1,10 @@
 const request = require('supertest')
-const app = require('./app')
+const {server} = require('./app')
 
 describe('GET user point', () => {
   it('200', async () => {
     // Act
-    const response = await request(app)
+    const response = await request(server)
       .get('/v1/api/user/point')
       .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9')
 
@@ -19,7 +19,7 @@ describe('GET user point', () => {
   })
   it('200', async () => {
     // Act
-    const response = await request(app)
+    const response = await request(server)
       .get('/v1/api/user/point')
       .set('Authorization', 'Bearer eyJlbWFpbCI6InBhdEBleGFtcGxlLmNvbSJ9')
 
@@ -34,7 +34,7 @@ describe('GET user point', () => {
   })
   it('401 Unauthorised WHEN authToken is invalid token', async () => {
     // Act
-    const response = await request(app)
+    const response = await request(server)
       .get('/v1/api/user/point')
       .set('Authorization', 'Bearer token')
 
@@ -45,7 +45,7 @@ describe('GET user point', () => {
   })
   it('400  WHEN authToken is invalid format', async () => {
     // Act
-    const response = await request(app)
+    const response = await request(server)
       .get('/v1/api/user/point')
       .set('Authorization', 'Bearer11111')
 
@@ -56,7 +56,7 @@ describe('GET user point', () => {
   })
   it('401 Unauthorised WHEN authToken is absent', async () => {
     // Act
-    const response = await request(app).get('/v1/api/user/point')
+    const response = await request(server).get('/v1/api/user/point')
 
     // Assert
     expect(response.status).toBe(401)
@@ -65,7 +65,7 @@ describe('GET user point', () => {
   })
   it('400 WHEN authToken is empty string', async () => {
     // Act
-    const response = await request(app)
+    const response = await request(server)
       .get('/v1/api/user/point')
       .set('Authorization', '')
 
@@ -75,14 +75,14 @@ describe('GET user point', () => {
     expect(response.header.authorization).toBeUndefined()
   })
   afterAll((done) => {
-    app.close()
+    server.close()
     done()
   })
 })
 describe('GET user tier', () => {
   it('200', async () => {
     // Act
-    const response = await request(app)
+    const response = await request(server)
       .get('/v1/api/user/tier')
       .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9')
 
@@ -97,7 +97,7 @@ describe('GET user tier', () => {
   })
   it('200', async () => {
     // Act
-    const response = await request(app)
+    const response = await request(server)
       .get('/v1/api/user/tier')
       .set('Authorization', 'Bearer eyJlbWFpbCI6InBhdEBleGFtcGxlLmNvbSJ9')
 
@@ -112,7 +112,7 @@ describe('GET user tier', () => {
   })
   it('401 Unauthorised WHEN authToken is invalid token', async () => {
     // Act
-    const response = await request(app)
+    const response = await request(server)
       .get('/v1/api/user/tier')
       .set('Authorization', 'Bearer token')
 
@@ -123,7 +123,7 @@ describe('GET user tier', () => {
   })
   it('400  WHEN authToken is invalid format', async () => {
     // Act
-    const response = await request(app)
+    const response = await request(server)
       .get('/v1/api/user/tier')
       .set('Authorization', 'Bearer11111')
 
@@ -134,7 +134,7 @@ describe('GET user tier', () => {
   })
   it('401 Unauthorised WHEN authToken is absent', async () => {
     // Act
-    const response = await request(app).get('/v1/api/user/tier')
+    const response = await request(server).get('/v1/api/user/tier')
 
     // Assert
     expect(response.status).toBe(401)
@@ -143,7 +143,7 @@ describe('GET user tier', () => {
   })
   it('400 WHEN authToken is empty string', async () => {
     // Act
-    const response = await request(app)
+    const response = await request(server)
       .get('/v1/api/user/tier')
       .set('Authorization', '')
 
@@ -153,7 +153,7 @@ describe('GET user tier', () => {
     expect(response.header.authorization).toBeUndefined()
   })
   afterAll((done) => {
-    app.close()
+    server.close()
     done()
   })
 })

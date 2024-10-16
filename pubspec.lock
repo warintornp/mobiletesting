@@ -283,10 +283,10 @@ packages:
     dependency: "direct main"
     description:
       name: http
-      sha256: b9c29a161230ee03d3ccf545097fccd9b87a5264228c5d348202e0f0c28f9010
+      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.2"
+    version: "0.13.6"
   http_multi_server:
     dependency: transitive
     description:
@@ -436,6 +436,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  pact_dart:
+    dependency: "direct dev"
+    description:
+      name: pact_dart
+      sha256: "1aa7caf2d2be5701d4631eec779ce20759ba30e3e13514813ba7eee7abc9538f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.0"
   path:
     dependency: transitive
     description:

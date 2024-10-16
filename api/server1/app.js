@@ -24,6 +24,8 @@ const users = {
   },
 }
 
+const server2BasedUrl = 'http://localhost:4000'
+
 app.use(bodyParser.json())
 app.post('/v1/api/pin/validate', (req, res) => {
   const pin = req.body.pin
@@ -62,8 +64,8 @@ app.get('/v1/api/user', (req, res) => {
 
   function getUserData() {
     Promise.all([
-      fetchUserPoint(req.headers.authorization),
-      fetchUserTier(req.headers.authorization),
+      fetchUserPoint(server2BasedUrl, req.headers.authorization),
+      fetchUserTier(server2BasedUrl, req.headers.authorization),
     ])
       .then(([userPoint, userTier]) => {
         res.setHeader('Authorization', req.headers.authorization)
@@ -76,11 +78,11 @@ app.get('/v1/api/user', (req, res) => {
   }
 })
 
-function fetchUserPoint(authToken) {
+function fetchUserPoint(basedUrl, authToken) {
   return new Promise((resolve, reject) => {
     http
       .get(
-        'http://localhost:4000/v1/api/user/point',
+        `${basedUrl}/v1/api/user/point`,
         {
           headers: {
             Authorization: authToken,
@@ -93,7 +95,7 @@ function fetchUserPoint(authToken) {
           })
           response.on('end', () => {
             const userPoint = JSON.parse(data)
-            resolve({ point: userPoint.point })
+            resolve(userPoint)
           })
         }
       )
@@ -102,12 +104,14 @@ function fetchUserPoint(authToken) {
         reject(error)
       })
   })
+
 }
-function fetchUserTier(authToken) {
+
+function fetchUserTier(basedUrl, authToken) {
   return new Promise((resolve, reject) => {
     http
       .get(
-        'http://localhost:4000/v1/api/user/tier',
+        `${basedUrl}/v1/api/user/tier`,
         {
           headers: {
             Authorization: authToken,
@@ -120,17 +124,20 @@ function fetchUserTier(authToken) {
           })
           response.on('end', () => {
             const userTier = JSON.parse(data)
-            resolve({tier: userTier.tier})
+            resolve(userTier)
           })
         }
       )
       .on('error', (error) => {
-        console.error('Error:', error.message)
+        console.error('Error here:', error)
         reject(error)
       })
   })
 }
+
+//causing jest test halt
 var server = app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`)
 })
-module.exports = server
+module.exports.server = server
+module.exports.fetchUserPoint = fetchUserPoint;
