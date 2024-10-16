@@ -64,3 +64,15 @@ Note: To run specific describe in test file, `npx jest app.test.js -t {describe 
 2. Verify contract 
 `npm test provider.test.js`
 
+
+### Performance testing K6 
+1. go to server1
+`cd api/server1`
+2. Install K6 
+`brew install k6`
+3. Create k6 file 
+`k6 new`
+4. Run k6 script
+`k6 run k6-script.js` || `k6 run --vus 10 --duration 30s k6-script.js` 
+
+
