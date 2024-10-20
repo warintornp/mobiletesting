@@ -35,14 +35,7 @@ Note: To run specific describe in test file, `npx jest app.test.js -t {describe 
 ### Step to start Node.js server2
 
 
-## E2E testing (FE-BE)
-### Steps to install and run E2E test using Maestro framework
-1. Install [curl -fsSL "https://get.maestro.mobile.dev" | bash ](https://maestro.mobile.dev/getting-started/installing-maestro)
-2. Locate to maestro test folder
-`cd e2e_test`
-3. run e2e test
-`maestro test login.yaml`
-
+## E2E testing (FE-server1-server2)
 ### Steps to run E2E test using flutter framework
 1. Require server1 running
 `cd api/server1`
@@ -51,21 +44,21 @@ Note: To run specific describe in test file, `npx jest app.test.js -t {describe 
 `flutter test integration_test/app_test.dart`
 
 
-### Contract Test 
-## Consumer - create contract file 
+## Contract Test (server1-server2)
+### Consumer - create contract file 
 1. Go to server 1 - Consumer
 `cd api/server1` 
 2. Create consumer contract file
 `npm run test consumer.spec.js`
 3. Consumer's Contract test file will be created in api/server1/pacts/server1-server2.json
-## Provider - verify consumer contract file
+### Provider - verify consumer contract file
 1. Go to server2 - Provider 
 `cd api/server1` 
 2. Verify contract 
 `npm test provider.test.js`
 
 
-### Performance testing K6 
+## Performance testing K6 
 1. go to server1
 `cd api/server1`
 2. Install K6 
