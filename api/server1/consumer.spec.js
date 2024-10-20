@@ -1,6 +1,6 @@
 const { PactV4 } = require('@pact-foundation/pact')
 const path = require('path')
-const { fetchUserPoint } = require('./app');
+const { server,fetchUserPoint } = require('./app');
 const { error } = require('console');
 
 const provider = new PactV4({
@@ -46,4 +46,9 @@ describe('Requesting point from server 2', () => {
                 expect(response.error).toBe('Invalid request');
             })
     })
+
+    afterAll((done) => {
+        server.close()
+        done()
+      })
 })
