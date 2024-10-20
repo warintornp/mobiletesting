@@ -56,6 +56,7 @@ void main() {
 
     //Assertion
     expect(find.byType(AlertDialog), findsNothing);
+    expect(find.byKey(Key("home_screen")), findsOneWidget);
     verify(mockLoginService.authenticate('132495')).called(1);
   }, tags: 'widget');
 
