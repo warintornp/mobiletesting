@@ -33,19 +33,21 @@ Note: To run specific describe in test file, `npx jest app.test.js -t {describe 
 
 ## Node.js server2
 ### Step to start Node.js server2
-
+1. navigate to server2's location. Given now terminal is at root project folder
+`cd api/server2`
+2. pull server dependency
+`npm install`
+3. start server
+`node app.js`
+4. verify server health by running `app.consumer.http`. Need to install vscode extension, [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) first.
+5. Run e2e testing
+`npx jest app.test.js`
 
 
 
 
 
 ## E2E testing (FE-BE)
-### Steps to install and run E2E test using Maestro framework
-1. Install [curl -fsSL "https://get.maestro.mobile.dev" | bash ](https://maestro.mobile.dev/getting-started/installing-maestro)
-2. Locate to maestro test folder
-`cd e2e_test`
-3. run e2e test
-`maestro test login.yaml`
 
 ### Steps to run E2E test using flutter framework
 1. Require server1 running
