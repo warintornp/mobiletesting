@@ -7,7 +7,13 @@
 ### Generate Mock component using Mockito for test class 
 `dart run build_runner build`
 
-### Goldens test
+### Unit test
+`flutter test --tags unit`
+
+### widget test
+`flutter test --tags widget`
+
+### Goldens test(snapshot)
 `flutter test --update-goldens --tags=golden` 
 
 ### Update Goldens Reference Image 
