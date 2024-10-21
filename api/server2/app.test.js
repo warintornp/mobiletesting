@@ -1,5 +1,5 @@
 const request = require('supertest')
-const {server} = require('./app')
+const { server } = require('./app')
 
 describe('GET user point', () => {
   it('200', async () => {
@@ -11,7 +11,7 @@ describe('GET user point', () => {
     // Assert
     expect(response.status).toBe(200)
     expect(response.body).toEqual({
-      point: 100,
+      credit: 100,
     })
     expect(response.header.authorization).toEqual(
       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
@@ -26,7 +26,7 @@ describe('GET user point', () => {
     // Assert
     expect(response.status).toBe(200)
     expect(response.body).toEqual({
-      point: 200,
+      credit: 200,
     })
     expect(response.header.authorization).toEqual(
       'Bearer eyJlbWFpbCI6InBhdEBleGFtcGxlLmNvbSJ9'

@@ -1,5 +1,5 @@
 const request = require('supertest')
-const {server} = require('./app')
+const { server } = require('./app')
 
 describe('POST pin validation', () => {
   it('200', async () => {
@@ -69,9 +69,11 @@ describe('GET user detail', () => {
 
     //Aserrt should be like this make test cannot capture changes from server2 contract
     expect(response.status).toBe(200)
-    expect(response.body.name).toEqual('John Doe');
-    expect(response.body.email).toEqual('john.doe@example.com');
-    
+    expect(response.body.name).toEqual('John Doe')
+    expect(response.body.email).toEqual('john.doe@example.com')
+    expect(response.body.tier).toEqual('bronze')
+    expect(response.body.point).toEqual(100)
+
     expect(response.header.authorization).toEqual(
       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
     )

@@ -30,7 +30,7 @@ app.get('/v1/api/user/point', (req, res) => {
     res.status(401).json({ error: 'Unauthorised' })
   } else {
     res.setHeader('Authorization', req.headers.authorization)
-    res.status(200).json({ point: points[authToken] })
+    res.status(200).json({ credit: points[authToken] })
   }
 })
 
