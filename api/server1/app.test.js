@@ -71,6 +71,8 @@ describe('GET user detail', () => {
     expect(response.status).toBe(200)
     expect(response.body.name).toEqual('John Doe');
     expect(response.body.email).toEqual('john.doe@example.com');
+    expect(response.body.tier).toEqual('bronze');
+    expect(response.body.point).toEqual(100);
     
     expect(response.header.authorization).toEqual(
       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
