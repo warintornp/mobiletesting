@@ -22,7 +22,7 @@ class LoginViewModel extends ChangeNotifier {
 
   //workshop 1
   void onDigitPressed(int digit, BuildContext context) {
-    addPinDigit(digit);
+    _addPinDigit(digit);
 
     if (_inputtedPin.length < 6) {
       return;
@@ -38,7 +38,7 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   //workshop 1
-  void addPinDigit(int digit) {
+  void _addPinDigit(int digit) {
     if (_inputtedPin.length < 6) {
       _inputtedPin = _inputtedPin + digit.toString();
       notifyListeners();
