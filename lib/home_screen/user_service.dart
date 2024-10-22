@@ -22,7 +22,8 @@ class UserService {
       }
 
       final response = await client.get(
-        Uri.parse('http://localhost:3000/v1/api/user'),
+        // Android emu - 10.0.2.2, iOS simu - localhost, physical device - your IP
+        Uri.parse('http://{replace me}:3000/v1/api/user'),
         headers: {
           "content-type": "application/json",
           'Authorization': authToken,

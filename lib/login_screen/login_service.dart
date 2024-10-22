@@ -12,7 +12,8 @@ class LoginService {
         secureStorage = secureStorage ?? SecureStorage();
 
   Future<bool> authenticate(String pin) async {
-    final url = Uri.parse('http://localhost:3000/v1/api/pin/validate');
+    // Android emu - 10.0.2.2, iOS simu - localhost, physical device - your IP
+    final url = Uri.parse('http://{replace me}:3000/v1/api/pin/validate');
     final body = jsonEncode({'pin': pin});
 
     try {

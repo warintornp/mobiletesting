@@ -22,7 +22,7 @@ void main() {
     test('API call throw error', () async {
       // Arrange
       when(mockClient.post(
-              Uri.parse('http://localhost:3000/v1/api/pin/validate'),
+              Uri.parse('http://{replace me}:3000/v1/api/pin/validate'),
               body: jsonEncode({'pin': '123456'}),
               headers: {"content-type": "application/json"}))
           .thenThrow(Exception('error'));
@@ -34,7 +34,7 @@ void main() {
     test('API call return 400 status code', () async {
       // Arrange
       when(mockClient.post(
-              Uri.parse('http://localhost:3000/v1/api/pin/validate'),
+              Uri.parse('http://{replace me}:3000/v1/api/pin/validate'),
               body: jsonEncode({'pin': '123456'}),
               headers: {"content-type": "application/json"}))
           .thenAnswer((_) async => http.Response('Invalid request', 400));
@@ -46,7 +46,7 @@ void main() {
     test('API call return 401 status code', () async {
       // Arrange
       when(mockClient.post(
-              Uri.parse('http://localhost:3000/v1/api/pin/validate'),
+              Uri.parse('http://{replace me}:3000/v1/api/pin/validate'),
               body: jsonEncode({'pin': '123456'}),
               headers: {"content-type": "application/json"}))
           .thenAnswer((_) async => http.Response('Unauthorised', 401));
@@ -61,7 +61,7 @@ void main() {
           () async {
         // Arrange
         when(mockClient.post(
-                Uri.parse('http://localhost:3000/v1/api/pin/validate'),
+                Uri.parse('http://{replace me}:3000/v1/api/pin/validate'),
                 body: jsonEncode({'pin': '123456'}),
                 headers: {"content-type": "application/json"}))
             .thenAnswer((_) async => http.Response("", 200, headers: {
