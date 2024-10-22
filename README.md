@@ -20,7 +20,9 @@
 `flutter test --update-goldens`
 
 ### Troubleshooting
-Error: cocopod not install or not invalid state. Solution [Intel one](https://stackoverflow.com/questions/62593939/cocoapods-not-installed-or-not-in-valid-state), [ARM one](https://stackoverflow.com/questions/64901180/how-to-run-cocoapods-on-apple-silicon-m1)
+1. Error: cocopod not install or not invalid state. Solution [Intel one](https://stackoverflow.com/questions/62593939/cocoapods-not-installed-or-not-in-valid-state), [ARM one](https://stackoverflow.com/questions/64901180/how-to-run-cocoapods-on-apple-silicon-m1)
+2. iOS simulator can connect using http://localhost:3000
+But android emulator cannot. Android emulator need to use actual IP address or 10.0.2.2 otherwise error will be throw from flutter code.
 
 
 ## Node.js server1
