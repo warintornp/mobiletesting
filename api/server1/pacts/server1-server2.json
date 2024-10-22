@@ -1,0 +1,53 @@
+{
+  "consumer": {
+    "name": "server1"
+  },
+  "interactions": [
+    {
+      "description": "a request for point",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "user authorization"
+        }
+      ],
+      "request": {
+        "headers": {
+          "Authorization": [
+            ""
+          ]
+        },
+        "method": "GET",
+        "path": "/v1/api/user/point"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "error": "Invalid request"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "status": 400
+      },
+      "type": "Synchronous/HTTP"
+    }
+  ],
+  "metadata": {
+    "pactRust": {
+      "ffi": "0.4.22",
+      "models": "1.2.3"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "server2"
+  }
+}

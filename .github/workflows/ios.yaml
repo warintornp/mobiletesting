@@ -1,0 +1,49 @@
+name: iOS
+
+on:
+  push:
+    branches:
+      - all_workshop_output
+  pull_request:
+    branches:
+      - all_workshop_output
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.24.3
+      - run: flutter --version | flutter devices
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run unit tests
+        run: flutter test --tags unit
+
+      - name: Run widget tests
+        run: flutter test --tags widget
+
+      - name: Run golden tests
+        run: flutter test --tags=golden
+
+      - name: Upload test failures
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-failures
+          path: /home/runner/work/mobiletesting/mobiletesting/test/ui_test/failures
+
+      - name: Archive iOS
+        run: flutter build ios --release --no-codesign
+        working-directory: ios
+
+      - name: Upload to Firebase App Distribution
+        run: echo "Success upload to Firebase App Distribution"
