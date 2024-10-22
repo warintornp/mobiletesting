@@ -54,12 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomAppBar(
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           IconButton(
-            icon: Icon(Icons.home),
-            onPressed: () {
-              // Handle Home button press
-            },
-          ),
-          IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
               // Handle Search button press
