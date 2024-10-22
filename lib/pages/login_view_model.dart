@@ -6,6 +6,7 @@ import 'package:mobiletesting/pages/home_view_model.dart';
 import 'package:mobiletesting/pages/pin_rules.dart';
 import 'package:mobiletesting/pages/sort_order.dart';
 import 'package:mobiletesting/login_service.dart';
+import 'package:mobiletesting/user_service.dart';
 import 'package:provider/provider.dart';
 
 class LoginViewModel extends ChangeNotifier {
@@ -45,7 +46,7 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
-  ////workshop 4 
+  ////workshop 4
   Future<void> _submitPin(BuildContext context) async {
     _isLoading = true;
     notifyListeners();
@@ -71,7 +72,7 @@ class LoginViewModel extends ChangeNotifier {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => ChangeNotifierProvider(
-          create: (_) => HomeViewModel(),
+          create: (_) => HomeViewModel(userService: UserService()),
           child: HomeScreen(),
         ),
       ),
