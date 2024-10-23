@@ -82,5 +82,7 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   //workshop 2
-  void onDeleteButtonPressed() {}
+  void onDeleteButtonPressed() {
+    _inputtedPin = _inputtedPin.substring(0, _inputtedPin.length - 1);
+  }
 }
