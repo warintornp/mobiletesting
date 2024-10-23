@@ -95,6 +95,15 @@ void main() {
           // Assert
           expect(loginViewModel.inputtedPin, '11111');
         }, tags: 'unit');
+
+        test(
+            'given inputted pin is empty when delete button is press then nothing happened',
+            () {
+          // Arrange
+          loginViewModel.onDeleteButtonPressed();
+          // Assert
+          expect(loginViewModel.inputtedPin, '');
+        }, tags: 'unit');
       },
     );
 
