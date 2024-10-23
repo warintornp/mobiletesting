@@ -23,10 +23,10 @@ void main() {
           'given inputted pin is empty when digit is pressed then inputted pin should be added',
           () {
         // Arrange
-
         // Act
-
+        loginViewModel.onDigitPressed(1, MockBuildContext());
         // Assert
+        expect(loginViewModel.inputtedPin, '1');
       }, tags: 'unit');
 
       test(
