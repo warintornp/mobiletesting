@@ -18,8 +18,22 @@ class Dot extends StatelessWidget {
   }
 
   Widget createCircle(int index, LoginViewModel viewModel) {
-    final inputtedPinLength = 0;
-    return Container(width: 15.0, height: 15.0, decoration: nonFilledCircle());
+    return Container(
+      width: 15.0,
+      height: 15.0,
+      decoration: index <= viewModel.inputtedPin.length
+          ? const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.orange,
+            )
+          : BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.orange,
+                width: 2.0,
+              ),
+            ),
+    );
   }
 
   BoxDecoration filledCircle() {
