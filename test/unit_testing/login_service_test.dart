@@ -56,11 +56,50 @@ void main() {
       expect(result, false);
     }, tags: 'unit');
     group('API call return 200 status code', () {
-      test('API call return null authorization token', () async {});
-      test('API call return empty string authorization token', () async {});
+      test('API call return null authorization token', () async {
+        // Arrange
+        when(mockClient.post(
+                Uri.parse('http://localhost:3000/v1/api/pin/validate'),
+                body: jsonEncode({'pin': '123456'}),
+                headers: {"content-type": "application/json"}))
+            .thenAnswer((_) async => http.Response("", 200));
+        // Act
+        final result = await loginService.authenticate('123456');
+        // Assert
+        expect(result, false);
+      }, tags: 'unit');
+      test('API call return empty string authorization token', () async {
+        // Arrange
+        when(mockClient.post(
+                Uri.parse('http://localhost:3000/v1/api/pin/validate'),
+                body: jsonEncode({'pin': '123456'}),
+                headers: {"content-type": "application/json"}))
+            .thenAnswer((_) async => http.Response("", 200, headers: {
+                  'authorization': '',
+                }));
+        // Act
+        final result = await loginService.authenticate('123456');
+        // Assert
+        expect(result, false);
+      }, tags: 'unit');
 
       test('API call return authorization token and failed to store the token',
-          () async {});
+          () async {
+        // Arrange
+        when(mockClient.post(
+                Uri.parse('http://localhost:3000/v1/api/pin/validate'),
+                body: jsonEncode({'pin': '123456'}),
+                headers: {"content-type": "application/json"}))
+            .thenAnswer((_) async => http.Response("", 200, headers: {
+                  'authorization': 'Bearer token',
+                }));
+        when(mockSecureStorage.store('authToken', 'Bearer token'))
+            .thenThrow(Exception('error'));
+        // Act
+        final result = await loginService.authenticate('123456');
+        // Assert
+        expect(result, false);
+      }, tags: 'unit');
       test(
           'API call return authorization token and successfully store the token',
           () async {
