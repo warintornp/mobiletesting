@@ -12,6 +12,7 @@ class PinRules {
   final List<PinRule> _rules = [
     PinRule((pin) => !isSequential(pin)),
     PinRule((pin) => !isRepeatingDigits(pin)),
+    PinRule((pin) => !isTotalEqualsToFifteen(pin)),
   ];
 
   String? getErrorMessage(String pin) {
@@ -44,5 +45,13 @@ class PinRules {
     }
 
     return isIncreasing || isDecreasing;
+  }
+
+  static bool isTotalEqualsToFifteen(String pin) {
+    int total = 0;
+    for (int i = 0; i < pin.length; i++) {
+      total += int.parse(pin[i]);
+    }
+    return total == 15;
   }
 }

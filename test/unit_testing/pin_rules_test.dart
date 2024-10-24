@@ -3,7 +3,7 @@ import 'package:mobiletesting/login_screen/pin_rules.dart';
 
 void main() {
   group('isSequential', () {
-    test('Given the PIN is sequential when validate then return true', () {
+    test('Given the PIN is sequential when evaluate then return true', () {
       final pin1 = "012345";
       expect(PinRules.isSequential(pin1), true);
 
@@ -14,9 +14,40 @@ void main() {
       expect(PinRules.isSequential(pin3), true);
     }, tags: 'unit');
 
-    test('Given the PIN is sequential when validate then return false', () {
+    test('Given the PIN is sequential when evaluate then return false', () {
       final pin1 = "012875";
       expect(PinRules.isSequential(pin1), false);
+    }, tags: 'unit');
+  });
+
+  group('isRepeatingDigits', () {
+    test('Given the PIN is Repeating Digits when evaluate then return true',
+        () {
+      final pin1 = "012342";
+      expect(PinRules.isRepeatingDigits(pin1), true);
+    }, tags: 'unit');
+
+    test(
+        'Given the PIN is not Repeating Digits when evaluate then return false',
+        () {
+      final pin1 = "012875";
+      expect(PinRules.isRepeatingDigits(pin1), false);
+    }, tags: 'unit');
+  });
+
+  group('isTotalEqualsToFifteen', () {
+    test(
+        'Given the PIN is Total Equals To Fifteen when evaluate then return true',
+        () {
+      final pin1 = "012345";
+      expect(PinRules.isTotalEqualsToFifteen(pin1), true);
+    }, tags: 'unit');
+
+    test(
+        'Given the PIN is Total Equals To Fifteen when evaluate then return false',
+        () {
+      final pin1 = "012875";
+      expect(PinRules.isTotalEqualsToFifteen(pin1), false);
     }, tags: 'unit');
   });
   // test(
@@ -39,12 +70,12 @@ void main() {
   // });
 
   test(
-      'Given the PIN does not contains sequential digits but contains repeating digits then return error message',
+      'Given the PIN does not contains sequential digits and does not contains repeating digits but total is 15 then return error message',
       () {
-    expect(PinRules().getErrorMessage("012872"), "Pin format is invalid");
+    expect(PinRules().getErrorMessage("012453"), "Pin format is invalid");
   });
   test(
-      'Given The customer is entering 6 digit a PIN when the PIN does not contains sequential digits And does not contains repeating digits then success message dialog displayed',
+      'Given The customer is entering 6 digit a PIN when the PIN does not contains sequential digits And does not contains repeating digits And total is not 15 then success message dialog displayed',
       () {
     expect(PinRules().getErrorMessage("012873"), null);
   });
