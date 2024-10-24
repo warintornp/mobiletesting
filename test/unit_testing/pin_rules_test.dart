@@ -8,10 +8,10 @@ void main() {
     final pin1 = "012345";
     expect(PinRules().getErrorMessage(pin1), "Pin format is invalid");
 
-    // final pin2 = "543210";
-    // expect(PinRules().getErrorMessage(pin2), "Pin format is invalid");
+    final pin2 = "123456";
+    expect(PinRules().getErrorMessage(pin2), "Pin format is invalid");
 
-    final pin3 = "123456";
+    final pin3 = "543210";
     expect(PinRules().getErrorMessage(pin3), "Pin format is invalid");
   });
 }

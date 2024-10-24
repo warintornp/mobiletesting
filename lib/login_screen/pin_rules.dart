@@ -24,6 +24,7 @@ class PinRules {
 
   static bool isSequential(String pin) {
     bool isIncreasing = true;
+    bool isDecreasing = true;
 
     for (int i = 0; i < pin.length - 1; i++) {
       int currentDigit = int.parse(pin[i]);
@@ -32,8 +33,11 @@ class PinRules {
       if (currentDigit + 1 != nextDigit) {
         isIncreasing = false;
       }
+      if (currentDigit - 1 != nextDigit) {
+        isDecreasing = false;
+      }
     }
 
-    return isIncreasing;
+    return isIncreasing || isDecreasing;
   }
 }
