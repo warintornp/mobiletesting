@@ -41,7 +41,9 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   Future<void> onShowErrorDialogButtonPressed(BuildContext context) async {
-    _showErrorDialog("Workshop1", context);
+    // _showErrorDialog("Workshop1", context);
+    _dialogMessage = "Workshop1";
+    notifyListeners();
   }
 
   //workshop 1
@@ -76,5 +78,10 @@ class LoginViewModel extends ChangeNotifier {
       _inputtedPin = _inputtedPin.substring(0, _inputtedPin.length - 1);
       notifyListeners();
     }
+  }
+
+  void onDialogClose() {
+    _dialogMessage = '';
+    // notifyListeners();
   }
 }

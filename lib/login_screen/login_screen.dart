@@ -23,6 +23,7 @@ class LoginScreen extends StatelessWidget {
             if (viewModel.dialogMessage.isNotEmpty) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 _showErrorDialog(viewModel.dialogMessage, context, () {
+                  viewModel.onDialogClose();
                 });
               });
             }

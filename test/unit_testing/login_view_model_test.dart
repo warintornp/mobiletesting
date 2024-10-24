@@ -155,5 +155,27 @@ void main() {
         // verify(loginViewModel.notifyListeners()).called(2);
       }, tags: 'unit');
     });
+
+    group('onDialogClose', () {
+      test(
+          'given dialogMessage is not empty when dialog is closed then dialogMessage should be empty',
+          () {
+        // Arrange
+        // loginViewModel.dialogMessage = "success: Ready to submit pin";
+        when(mockPinRules.getErrorMessage(any)).thenReturn(null);
+        final mockBuildContext = MockBuildContext();
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+
+        // Act
+        loginViewModel.onDialogClose();
+        // Assert
+        expect(loginViewModel.dialogMessage, "");
+      }, tags: 'unit');
+    });
   });
 }
