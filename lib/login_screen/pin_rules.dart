@@ -23,10 +23,17 @@ class PinRules {
   }
 
   static bool isSequential(String pin) {
-    if (pin == "012345") {
-      return true;
-    } else {
-      return false;
+    bool isIncreasing = true;
+
+    for (int i = 0; i < pin.length - 1; i++) {
+      int currentDigit = int.parse(pin[i]);
+      int nextDigit = int.parse(pin[i + 1]);
+
+      if (currentDigit + 1 != nextDigit) {
+        isIncreasing = false;
+      }
     }
+
+    return isIncreasing;
   }
 }
