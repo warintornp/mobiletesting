@@ -28,6 +28,16 @@ class LoginViewModel extends ChangeNotifier {
       _inputtedPin = _inputtedPin + digit.toString();
       notifyListeners();
     }
+
+    if (_inputtedPin.length < 6) {
+      return;
+    }
+    final errorMessage = PinRules().getErrorMessage(_inputtedPin);
+
+    _showErrorDialog(errorMessage ?? "success: Ready to submit pin", context);
+    // _isDialogPresent = true;
+    // _DislogMessage = "success/fa`";
+    // notifyListeners();
   }
 
   Future<void> onShowErrorDialogButtonPressed(BuildContext context) async {
