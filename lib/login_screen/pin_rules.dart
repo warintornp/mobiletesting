@@ -2,24 +2,29 @@ import 'dart:math';
 
 class PinRule {
   final bool Function(String pin) condition;
-  final String description;
+  // final String description;
 
-  PinRule(this.condition, this.description);
+  PinRule(this.condition);
 }
 
 // workshop #3
 class PinRules {
   final List<PinRule> _rules = [
-    PinRule((pin) => !isSequential(pin), "Pin format is invalid"),
+    PinRule((pin) => !isSequential(pin)),
+    PinRule((pin) => !isRepeatingDigits(pin)),
   ];
 
   String? getErrorMessage(String pin) {
-    // possible to return null or error message
-    if (!_rules[0].condition(pin)) {
-      return _rules[0].description;
-    } else {
-      return null;
+    for (int i = 0; i < _rules.length; i++) {
+      if (!_rules[i].condition(pin)) {
+        return "Pin format is invalid"; // _rules[0].description;
+      }
     }
+    return null;
+  }
+
+  static bool isRepeatingDigits(String pin) {
+    return pin.length != pin.split('').toSet().length;
   }
 
   static bool isSequential(String pin) {
