@@ -15,8 +15,9 @@ class LoginViewModel extends ChangeNotifier {
 
   final LoginService loginService;
   final SortOrder keyPadsortOrder;
+  final PinRules pinRules;
 
-  LoginViewModel(this.loginService, this.keyPadsortOrder);
+  LoginViewModel(this.loginService, this.keyPadsortOrder, this.pinRules);
 
   String get inputtedPin => _inputtedPin;
   bool get isLoading => _isLoading;
@@ -32,12 +33,12 @@ class LoginViewModel extends ChangeNotifier {
     if (_inputtedPin.length < 6) {
       return;
     }
-    final errorMessage = PinRules().getErrorMessage(_inputtedPin);
 
     _showErrorDialog(errorMessage ?? "success: Ready to submit pin", context);
     // _isDialogPresent = true;
     // _DislogMessage = "success/fa`";
     // notifyListeners();
+    final errorMessage = pinRules.getErrorMessage(_inputtedPin);
   }
 
   Future<void> onShowErrorDialogButtonPressed(BuildContext context) async {
