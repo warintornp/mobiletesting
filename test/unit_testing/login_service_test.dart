@@ -56,6 +56,11 @@ void main() {
       expect(result, false);
     }, tags: 'unit');
     group('API call return 200 status code', () {
+      test('API call return null authorization token', () async {});
+      test('API call return empty string authorization token', () async {});
+
+      test('API call return authorization token and failed to store the token',
+          () async {});
       test(
           'API call return authorization token and successfully store the token',
           () async {
