@@ -115,7 +115,7 @@ void main() {
       },
     );
 
-    group('dialog', () {
+    group('dialog diaplay', () {
       test(
           'given inputted pin is 6 digits when getErrorMessage is null then publish dialogMessage as "success: Ready to submit pin',
           () {
