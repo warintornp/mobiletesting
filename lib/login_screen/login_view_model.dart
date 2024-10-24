@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 class LoginViewModel extends ChangeNotifier {
   String _inputtedPin = '';
   bool _isLoading = false;
+  String _dialogMessage = '';
 
   final LoginService loginService;
   final SortOrder keyPadsortOrder;
@@ -21,6 +22,7 @@ class LoginViewModel extends ChangeNotifier {
 
   String get inputtedPin => _inputtedPin;
   bool get isLoading => _isLoading;
+  String get dialogMessage => _dialogMessage;
 
   //workshop 1
   void onDigitPressed(int digit, BuildContext context) {
@@ -33,12 +35,9 @@ class LoginViewModel extends ChangeNotifier {
     if (_inputtedPin.length < 6) {
       return;
     }
-
-    _showErrorDialog(errorMessage ?? "success: Ready to submit pin", context);
-    // _isDialogPresent = true;
-    // _DislogMessage = "success/fa`";
-    // notifyListeners();
     final errorMessage = pinRules.getErrorMessage(_inputtedPin);
+    _dialogMessage = errorMessage ?? "success: Ready to submit pin";
+    notifyListeners();
   }
 
   Future<void> onShowErrorDialogButtonPressed(BuildContext context) async {
@@ -68,27 +67,6 @@ class LoginViewModel extends ChangeNotifier {
           child: HomeScreen(),
         ),
       ),
-    );
-  }
-
-  //workshop 0
-  void _showErrorDialog(String content, BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Error"),
-          content: Text(content),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        );
-      },
     );
   }
 

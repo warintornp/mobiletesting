@@ -20,6 +20,12 @@ class LoginScreen extends StatelessWidget {
       body: Center(
         child: Consumer<LoginViewModel>(
           builder: (context, viewModel, child) {
+            if (viewModel.dialogMessage.isNotEmpty) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                _showErrorDialog(viewModel.dialogMessage, context, () {
+                });
+              });
+            }
             return Column(
               children: <Widget>[
                 Dot(
@@ -52,6 +58,30 @@ class LoginScreen extends StatelessWidget {
           deleteButtonOnPressed: viewModel.onDeleteButtonPressed,
           numberButtonOnPressed: (pressedDigit) =>
               {viewModel.onDigitPressed(pressedDigit, context)}),
+    );
+  }
+
+  //workshop 0
+  void _showErrorDialog(String content, BuildContext context,
+      void Function() onCloseButtonPressed) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Error"),
+          content: Text(content),
+          actions: [
+            TextButton(
+              onPressed: () {
+                onCloseButtonPressed();
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
