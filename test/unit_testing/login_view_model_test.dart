@@ -75,8 +75,6 @@ void main() {
         expect(loginViewModel.inputtedPin, '123456');
         // Assert
       }, tags: 'unit');
-      group('FE pin validation', () {});
-      group('handle network call', () {});
     });
     group(
       'onDeleteButtonPressed',
@@ -189,7 +187,9 @@ void main() {
       }, tags: 'unit');
     });
 
-    group('api handling after input 6 digit PIN, PIN authentication', () {
+    group(
+        'API handling after 6 digits PIN passed validation, PIN authentication',
+        () {
       test(
           'Given user input 6 digits is passed PIN validation, when retrieve success API authentication, then display dialog "Login success"',
           () async {
@@ -227,6 +227,25 @@ void main() {
         await loginViewModel.onDigitPressed(1, mockBuildContext);
         // Assert
         expect(loginViewModel.dialogMessage, 'Unauthorised');
+      }, tags: 'unit');
+      test(
+          'Given user input 6 digits is passed PIN validation, when call API and got "technical" error, then display dialog "Facing technical difficulties"',
+          () async {
+        // Arrange
+        when(mockPinRules.getErrorMessage(any)).thenReturn(null);
+        when(mockLoginService.authenticate(any))
+            .thenAnswer((_) async => AuthorizationStatus.technicalError);
+        final mockBuildContext = MockBuildContext();
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(2, mockBuildContext);
+        loginViewModel.onDigitPressed(3, mockBuildContext);
+        loginViewModel.onDigitPressed(4, mockBuildContext);
+        loginViewModel.onDigitPressed(5, mockBuildContext);
+
+        // Act
+        await loginViewModel.onDigitPressed(1, mockBuildContext);
+        // Assert
+        expect(loginViewModel.dialogMessage, 'Facing technical difficulties');
       }, tags: 'unit');
     });
   });
