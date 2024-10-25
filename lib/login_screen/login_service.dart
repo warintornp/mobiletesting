@@ -16,11 +16,10 @@ class LoginService {
     final url = Uri.parse('http://{replace me}:3000/v1/api/pin/validate');
     final body = jsonEncode({'pin': pin});
 
+    // http.post()
+    final response = await client
+        .post(url, body: body, headers: {"content-type": "application/json"});
     try {
-      // http.post()
-      final response = await client
-          .post(url, body: body, headers: {"content-type": "application/json"});
-
       if (response.statusCode == 200) {
         final authToken = response.headers['authorization'];
         if (authToken != null && authToken != '') {
