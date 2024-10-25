@@ -4,7 +4,7 @@ const app = require('./app')
 describe('POST pin validation', () => {
   it('return 200 when pin exists', async () => {
     const response = await request(app)
-    .post('/api/v1/pin/validate')
+    .post('/v1/api/pin/validate')
     .send({pin: "132495"})
 
     expect(response.status).toBe(200); 
@@ -12,7 +12,7 @@ describe('POST pin validation', () => {
 
   it('return 401 when pin exists', async () => {
     const response = await request(app)
-    .post('/api/v1/pin/validate')
+    .post('/v1/api/pin/validate')
     .send({pin: "132496"})
 
     expect(response.status).toBe(401); 
@@ -20,7 +20,7 @@ describe('POST pin validation', () => {
 
   it('return 400 when pin input is null', async () => {
     const response = await request(app)
-    .post('/api/v1/pin/validate')
+    .post('/v1/api/pin/validate')
     .send({pin: null})
 
     expect(response.status).toBe(400); 
@@ -28,7 +28,7 @@ describe('POST pin validation', () => {
 
   it('return 400 when pin input is empty', async () => {
     const response = await request(app)
-    .post('/api/v1/pin/validate')
+    .post('/v1/api/pin/validate')
     .send({pin: ""})
 
     expect(response.status).toBe(400); 
@@ -36,7 +36,7 @@ describe('POST pin validation', () => {
 
   it('return 400 when pin input is undefined', async () => {
     const response = await request(app)
-    .post('/api/v1/pin/validate')
+    .post('/v1/api/pin/validate')
     .send()
 
     expect(response.status).toBe(400); 
@@ -51,7 +51,7 @@ describe('POST pin validation', () => {
 describe('GET user detail', () => {
   it('200 with user detail WHEN authToken is valid', async () => {
     const response = await request(app)
-      .get('/api/v1/user')
+      .get('/v1/api/user')
       .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9')
 
     //Aserrt should be like this make test cannot capture changes from server2 contract
@@ -66,7 +66,7 @@ describe('GET user detail', () => {
 
   it('401 Unauthorised WHEN authToken is invalid token', async () => {
     const response = await request(app)
-      .get('/api/v1/user')
+      .get('/v1/api/user')
       .set('Authorization', 'Bearer 11111')
 
     expect(response.status).toBe(401)
@@ -74,21 +74,21 @@ describe('GET user detail', () => {
   })
   it('400  WHEN authToken is invalid format', async () => {
     const response = await request(app)
-      .get('/api/v1/user')
+      .get('/v1/api/user')
       .set('Authorization', 'Bearer11111')
 
     expect(response.status).toBe(400)
     expect(response.body).toEqual({ error: 'Invalid request' })
   })
   it('401 Unauthorised WHEN authToken is absent', async () => {
-    const response = await request(app).get('/api/v1/user')
+    const response = await request(app).get('/v1/api/user')
 
     expect(response.status).toBe(401)
     expect(response.body).toEqual({ error: 'Unauthorised' })
   })
   it('400 WHEN authToken is empty string', async () => {
     const response = await request(app)
-      .get('/api/v1/user')
+      .get('/v1/api/user')
       .set('Authorization', '')
 
     expect(response.status).toBe(400)

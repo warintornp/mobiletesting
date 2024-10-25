@@ -26,7 +26,7 @@ const users = {
 
 app.use(bodyParser.json())
 // พบระเบิด ณ workshop#5. workshop#4 - call api จะทำเเค่ flutter app
-app.post('/api/v1/pin/validate', (req, res) => {
+app.post('/v1/api/pin/validate', (req, res) => {
   const pin = req.body.pin
   // const pin = req.body.body //hidden bug for scenario#2
   console.log(`req.body + ${JSON.stringify(req.body)}`)
@@ -44,7 +44,7 @@ app.post('/api/v1/pin/validate', (req, res) => {
 })
 
 // พบระเบิด ณ workshop#5. workshop#4 - call api จะทำเเค่ flutter app
-app.get('/api/v1/user', (req, res) => {
+app.get('/v1/api/user', (req, res) => {
   if (req.headers.authorization == undefined) {
     res.status(401).json({ error: 'Unauthorised' })
     return
