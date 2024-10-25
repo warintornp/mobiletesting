@@ -85,4 +85,20 @@ void main() {
         surfaceSize: Size(400, 800));
     await screenMatchesGolden(tester, 'numpad_desc');
   });
+
+  testGoldens('dialog', (WidgetTester tester) async {
+    await tester.pumpWidgetBuilder(
+        Center(
+            child: AlertDialog(
+          title: Text("Error"),
+          content: Text("Test test"),
+          actions: [
+            TextButton(
+              onPressed: () {},
+              child: Text('OK'),
+            ),
+          ],
+        )),);
+    await screenMatchesGolden(tester, 'dialog');
+  });
 }
