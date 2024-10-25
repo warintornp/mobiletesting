@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mobiletesting/login_screen/authorization_status.dart';
 import 'package:mobiletesting/login_screen/login_service.dart';
 import 'package:mobiletesting/secure_storage.dart';
 import 'package:mockito/annotations.dart';
@@ -29,7 +30,7 @@ void main() {
       // Act
       final result = await loginService.authenticate('123456');
       // Assert
-      expect(result, false);
+      expect(result, AuthorizationStatus.technicalError);
     }, tags: 'unit');
     test('API call return 400 status code', () async {
       // Arrange
@@ -41,7 +42,7 @@ void main() {
       // Act
       final result = await loginService.authenticate('123456');
       // Assert
-      expect(result, false);
+      expect(result, AuthorizationStatus.technicalError);
     }, tags: 'unit');
     test('API call return 401 status code', () async {
       // Arrange
@@ -53,7 +54,7 @@ void main() {
       // Act
       final result = await loginService.authenticate('123456');
       // Assert
-      expect(result, false);
+      expect(result, AuthorizationStatus.unauthorised);
     }, tags: 'unit');
     group('API call return 200 status code', () {
       test('API call return null authorization token', () async {
@@ -66,7 +67,7 @@ void main() {
         // Act
         final result = await loginService.authenticate('123456');
         // Assert
-        expect(result, false);
+        expect(result, AuthorizationStatus.technicalError);
       }, tags: 'unit');
       test('API call return empty string authorization token', () async {
         // Arrange
@@ -80,10 +81,10 @@ void main() {
         // Act
         final result = await loginService.authenticate('123456');
         // Assert
-        expect(result, false);
+        expect(result, AuthorizationStatus.technicalError);
       }, tags: 'unit');
 
-      test('API call return authorization token and failed to store the token',
+      test('API call return authorization token and got tocken store error',
           () async {
         // Arrange
         when(mockClient.post(
@@ -98,7 +99,7 @@ void main() {
         // Act
         final result = await loginService.authenticate('123456');
         // Assert
-        expect(result, false);
+        expect(result, AuthorizationStatus.technicalError);
       }, tags: 'unit');
       test(
           'API call return authorization token and successfully store the token',
@@ -116,7 +117,7 @@ void main() {
         // Act
         final result = await loginService.authenticate('123456');
         // Assert
-        expect(result, true);
+        expect(result, AuthorizationStatus.success);
       }, tags: 'unit');
     });
   });

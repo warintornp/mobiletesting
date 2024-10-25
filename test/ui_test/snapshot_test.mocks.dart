@@ -3,12 +3,13 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i10;
+import 'dart:async' as _i9;
 import 'dart:ui' as _i11;
 
-import 'package:flutter/material.dart' as _i9;
+import 'package:flutter/material.dart' as _i10;
 import 'package:http/http.dart' as _i4;
-import 'package:mobiletesting/home_screen/home_view_model.dart' as _i12;
+import 'package:mobiletesting/home_screen/home_view_model.dart' as _i13;
+import 'package:mobiletesting/login_screen/authorization_status.dart' as _i12;
 import 'package:mobiletesting/login_screen/login_service.dart' as _i2;
 import 'package:mobiletesting/login_screen/login_view_model.dart' as _i6;
 import 'package:mobiletesting/login_screen/pin_rules.dart' as _i3;
@@ -118,17 +119,26 @@ class MockLoginViewModel extends _i1.Mock implements _i6.LoginViewModel {
       ) as bool);
 
   @override
+  String get dialogMessage => (super.noSuchMethod(
+        Invocation.getter(#dialogMessage),
+        returnValue: _i8.dummyValue<String>(
+          this,
+          Invocation.getter(#dialogMessage),
+        ),
+      ) as String);
+
+  @override
   bool get hasListeners => (super.noSuchMethod(
         Invocation.getter(#hasListeners),
         returnValue: false,
       ) as bool);
 
   @override
-  void onDigitPressed(
+  _i9.Future<void> onDigitPressed(
     int? digit,
-    _i9.BuildContext? context,
+    _i10.BuildContext? context,
   ) =>
-      super.noSuchMethod(
+      (super.noSuchMethod(
         Invocation.method(
           #onDigitPressed,
           [
@@ -136,24 +146,34 @@ class MockLoginViewModel extends _i1.Mock implements _i6.LoginViewModel {
             context,
           ],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i9.Future<void>.value(),
+        returnValueForMissingStub: _i9.Future<void>.value(),
+      ) as _i9.Future<void>);
 
   @override
-  _i10.Future<void> onShowErrorDialogButtonPressed(_i9.BuildContext? context) =>
+  _i9.Future<void> onShowErrorDialogButtonPressed(_i10.BuildContext? context) =>
       (super.noSuchMethod(
         Invocation.method(
           #onShowErrorDialogButtonPressed,
           [context],
         ),
-        returnValue: _i10.Future<void>.value(),
-        returnValueForMissingStub: _i10.Future<void>.value(),
-      ) as _i10.Future<void>);
+        returnValue: _i9.Future<void>.value(),
+        returnValueForMissingStub: _i9.Future<void>.value(),
+      ) as _i9.Future<void>);
 
   @override
   void onDeleteButtonPressed() => super.noSuchMethod(
         Invocation.method(
           #onDeleteButtonPressed,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void onDialogClose() => super.noSuchMethod(
+        Invocation.method(
+          #onDialogClose,
           [],
         ),
         returnValueForMissingStub: null,
@@ -223,19 +243,21 @@ class MockLoginService extends _i1.Mock implements _i2.LoginService {
       ) as _i5.SecureStorage);
 
   @override
-  _i10.Future<bool> authenticate(String? pin) => (super.noSuchMethod(
+  _i9.Future<_i12.AuthorizationStatus> authenticate(String? pin) =>
+      (super.noSuchMethod(
         Invocation.method(
           #authenticate,
           [pin],
         ),
-        returnValue: _i10.Future<bool>.value(false),
-      ) as _i10.Future<bool>);
+        returnValue: _i9.Future<_i12.AuthorizationStatus>.value(
+            _i12.AuthorizationStatus.success),
+      ) as _i9.Future<_i12.AuthorizationStatus>);
 }
 
 /// A class which mocks [HomeViewModel].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockHomeViewModel extends _i1.Mock implements _i12.HomeViewModel {
+class MockHomeViewModel extends _i1.Mock implements _i13.HomeViewModel {
   MockHomeViewModel() {
     _i1.throwOnMissingStub(this);
   }
@@ -253,14 +275,14 @@ class MockHomeViewModel extends _i1.Mock implements _i12.HomeViewModel {
       ) as bool);
 
   @override
-  _i10.Future<void> onDidLoad() => (super.noSuchMethod(
+  _i9.Future<void> onDidLoad() => (super.noSuchMethod(
         Invocation.method(
           #onDidLoad,
           [],
         ),
-        returnValue: _i10.Future<void>.value(),
-        returnValueForMissingStub: _i10.Future<void>.value(),
-      ) as _i10.Future<void>);
+        returnValue: _i9.Future<void>.value(),
+        returnValueForMissingStub: _i9.Future<void>.value(),
+      ) as _i9.Future<void>);
 
   @override
   void addListener(_i11.VoidCallback? listener) => super.noSuchMethod(

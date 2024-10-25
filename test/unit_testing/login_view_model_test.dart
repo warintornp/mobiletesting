@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mobiletesting/login_screen/authorization_status.dart';
 import 'package:mobiletesting/login_screen/login_view_model.dart';
 import 'package:mobiletesting/login_screen/pin_rules.dart';
 import 'package:mobiletesting/login_screen/sort_order.dart';
@@ -38,7 +39,8 @@ void main() {
           () {
         // Arrange
         when(mockPinRules.getErrorMessage(any)).thenReturn(null);
-        when(mockLoginService.authenticate(any)).thenAnswer((_) async => true);
+        when(mockLoginService.authenticate(any))
+            .thenAnswer((_) async => AuthorizationStatus.success);
 
         final mockBuildContext = MockBuildContext();
         loginViewModel.onDigitPressed(1, mockBuildContext);
@@ -57,7 +59,8 @@ void main() {
           () {
         // Arrange
         when(mockPinRules.getErrorMessage(any)).thenReturn(null);
-        when(mockLoginService.authenticate(any)).thenAnswer((_) async => true);
+        when(mockLoginService.authenticate(any))
+            .thenAnswer((_) async => AuthorizationStatus.success);
 
         final mockBuildContext = MockBuildContext();
         loginViewModel.onDigitPressed(1, mockBuildContext);
@@ -95,7 +98,7 @@ void main() {
             () {
           when(mockPinRules.getErrorMessage(any)).thenReturn(null);
           when(mockLoginService.authenticate(any))
-              .thenAnswer((_) async => true);
+              .thenAnswer((_) async => AuthorizationStatus.success);
           // Arrange
           final mockBuildContext = MockBuildContext();
           loginViewModel.onDigitPressed(1, mockBuildContext);
@@ -169,7 +172,8 @@ void main() {
         // Arrange
         // loginViewModel.dialogMessage = "success: Ready to submit pin";
         when(mockPinRules.getErrorMessage(any)).thenReturn(null);
-        when(mockLoginService.authenticate(any)).thenAnswer((_) async => true);
+        when(mockLoginService.authenticate(any))
+            .thenAnswer((_) async => AuthorizationStatus.success);
         final mockBuildContext = MockBuildContext();
         loginViewModel.onDigitPressed(1, mockBuildContext);
         loginViewModel.onDigitPressed(1, mockBuildContext);
@@ -191,7 +195,8 @@ void main() {
           () async {
         // Arrange
         when(mockPinRules.getErrorMessage(any)).thenReturn(null);
-        when(mockLoginService.authenticate(any)).thenAnswer((_) async => true);
+        when(mockLoginService.authenticate(any))
+            .thenAnswer((_) async => AuthorizationStatus.success);
         final mockBuildContext = MockBuildContext();
         loginViewModel.onDigitPressed(1, mockBuildContext);
         loginViewModel.onDigitPressed(2, mockBuildContext);

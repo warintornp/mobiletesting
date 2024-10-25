@@ -6,6 +6,7 @@
 import 'dart:async' as _i5;
 
 import 'package:http/http.dart' as _i2;
+import 'package:mobiletesting/login_screen/authorization_status.dart' as _i6;
 import 'package:mobiletesting/login_screen/login_service.dart' as _i4;
 import 'package:mobiletesting/secure_storage.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -70,11 +71,13 @@ class MockLoginService extends _i1.Mock implements _i4.LoginService {
       ) as _i3.SecureStorage);
 
   @override
-  _i5.Future<bool> authenticate(String? pin) => (super.noSuchMethod(
+  _i5.Future<_i6.AuthorizationStatus> authenticate(String? pin) =>
+      (super.noSuchMethod(
         Invocation.method(
           #authenticate,
           [pin],
         ),
-        returnValue: _i5.Future<bool>.value(false),
-      ) as _i5.Future<bool>);
+        returnValue: _i5.Future<_i6.AuthorizationStatus>.value(
+            _i6.AuthorizationStatus.success),
+      ) as _i5.Future<_i6.AuthorizationStatus>);
 }

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:mobiletesting/home_screen/home_screen.dart';
 import 'package:mobiletesting/home_screen/home_view_model.dart';
+import 'package:mobiletesting/login_screen/authorization_status.dart';
 import 'package:mobiletesting/login_screen/pin_rules.dart';
 import 'package:mobiletesting/login_screen/sort_order.dart';
 import 'package:mobiletesting/login_screen/login_service.dart';
@@ -35,7 +36,7 @@ class LoginViewModel extends ChangeNotifier {
 
     if (errorMessage == null) {
       final isAuthenticated = await loginService.authenticate(_inputtedPin);
-      if (isAuthenticated) {
+      if (isAuthenticated == AuthorizationStatus.success) {
         _dialogMessage = "Login success";
         notifyListeners();
         return;
