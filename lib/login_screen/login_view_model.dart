@@ -32,8 +32,20 @@ class LoginViewModel extends ChangeNotifier {
       return;
     }
     final errorMessage = pinRules.getErrorMessage(_inputtedPin);
-    _dialogMessage = errorMessage ?? "success: Ready to submit pin";
-    notifyListeners();
+
+    if (errorMessage == null) {
+      final isAuthenticated = await loginService.authenticate(_inputtedPin);
+      if (isAuthenticated) {
+        _dialogMessage = "Login success";
+        notifyListeners();
+        return;
+      } else {
+        // TODO: workshop#4 AC#2, 3
+      }
+    } else {
+      _dialogMessage = errorMessage;
+      notifyListeners();
+    }
   }
 
   Future<void> onShowErrorDialogButtonPressed(BuildContext context) async {

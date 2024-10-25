@@ -38,6 +38,8 @@ void main() {
           () {
         // Arrange
         when(mockPinRules.getErrorMessage(any)).thenReturn(null);
+        when(mockLoginService.authenticate(any)).thenAnswer((_) async => true);
+
         final mockBuildContext = MockBuildContext();
         loginViewModel.onDigitPressed(1, mockBuildContext);
         loginViewModel.onDigitPressed(2, mockBuildContext);
@@ -55,6 +57,8 @@ void main() {
           () {
         // Arrange
         when(mockPinRules.getErrorMessage(any)).thenReturn(null);
+        when(mockLoginService.authenticate(any)).thenAnswer((_) async => true);
+
         final mockBuildContext = MockBuildContext();
         loginViewModel.onDigitPressed(1, mockBuildContext);
         loginViewModel.onDigitPressed(2, mockBuildContext);
@@ -90,6 +94,8 @@ void main() {
             'given inputted pin is 6 digits when delete button is press then inputted should be removed 1 digit',
             () {
           when(mockPinRules.getErrorMessage(any)).thenReturn(null);
+          when(mockLoginService.authenticate(any))
+              .thenAnswer((_) async => true);
           // Arrange
           final mockBuildContext = MockBuildContext();
           loginViewModel.onDigitPressed(1, mockBuildContext);
@@ -116,27 +122,27 @@ void main() {
     );
 
     group('dialog diaplay', () {
-      test(
-          'given inputted pin is 6 digits when getErrorMessage is null then publish dialogMessage as "success: Ready to submit pin',
-          () {
-        when(mockPinRules.getErrorMessage(any)).thenReturn(null);
-        // Arrange
-        final mockBuildContext = MockBuildContext();
-        loginViewModel.onDigitPressed(1, mockBuildContext);
-        loginViewModel.onDigitPressed(1, mockBuildContext);
-        loginViewModel.onDigitPressed(1, mockBuildContext);
-        loginViewModel.onDigitPressed(1, mockBuildContext);
-        loginViewModel.onDigitPressed(1, mockBuildContext);
-        loginViewModel.onDigitPressed(1, mockBuildContext);
-        // Act
-        loginViewModel.onDeleteButtonPressed();
-        // Assert
-        expect(loginViewModel.dialogMessage, "success: Ready to submit pin");
-        // verify(loginViewModel.notifyListeners()).called(2);
-      }, tags: 'unit');
+      // test(
+      //     'given inputted pin is 6 digits when getErrorMessage is null then publish dialogMessage as "success: Ready to submit pin"',
+      //     () {
+      //   when(mockPinRules.getErrorMessage(any)).thenReturn(null);
+      //   // Arrange
+      //   final mockBuildContext = MockBuildContext();
+      //   loginViewModel.onDigitPressed(1, mockBuildContext);
+      //   loginViewModel.onDigitPressed(1, mockBuildContext);
+      //   loginViewModel.onDigitPressed(1, mockBuildContext);
+      //   loginViewModel.onDigitPressed(1, mockBuildContext);
+      //   loginViewModel.onDigitPressed(1, mockBuildContext);
+      //   loginViewModel.onDigitPressed(1, mockBuildContext);
+      //   // Act
+      //   loginViewModel.onDeleteButtonPressed();
+      //   // Assert
+      //   expect(loginViewModel.dialogMessage, "success: Ready to submit pin");
+      //   // verify(loginViewModel.notifyListeners()).called(2);
+      // }, tags: 'unit');
 
       test(
-          'given inputted pin is 6 digits when getErrorMessage is null then publish dialogMessage as "success: Ready to submit pin',
+          'given inputted pin is 6 digits when getErrorMessage is not null then publish dialogMessage as "Pin format is invalid"',
           () {
         when(mockPinRules.getErrorMessage(any))
             .thenReturn("Pin format is invalid");
@@ -163,6 +169,7 @@ void main() {
         // Arrange
         // loginViewModel.dialogMessage = "success: Ready to submit pin";
         when(mockPinRules.getErrorMessage(any)).thenReturn(null);
+        when(mockLoginService.authenticate(any)).thenAnswer((_) async => true);
         final mockBuildContext = MockBuildContext();
         loginViewModel.onDigitPressed(1, mockBuildContext);
         loginViewModel.onDigitPressed(1, mockBuildContext);
@@ -176,6 +183,31 @@ void main() {
         // Assert
         expect(loginViewModel.dialogMessage, "");
       }, tags: 'unit');
+    });
+
+    group('api handling after input 6 digit PIN, PIN authentication', () {
+      test(
+          'Given user input 6 digits is passed PIN validation, when retrieve success API authentication, then display dialog "Login success"',
+          () async {
+        // Arrange
+        when(mockPinRules.getErrorMessage(any)).thenReturn(null);
+        when(mockLoginService.authenticate(any)).thenAnswer((_) async => true);
+        final mockBuildContext = MockBuildContext();
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(2, mockBuildContext);
+        loginViewModel.onDigitPressed(3, mockBuildContext);
+        loginViewModel.onDigitPressed(4, mockBuildContext);
+        loginViewModel.onDigitPressed(5, mockBuildContext);
+
+        // Act
+        await loginViewModel.onDigitPressed(1, mockBuildContext);
+        // Assert
+        expect(loginViewModel.dialogMessage, 'Login success');
+      }, tags: 'unit');
+      // test(
+      //     'Given user input 6 digits is passed PIN validation, when call API and got "Unauthorised" error, then display dialog "Unauthorised"',
+      //     () {},
+      //     tags: 'unit');
     });
   });
 }
