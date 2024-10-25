@@ -2,6 +2,46 @@ const request = require('supertest')
 const app = require('./app')
 
 describe('POST pin validation', () => {
+  it('return 200 when pin exists', async () => {
+    const response = await request(app)
+    .post('/api/v1/pin/validate')
+    .send({pin: "132495"})
+
+    expect(response.status).toBe(200); 
+  })
+
+  it('return 401 when pin exists', async () => {
+    const response = await request(app)
+    .post('/api/v1/pin/validate')
+    .send({pin: "132496"})
+
+    expect(response.status).toBe(401); 
+  })
+
+  it('return 400 when pin input is null', async () => {
+    const response = await request(app)
+    .post('/api/v1/pin/validate')
+    .send({pin: null})
+
+    expect(response.status).toBe(400); 
+  })
+
+  it('return 400 when pin input is empty', async () => {
+    const response = await request(app)
+    .post('/api/v1/pin/validate')
+    .send({pin: ""})
+
+    expect(response.status).toBe(400); 
+  })
+
+  it('return 400 when pin input is undefined', async () => {
+    const response = await request(app)
+    .post('/api/v1/pin/validate')
+    .send()
+
+    expect(response.status).toBe(400); 
+  })
+
   // afterAll((done) => {
   //   app.close()
   //   done()
