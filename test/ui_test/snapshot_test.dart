@@ -50,6 +50,20 @@ void main() {
     // await screenMatchesGolden(tester, 'pin_grid_view_ascending');
   });
 
+  testGoldens('Login screen - dot unfilled - multiple screen size', (WidgetTester tester) async {
+    when(mockLoginViewModel.inputtedPin).thenReturn("");
+    final builder = DeviceBuilder()
+    ..overrideDevicesForAllScenarios(devices: [
+      Device(size: Size(400, 800), name: "custome_device"),
+      Device.iphone11,
+      Device.tabletPortrait
+      ])
+    ..addScenario(widget: Dot(viewModel: mockLoginViewModel));
+
+    await tester.pumpDeviceBuilder(builder);
+    await screenMatchesGolden(tester, 'dot_unfilled_multiple_sceen_size');
+  });
+
   testGoldens('Login screen - dot unfilled', (WidgetTester tester) async {
     when(mockLoginViewModel.inputtedPin).thenReturn("");
     await tester.pumpWidgetBuilder(
@@ -101,7 +115,7 @@ void main() {
         )),);
     await screenMatchesGolden(tester, 'dialog');
   });
-  
+
   testGoldens('login screen', (WidgetTester tester) async {
     when(mockLoginViewModel.dialogMessage).thenReturn("");
     when(mockLoginViewModel.inputtedPin).thenReturn("123456");
