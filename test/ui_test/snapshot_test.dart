@@ -65,4 +65,24 @@ void main() {
         surfaceSize: Size(400, 800));
     await screenMatchesGolden(tester, 'dot_input_1234');
   });
+
+  testGoldens('Login screen - num pad asceding order', (WidgetTester tester) async {
+    await tester.pumpWidgetBuilder(
+        PinGridView(
+            sortOrder: SortOrder.ascending,
+            deleteButtonOnPressed: () {},
+            numberButtonOnPressed: (int num) {}),
+        surfaceSize: Size(400, 800));
+    await screenMatchesGolden(tester, 'numpad_asc');
+  });
+
+  testGoldens('Login screen - num pad desceding order', (WidgetTester tester) async {
+    await tester.pumpWidgetBuilder(
+        PinGridView(
+            sortOrder: SortOrder.descending,
+            deleteButtonOnPressed: () {},
+            numberButtonOnPressed: (int num) {}),
+        surfaceSize: Size(400, 800));
+    await screenMatchesGolden(tester, 'numpad_desc');
+  });
 }
