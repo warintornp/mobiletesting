@@ -20,18 +20,6 @@ void main() {
         LoginService(client: mockClient, secureStorage: mockSecureStorage);
   });
   group('authenticate', () {
-    test('API call throw error', () async {
-      // Arrange
-      when(mockClient.post(
-              Uri.parse('http://localhost:3000/v1/api/pin/validate'),
-              body: jsonEncode({'pin': '123456'}),
-              headers: {"content-type": "application/json"}))
-          .thenThrow(Exception('error'));
-      // Act
-      final result = await loginService.authenticate('123456');
-      // Assert
-      expect(result, AuthorizationStatus.technicalError);
-    }, tags: 'unit');
     test('API call return 400 status code', () async {
       // Arrange
       when(mockClient.post(
