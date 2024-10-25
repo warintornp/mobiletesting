@@ -40,8 +40,12 @@ class LoginViewModel extends ChangeNotifier {
         _dialogMessage = "Login success";
         notifyListeners();
         return;
+      } else if (isAuthenticated == AuthorizationStatus.unauthorised) {
+        _dialogMessage = "Unauthorised";
+        notifyListeners();
+        return;
       } else {
-        // TODO: workshop#4 AC#2, 3
+        // TODO: workshop#4 AC# 3
       }
     } else {
       _dialogMessage = errorMessage;

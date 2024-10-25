@@ -209,10 +209,25 @@ void main() {
         // Assert
         expect(loginViewModel.dialogMessage, 'Login success');
       }, tags: 'unit');
-      // test(
-      //     'Given user input 6 digits is passed PIN validation, when call API and got "Unauthorised" error, then display dialog "Unauthorised"',
-      //     () {},
-      //     tags: 'unit');
+      test(
+          'Given user input 6 digits is passed PIN validation, when call API and got "Unauthorised" error, then display dialog "Unauthorised"',
+          () async {
+        // Arrange
+        when(mockPinRules.getErrorMessage(any)).thenReturn(null);
+        when(mockLoginService.authenticate(any))
+            .thenAnswer((_) async => AuthorizationStatus.unauthorised);
+        final mockBuildContext = MockBuildContext();
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(2, mockBuildContext);
+        loginViewModel.onDigitPressed(3, mockBuildContext);
+        loginViewModel.onDigitPressed(4, mockBuildContext);
+        loginViewModel.onDigitPressed(5, mockBuildContext);
+
+        // Act
+        await loginViewModel.onDigitPressed(1, mockBuildContext);
+        // Assert
+        expect(loginViewModel.dialogMessage, 'Unauthorised');
+      }, tags: 'unit');
     });
   });
 }
