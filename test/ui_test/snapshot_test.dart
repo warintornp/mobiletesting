@@ -101,4 +101,21 @@ void main() {
         )),);
     await screenMatchesGolden(tester, 'dialog');
   });
+  
+  testGoldens('login screen', (WidgetTester tester) async {
+    when(mockLoginViewModel.dialogMessage).thenReturn("");
+    when(mockLoginViewModel.inputtedPin).thenReturn("123456");
+    when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
+    when(mockLoginViewModel.isLoading).thenReturn(false);
+
+    await tester.pumpWidgetBuilder(
+        MaterialApp(
+          home: ChangeNotifierProvider<LoginViewModel>.value(
+            value: mockLoginViewModel,
+            child: LoginScreen(),
+          ),
+        ),
+        surfaceSize: Size(400, 800));
+    await screenMatchesGolden(tester, 'login_screen');
+  });
 }
