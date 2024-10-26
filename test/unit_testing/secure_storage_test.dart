@@ -14,9 +14,9 @@ void main() {
 
     setUp(() {
       mockSharedPreferences = MockSharedPreferences();
-      SharedPreferences.setMockInitialValues({});
-      SecureStorage.sharedPreferences = mockSharedPreferences;
-      secureStorage = SecureStorage();
+      secureStorage = SecureStorage(
+          sharedPreferences:
+              mockSharedPreferences); // can run this test suite parallel
     });
 
     test('store should save a value to SharedPreferences', () async {
