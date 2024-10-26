@@ -56,7 +56,7 @@ void main() {
 
       test(
           'given inputted pin is 6 digits when digit is pressed then inputted pin should not be added',
-          () {
+          () async {
         // Arrange
         when(mockPinRules.getErrorMessage(any)).thenReturn(null);
         when(mockLoginService.authenticate(any))
@@ -68,9 +68,9 @@ void main() {
         loginViewModel.onDigitPressed(3, mockBuildContext);
         loginViewModel.onDigitPressed(4, mockBuildContext);
         loginViewModel.onDigitPressed(5, mockBuildContext);
-        loginViewModel.onDigitPressed(6, mockBuildContext);
+        await loginViewModel.onDigitPressed(6, mockBuildContext);
         // Act
-        loginViewModel.onDigitPressed(1, mockBuildContext);
+        await loginViewModel.onDigitPressed(1, mockBuildContext);
         // Assert
         expect(loginViewModel.inputtedPin, '123456');
         // Assert
@@ -93,7 +93,7 @@ void main() {
 
         test(
             'given inputted pin is 6 digits when delete button is press then inputted should be removed 1 digit',
-            () {
+            () async {
           when(mockPinRules.getErrorMessage(any)).thenReturn(null);
           when(mockLoginService.authenticate(any))
               .thenAnswer((_) async => AuthorizationStatus.success);
@@ -104,7 +104,7 @@ void main() {
           loginViewModel.onDigitPressed(1, mockBuildContext);
           loginViewModel.onDigitPressed(1, mockBuildContext);
           loginViewModel.onDigitPressed(1, mockBuildContext);
-          loginViewModel.onDigitPressed(1, mockBuildContext);
+          await loginViewModel.onDigitPressed(1, mockBuildContext);
           // Act
           loginViewModel.onDeleteButtonPressed();
           // Assert
@@ -144,7 +144,7 @@ void main() {
 
       test(
           'given inputted pin is 6 digits when getErrorMessage is not null then publish dialogMessage as "Pin format is invalid"',
-          () {
+          () async {
         when(mockPinRules.getErrorMessage(any))
             .thenReturn("Pin format is invalid");
         // Arrange
@@ -154,7 +154,7 @@ void main() {
         loginViewModel.onDigitPressed(1, mockBuildContext);
         loginViewModel.onDigitPressed(1, mockBuildContext);
         loginViewModel.onDigitPressed(1, mockBuildContext);
-        loginViewModel.onDigitPressed(1, mockBuildContext);
+        await loginViewModel.onDigitPressed(1, mockBuildContext);
         // Act
         loginViewModel.onDeleteButtonPressed();
         // Assert
@@ -166,19 +166,18 @@ void main() {
     group('onDialogClose', () {
       test(
           'given dialogMessage is not empty when dialog is closed then dialogMessage should be empty',
-          () {
+          () async {
         // Arrange
-        // loginViewModel.dialogMessage = "success: Ready to submit pin";
         when(mockPinRules.getErrorMessage(any)).thenReturn(null);
         when(mockLoginService.authenticate(any))
-            .thenAnswer((_) async => AuthorizationStatus.success);
+            .thenAnswer((_) async => AuthorizationStatus.unauthorised);
         final mockBuildContext = MockBuildContext();
         loginViewModel.onDigitPressed(1, mockBuildContext);
         loginViewModel.onDigitPressed(1, mockBuildContext);
         loginViewModel.onDigitPressed(1, mockBuildContext);
         loginViewModel.onDigitPressed(1, mockBuildContext);
         loginViewModel.onDigitPressed(1, mockBuildContext);
-        loginViewModel.onDigitPressed(1, mockBuildContext);
+        await loginViewModel.onDigitPressed(1, mockBuildContext);
 
         // Act
         loginViewModel.onDialogClose();
