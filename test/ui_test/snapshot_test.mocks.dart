@@ -104,6 +104,12 @@ class MockLoginViewModel extends _i1.Mock implements _i4.LoginViewModel {
       ) as String);
 
   @override
+  bool get shouldNavigateToHome => (super.noSuchMethod(
+        Invocation.getter(#shouldNavigateToHome),
+        returnValue: false,
+      ) as bool);
+
+  @override
   bool get hasListeners => (super.noSuchMethod(
         Invocation.getter(#hasListeners),
         returnValue: false,
@@ -150,6 +156,15 @@ class MockLoginViewModel extends _i1.Mock implements _i4.LoginViewModel {
   void onDialogClose() => super.noSuchMethod(
         Invocation.method(
           #onDialogClose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void onDoneNavigation() => super.noSuchMethod(
+        Invocation.method(
+          #onDoneNavigation,
           [],
         ),
         returnValueForMissingStub: null,
