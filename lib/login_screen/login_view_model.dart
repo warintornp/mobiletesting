@@ -81,16 +81,6 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   //Workshop 7
-  void _navigateToUserDetailsScreen(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (_) => HomeViewModel(),
-          child: HomeScreen(),
-        ),
-      ),
-    );
-  }
 
   //workshop 2
   void onDeleteButtonPressed() {
@@ -103,5 +93,9 @@ class LoginViewModel extends ChangeNotifier {
   void onDialogClose() {
     _dialogMessage = '';
     // notifyListeners();
+  }
+
+  void onDoneNavigation() {
+    _shouldNavigateToHome = false;
   }
 }
