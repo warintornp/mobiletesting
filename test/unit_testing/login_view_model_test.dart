@@ -206,7 +206,8 @@ void main() {
         // Act
         await loginViewModel.onDigitPressed(1, mockBuildContext);
         // Assert
-        expect(loginViewModel.dialogMessage, 'Login success');
+        expect(loginViewModel.shouldNavigateToHome, true);
+        expect(loginViewModel.dialogMessage, '');
       }, tags: 'unit');
       test(
           'Given user input 6 digits is passed PIN validation, when call API and got "Unauthorised" error, then display dialog "Unauthorised"',
@@ -245,6 +246,29 @@ void main() {
         await loginViewModel.onDigitPressed(1, mockBuildContext);
         // Assert
         expect(loginViewModel.dialogMessage, 'Facing technical difficulties');
+      }, tags: 'unit');
+    });
+
+    group('onDoneNavigation', () {
+      test(
+          'given login success when done home navigation then shouldNavigateToHome should be set back to false',
+          () async {
+        // Arrange
+        when(mockPinRules.getErrorMessage(any)).thenReturn(null);
+        when(mockLoginService.authenticate(any))
+            .thenAnswer((_) async => AuthorizationStatus.success);
+        final mockBuildContext = MockBuildContext();
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        await loginViewModel.onDigitPressed(1, mockBuildContext);
+
+        // Act
+        loginViewModel.onDialogClose();
+        // Assert
+        expect(loginViewModel.dialogMessage, "");
       }, tags: 'unit');
     });
   });
