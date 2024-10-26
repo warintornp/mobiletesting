@@ -66,6 +66,7 @@ void main() {
 
   testGoldens('Login screen - dot unfilled', (WidgetTester tester) async {
     when(mockLoginViewModel.inputtedPin).thenReturn("");
+    
     await tester.pumpWidgetBuilder(
         Dot(viewModel: mockLoginViewModel),
         surfaceSize: Size(400, 800));
@@ -86,7 +87,8 @@ void main() {
             sortOrder: SortOrder.ascending,
             deleteButtonOnPressed: () {},
             numberButtonOnPressed: (int num) {}),
-        surfaceSize: Size(400, 800));
+        surfaceSize: Size(400, 800),
+        textScaleSize: 3);
     await screenMatchesGolden(tester, 'numpad_asc');
   });
 
@@ -129,7 +131,8 @@ void main() {
             child: LoginScreen(),
           ),
         ),
-        surfaceSize: Size(400, 800));
+        surfaceSize: Size(400, 800),
+        textScaleSize: 4);
     await screenMatchesGolden(tester, 'login_screen');
   });
 }
