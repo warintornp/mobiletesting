@@ -9,6 +9,7 @@ class UserProfileView extends StatelessWidget {
     final tierColor = Colors.amber;
 
     return Stack(
+      key: Key("user_profile"),
       children: [
         Container(
           height: 100,
