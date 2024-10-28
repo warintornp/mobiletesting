@@ -131,15 +131,6 @@ class MockLoginViewModel extends _i1.Mock implements _i5.LoginViewModel {
       ) as _i9.Future<void>);
 
   @override
-  void addPinDigit(int? digit) => super.noSuchMethod(
-        Invocation.method(
-          #addPinDigit,
-          [digit],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   void onDeleteButtonPressed() => super.noSuchMethod(
         Invocation.method(
           #onDeleteButtonPressed,
