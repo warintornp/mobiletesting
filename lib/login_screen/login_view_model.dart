@@ -22,7 +22,14 @@ class LoginViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   //workshop 1
-  void onDigitPressed(int digit, BuildContext context) {}
+  void onDigitPressed(int digit, BuildContext context) {
+    final maxPinLength = 6;
+    if (_inputtedPin.length < maxPinLength) {
+      _inputtedPin = _inputtedPin + digit.toString();
+      notifyListeners();
+    }
+  }
+
   Future<void> onShowErrorDialogButtonPressed(BuildContext context) async {
     _showErrorDialog("Workshop1", context);
   }

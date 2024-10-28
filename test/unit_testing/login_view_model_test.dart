@@ -23,16 +23,44 @@ void main() {
           'given inputted pin is empty when digit is pressed then inputted pin should be added',
           () {
         // Arrange
-
         // Act
-
+        loginViewModel.onDigitPressed(1, MockBuildContext());
         // Assert
+        expect(loginViewModel.inputtedPin, '1');
+      }, tags: 'unit');
+      test(
+          'given inputted pin is 5 digits when digit is pressed then inputted pin should be added',
+          () {
+        // Arrange
+        final mockBuildContext = MockBuildContext();
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(2, mockBuildContext);
+        loginViewModel.onDigitPressed(3, mockBuildContext);
+        loginViewModel.onDigitPressed(4, mockBuildContext);
+        loginViewModel.onDigitPressed(5, mockBuildContext);
+        // Act
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        // Assert
+        expect(loginViewModel.inputtedPin, '123451');
       }, tags: 'unit');
 
       test(
           'given inputted pin is 6 digits when digit is pressed then inputted pin should not be added',
-          () {},
-          tags: 'unit');
+          () {
+        // Arrange
+        final mockBuildContext = MockBuildContext();
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(2, mockBuildContext);
+        loginViewModel.onDigitPressed(3, mockBuildContext);
+        loginViewModel.onDigitPressed(4, mockBuildContext);
+        loginViewModel.onDigitPressed(5, mockBuildContext);
+        loginViewModel.onDigitPressed(6, mockBuildContext);
+        // Act
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        // Assert
+        expect(loginViewModel.inputtedPin, '123456');
+        // Assert
+      }, tags: 'unit');
       group('FE pin validation', () {});
       group('handle network call', () {});
     });
