@@ -31,7 +31,7 @@ class LoginService {
       } else if (response.statusCode == 401) {
         return AuthorizationStatus.unauthorised;
       }
-      return AuthorizationStatus.technicalError; //TODO
+      return AuthorizationStatus.technicalError;
     } catch (e) {
       return AuthorizationStatus.technicalError;
     }

@@ -36,7 +36,7 @@ void main() {
       }, tags: 'unit');
       test(
           'given inputted pin is 5 digits when digit is pressed then inputted pin should be added',
-          () async {
+          () {
         // Arrange
         when(mockPinRules.getErrorMessage(any)).thenReturn(null);
         when(mockLoginService.authenticate(any))
@@ -49,7 +49,7 @@ void main() {
         loginViewModel.onDigitPressed(4, mockBuildContext);
         loginViewModel.onDigitPressed(5, mockBuildContext);
         // Act
-        await loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
         // Assert
         expect(loginViewModel.inputtedPin, '123451');
       }, tags: 'unit');
@@ -70,7 +70,7 @@ void main() {
         loginViewModel.onDigitPressed(5, mockBuildContext);
         await loginViewModel.onDigitPressed(6, mockBuildContext);
         // Act
-        loginViewModel.onDigitPressed(1, mockBuildContext);
+        await loginViewModel.onDigitPressed(1, mockBuildContext);
         // Assert
         expect(loginViewModel.inputtedPin, '123456');
         // Assert
@@ -144,7 +144,7 @@ void main() {
 
       test(
           'given inputted pin is 6 digits when getErrorMessage is not null then publish dialogMessage as "Pin format is invalid"',
-          () async {
+          () {
         when(mockPinRules.getErrorMessage(any))
             .thenReturn("Pin format is invalid");
         // Arrange
@@ -154,7 +154,7 @@ void main() {
         loginViewModel.onDigitPressed(1, mockBuildContext);
         loginViewModel.onDigitPressed(1, mockBuildContext);
         loginViewModel.onDigitPressed(1, mockBuildContext);
-        await loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
         // Act
         loginViewModel.onDeleteButtonPressed();
         // Assert
