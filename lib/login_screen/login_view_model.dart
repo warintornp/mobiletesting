@@ -14,6 +14,7 @@ class LoginViewModel extends ChangeNotifier {
   String _inputtedPin = '';
   bool _isLoading = false;
   String _dialogMessage = '';
+  bool _shouldNavigateToHome = false;
 
   final LoginService loginService;
   final SortOrder keyPadsortOrder;
@@ -24,6 +25,7 @@ class LoginViewModel extends ChangeNotifier {
   String get inputtedPin => _inputtedPin;
   bool get isLoading => _isLoading;
   String get dialogMessage => _dialogMessage;
+  bool get shouldNavigateToHome => _shouldNavigateToHome;
 
   //workshop 1
   Future<void> onDigitPressed(int digit, BuildContext context) async {
@@ -36,9 +38,16 @@ class LoginViewModel extends ChangeNotifier {
 
     if (errorMessage == null) {
       final isAuthenticated = await loginService.authenticate(_inputtedPin);
-      _dialogMessage = isAuthenticated.getDisplayText();
-      notifyListeners();
-      return;
+      if (isAuthenticated == AuthorizationStatus.success) {
+        // _navigateToUserDetailsScreen(context);
+        _shouldNavigateToHome = true;
+        notifyListeners();
+        return;
+      } else {
+        _dialogMessage = isAuthenticated.getDisplayText();
+        notifyListeners();
+        return;
+      }
     } else {
       _dialogMessage = errorMessage;
       notifyListeners();
@@ -72,16 +81,6 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   //Workshop 7
-  void _navigateToUserDetailsScreen(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (_) => HomeViewModel(),
-          child: HomeScreen(),
-        ),
-      ),
-    );
-  }
 
   //workshop 2
   void onDeleteButtonPressed() {
@@ -94,5 +93,9 @@ class LoginViewModel extends ChangeNotifier {
   void onDialogClose() {
     _dialogMessage = '';
     // notifyListeners();
+  }
+
+  void onDoneNavigation() {
+    _shouldNavigateToHome = false;
   }
 }

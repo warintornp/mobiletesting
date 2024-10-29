@@ -114,15 +114,16 @@ void main() {
               child: Text('OK'),
             ),
           ],
-        )),);
+        )));
     await screenMatchesGolden(tester, 'dialog');
   });
 
-  testGoldens('login screen', (WidgetTester tester) async {
+  testGoldens('login screen - Default state', (WidgetTester tester) async {
     when(mockLoginViewModel.dialogMessage).thenReturn("");
     when(mockLoginViewModel.inputtedPin).thenReturn("123456");
     when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
     when(mockLoginViewModel.isLoading).thenReturn(false);
+    when(mockLoginViewModel.shouldNavigateToHome).thenReturn(false);
 
     await tester.pumpWidgetBuilder(
         MaterialApp(
@@ -135,4 +136,5 @@ void main() {
         textScaleSize: 4);
     await screenMatchesGolden(tester, 'login_screen');
   });
+
 }

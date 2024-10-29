@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobiletesting/home_screen/home_screen.dart';
+import 'package:mobiletesting/home_screen/home_view_model.dart';
 import 'package:mobiletesting/login_screen/dot_view.dart';
 import 'package:mobiletesting/login_screen/login_view_model.dart';
 import 'package:mobiletesting/login_screen/pin_grid_view.dart';
@@ -24,6 +26,14 @@ class LoginScreen extends StatelessWidget {
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 _showErrorDialog(viewModel.dialogMessage, context, () {
                   viewModel.onDialogClose();
+                });
+              });
+            }
+
+            if (viewModel.shouldNavigateToHome) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                _navigateToUserDetailsScreen(context, () {
+                  viewModel.onDoneNavigation();
                 });
               });
             }
@@ -84,5 +94,18 @@ class LoginScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _navigateToUserDetailsScreen(
+      BuildContext context, void Function() onDoneNavigate) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider(
+          create: (_) => HomeViewModel(),
+          child: HomeScreen(),
+        ),
+      ),
+    );
+    onDoneNavigate();
   }
 }
