@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobiletesting/login_screen/login_view_model.dart';
+import 'package:mobiletesting/login_screen/pin_rules.dart';
 import 'package:mobiletesting/login_screen/sort_order.dart';
 import 'package:mobiletesting/login_screen/login_service.dart';
 import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
 import 'login_view_model_test.mocks.dart';
 
-@GenerateMocks([BuildContext, LoginService])
+@GenerateMocks([BuildContext, LoginService, PinRules])
 void main() {
   group('LoginViewModel', () {
     late LoginViewModel loginViewModel;
     late MockLoginService mockLoginService;
+    late MockPinRules mockPinRules;
 
     setUp(() {
       mockLoginService = MockLoginService();
-      loginViewModel = LoginViewModel(mockLoginService, SortOrder.ascending);
+      mockPinRules = MockPinRules();
+      loginViewModel =
+          LoginViewModel(mockLoginService, SortOrder.ascending, mockPinRules);
     });
 
     group('onDigitPressed', () {
@@ -32,6 +37,7 @@ void main() {
           'given inputted pin is 5 digits when digit is pressed then inputted pin should be added',
           () {
         // Arrange
+        when(mockPinRules.getErrorMessage(any)).thenReturn(null);
         final mockBuildContext = MockBuildContext();
         loginViewModel.onDigitPressed(1, mockBuildContext);
         loginViewModel.onDigitPressed(2, mockBuildContext);
@@ -48,6 +54,7 @@ void main() {
           'given inputted pin is 6 digits when digit is pressed then inputted pin should not be added',
           () {
         // Arrange
+        when(mockPinRules.getErrorMessage(any)).thenReturn(null);
         final mockBuildContext = MockBuildContext();
         loginViewModel.onDigitPressed(1, mockBuildContext);
         loginViewModel.onDigitPressed(2, mockBuildContext);
@@ -82,6 +89,7 @@ void main() {
         test(
             'given inputted pin is 6 digits when delete button is press then inputted should be removed 1 digit',
             () {
+          when(mockPinRules.getErrorMessage(any)).thenReturn(null);
           // Arrange
           final mockBuildContext = MockBuildContext();
           loginViewModel.onDigitPressed(1, mockBuildContext);
@@ -107,6 +115,67 @@ void main() {
       },
     );
 
-    group('navigation', () {});
+    group('dialog diaplay', () {
+      test(
+          'given inputted pin is 6 digits when getErrorMessage is null then publish dialogMessage as "success: Ready to submit pin',
+          () {
+        when(mockPinRules.getErrorMessage(any)).thenReturn(null);
+        // Arrange
+        final mockBuildContext = MockBuildContext();
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        // Act
+        loginViewModel.onDeleteButtonPressed();
+        // Assert
+        expect(loginViewModel.dialogMessage, "success: Ready to submit pin");
+        // verify(loginViewModel.notifyListeners()).called(2);
+      }, tags: 'unit');
+
+      test(
+          'given inputted pin is 6 digits when getErrorMessage is null then publish dialogMessage as "success: Ready to submit pin',
+          () {
+        when(mockPinRules.getErrorMessage(any))
+            .thenReturn("Pin format is invalid");
+        // Arrange
+        final mockBuildContext = MockBuildContext();
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        // Act
+        loginViewModel.onDeleteButtonPressed();
+        // Assert
+        expect(loginViewModel.dialogMessage, "Pin format is invalid");
+        // verify(loginViewModel.notifyListeners()).called(2);
+      }, tags: 'unit');
+    });
+
+    group('onDialogClose', () {
+      test(
+          'given dialogMessage is not empty when dialog is closed then dialogMessage should be empty',
+          () {
+        // Arrange
+        // loginViewModel.dialogMessage = "success: Ready to submit pin";
+        when(mockPinRules.getErrorMessage(any)).thenReturn(null);
+        final mockBuildContext = MockBuildContext();
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+        loginViewModel.onDigitPressed(1, mockBuildContext);
+
+        // Act
+        loginViewModel.onDialogClose();
+        // Assert
+        expect(loginViewModel.dialogMessage, "");
+      }, tags: 'unit');
+    });
   });
 }

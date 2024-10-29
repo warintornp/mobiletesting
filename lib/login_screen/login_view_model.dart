@@ -12,14 +12,17 @@ import 'package:provider/provider.dart';
 class LoginViewModel extends ChangeNotifier {
   String _inputtedPin = '';
   bool _isLoading = false;
+  String _dialogMessage = '';
 
   final LoginService loginService;
   final SortOrder keyPadsortOrder;
+  final PinRules pinRules;
 
-  LoginViewModel(this.loginService, this.keyPadsortOrder);
+  LoginViewModel(this.loginService, this.keyPadsortOrder, this.pinRules);
 
   String get inputtedPin => _inputtedPin;
   bool get isLoading => _isLoading;
+  String get dialogMessage => _dialogMessage;
 
   //workshop 1
   void onDigitPressed(int digit, BuildContext context) {
@@ -28,10 +31,19 @@ class LoginViewModel extends ChangeNotifier {
       _inputtedPin = _inputtedPin + digit.toString();
       notifyListeners();
     }
+
+    if (_inputtedPin.length < 6) {
+      return;
+    }
+    final errorMessage = pinRules.getErrorMessage(_inputtedPin);
+    _dialogMessage = errorMessage ?? "success: Ready to submit pin";
+    notifyListeners();
   }
 
   Future<void> onShowErrorDialogButtonPressed(BuildContext context) async {
-    _showErrorDialog("Workshop1", context);
+    // _showErrorDialog("Workshop1", context);
+    _dialogMessage = "Workshop1";
+    notifyListeners();
   }
 
   //workshop 1
@@ -60,32 +72,16 @@ class LoginViewModel extends ChangeNotifier {
     );
   }
 
-  //workshop 0
-  void _showErrorDialog(String content, BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Error"),
-          content: Text(content),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   //workshop 2
   void onDeleteButtonPressed() {
     if (_inputtedPin.isNotEmpty) {
       _inputtedPin = _inputtedPin.substring(0, _inputtedPin.length - 1);
       notifyListeners();
     }
+  }
+
+  void onDialogClose() {
+    _dialogMessage = '';
+    // notifyListeners();
   }
 }
