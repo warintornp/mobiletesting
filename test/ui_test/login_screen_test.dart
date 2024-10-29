@@ -11,6 +11,7 @@ import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 
 import 'login_screen_test.mocks.dart';
+
 @GenerateMocks([BuildContext, LoginViewModel])
 void main() {
   late MockLoginViewModel mockLoginViewModel;
@@ -45,17 +46,19 @@ void main() {
     when(mockLoginViewModel.inputtedPin).thenReturn("132457");
     when(mockLoginViewModel.isLoading).thenReturn(false);
     when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
+    when(mockLoginViewModel.shouldNavigateToHome).thenReturn(false);
 
     //Set screen size before run test
-    final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized();
+    final TestWidgetsFlutterBinding binding =
+        TestWidgetsFlutterBinding.ensureInitialized();
     await binding.setSurfaceSize(Size(400, 800));
 
     //Create widget
     await tester.pumpWidget(
       MaterialApp(
           home: ChangeNotifierProvider<LoginViewModel>.value(
-            value:  mockLoginViewModel,
-            child: LoginScreen(),
+        value: mockLoginViewModel,
+        child: LoginScreen(),
       )),
     );
     //Act
