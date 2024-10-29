@@ -37,7 +37,7 @@ void main() {
     });
 
     test('fromString should return UserTier.bronze for unknown string', () {
-      expect(UserTierExtension.fromString('unknown'), equals(UserTier.bronze));
+      expect(UserTierExtension.fromString('unknown'), equals(UserTier.unknown));
     });
   });
 }
