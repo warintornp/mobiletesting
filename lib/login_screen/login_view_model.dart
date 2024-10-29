@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:mobiletesting/home_screen/home_screen.dart';
 import 'package:mobiletesting/home_screen/home_view_model.dart';
+import 'package:mobiletesting/login_screen/authorization_status.dart';
 import 'package:mobiletesting/login_screen/pin_rules.dart';
 import 'package:mobiletesting/login_screen/sort_order.dart';
 import 'package:mobiletesting/login_screen/login_service.dart';
@@ -25,19 +26,23 @@ class LoginViewModel extends ChangeNotifier {
   String get dialogMessage => _dialogMessage;
 
   //workshop 1
-  void onDigitPressed(int digit, BuildContext context) {
-    final maxPinLength = 6;
-    if (_inputtedPin.length < maxPinLength) {
-      _inputtedPin = _inputtedPin + digit.toString();
-      notifyListeners();
-    }
+  Future<void> onDigitPressed(int digit, BuildContext context) async {
+    _addPinDigit(digit);
 
     if (_inputtedPin.length < 6) {
       return;
     }
     final errorMessage = pinRules.getErrorMessage(_inputtedPin);
-    _dialogMessage = errorMessage ?? "success: Ready to submit pin";
-    notifyListeners();
+
+    if (errorMessage == null) {
+      final isAuthenticated = await loginService.authenticate(_inputtedPin);
+      _dialogMessage = isAuthenticated.getDisplayText();
+      notifyListeners();
+      return;
+    } else {
+      _dialogMessage = errorMessage;
+      notifyListeners();
+    }
   }
 
   Future<void> onShowErrorDialogButtonPressed(BuildContext context) async {
@@ -47,7 +52,13 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   //workshop 1
-  void _addPinDigit(int digit) {}
+  void _addPinDigit(int digit) {
+    final maxPinLength = 6;
+    if (_inputtedPin.length < maxPinLength) {
+      _inputtedPin = _inputtedPin + digit.toString();
+      notifyListeners();
+    }
+  }
 
   //workshop 4
   Future<void> _submitPin(BuildContext context) async {
