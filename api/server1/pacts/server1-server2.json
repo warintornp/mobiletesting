@@ -1,0 +1,119 @@
+{
+  "consumer": {
+    "name": "server1"
+  },
+  "interactions": [
+    {
+      "description": "point",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "provide auth token"
+        }
+      ],
+      "request": {
+        "headers": {
+          "Authorization": [
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+          ]
+        },
+        "method": "GET",
+        "path": "/v1/api/user/point"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "point": 100
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "requesting user point",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "invalid auth token"
+        }
+      ],
+      "request": {
+        "headers": {
+          "Authorization": [
+            "Bearer 123"
+          ]
+        },
+        "method": "GET",
+        "path": "/v1/api/user/point"
+      },
+      "response": {
+        "body": {
+          "content": {},
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "requesting user point",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "valid auth token"
+        }
+      ],
+      "request": {
+        "headers": {
+          "Authorization": [
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+          ]
+        },
+        "method": "GET",
+        "path": "/v1/api/user/point"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "point": 100
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    }
+  ],
+  "metadata": {
+    "pactRust": {
+      "ffi": "0.4.22",
+      "models": "1.2.3"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "server2"
+  }
+}

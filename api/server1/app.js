@@ -138,4 +138,5 @@ function fetchUserTier(basedUrl, authToken) {
 var server = app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`)
 })
-module.exports = server
+module.exports.server = server
+module.exports.fetchUserPoint = fetchUserPoint
