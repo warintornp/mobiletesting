@@ -45,6 +45,7 @@ void main() {
     when(mockLoginViewModel.inputtedPin).thenReturn("132457");
     when(mockLoginViewModel.isLoading).thenReturn(false);
     when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
+    when(mockLoginViewModel.shouldNavigateToHome).thenReturn(false);
 
     //Set screen size before run test
     final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized();
