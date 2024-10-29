@@ -58,9 +58,82 @@ app.get('/v1/api/user', (req, res) => {
     res.status(401).json({ error: 'Unauthorised' })
   } else {
     res.setHeader('Authorization', req.headers.authorization)
-    res.status(200).json(users[authToken])
+    // res.status(200).json(users[authToken])
+    console.log('will call getUserData ja')
+    getUserData()
+  }
+  function getUserData() {
+    const server2BasedUrl = 'http://localhost:4000'
+    Promise.all([
+      fetchUserPoint(server2BasedUrl, req.headers.authorization),
+      fetchUserTier(server2BasedUrl, req.headers.authorization),
+    ])
+      .then(([userPoint, userTier]) => {
+        console.log('can retrieve tier and point ja')
+        res.setHeader('Authorization', req.headers.authorization)
+        res.status(200).json({ ...users[authToken], ...userTier, ...userPoint })
+      })
+      .catch((error) => {
+        console.log('Error:', error.message)
+        res.status(500).json({ error: 'Internal Server Error' })
+      })
   }
 })
+function fetchUserPoint(basedUrl, authToken) {
+  return new Promise((resolve, reject) => {
+    http
+      .get(
+        `${basedUrl}/v1/api/user/point`,
+        {
+          headers: {
+            Authorization: authToken,
+          },
+        },
+        (response) => {
+          let data = ''
+          response.on('data', (chunk) => {
+            data += chunk
+          })
+          response.on('end', () => {
+            const userPoint = JSON.parse(data)
+            resolve(userPoint)
+          })
+        }
+      )
+      .on('error', (error) => {
+        console.error('Error:', error.message)
+        reject(error)
+      })
+  })
+}
+
+function fetchUserTier(basedUrl, authToken) {
+  return new Promise((resolve, reject) => {
+    http
+      .get(
+        `${basedUrl}/v1/api/user/tier`,
+        {
+          headers: {
+            Authorization: authToken,
+          },
+        },
+        (response) => {
+          let data = ''
+          response.on('data', (chunk) => {
+            data += chunk
+          })
+          response.on('end', () => {
+            const userTier = JSON.parse(data)
+            resolve(userTier)
+          })
+        }
+      )
+      .on('error', (error) => {
+        console.error('Error here:', error)
+        reject(error)
+      })
+  })
+}
 
 var server = app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`)
