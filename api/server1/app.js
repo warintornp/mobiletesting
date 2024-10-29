@@ -96,6 +96,7 @@ function fetchUserPoint(basedUrl, authToken) {
           })
           response.on('end', () => {
             const userPoint = JSON.parse(data)
+            // reject()
             resolve(userPoint)
           })
         }

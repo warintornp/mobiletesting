@@ -130,6 +130,116 @@ describe('GET user detail', () => {
         'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
       )
     })
+
+    it('200 with user detail without point WHEN cannot retrieve user point', async () => {
+      // Arrange
+      const server2BasedUrl = 'http://localhost:4000'
+      nock(server2BasedUrl)
+        .get('/v1/api/user/point')
+        .reply(200, { notFoundPoint: 1000 })
+      nock(server2BasedUrl)
+        .get('/v1/api/user/tier')
+        .reply(200, { tier: 'bronze' })
+
+      // Act
+      const response = await request(app)
+        .get('/v1/api/user')
+        .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9')
+
+      //Assert should be like this make test cannot capture changes from server2 contract
+      expect(response.status).toBe(200)
+      expect(response.body.name).toEqual('John Doe')
+      expect(response.body.email).toEqual('john.doe@example.com')
+      expect(response.body.tier).toEqual('bronze')
+      expect(response.body.point).toEqual(undefined)
+
+      expect(response.header.authorization).toEqual(
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+      )
+    })
+
+    it('200 with user detail without point WHEN the endpoint return error code', async () => {
+      // Arrange
+      const server2BasedUrl = 'http://localhost:4000'
+      nock(server2BasedUrl)
+        .get('/v1/api/user/point')
+        .reply(500, { error: 'Internal Server Error' })
+
+      nock(server2BasedUrl)
+        .get('/v1/api/user/tier')
+        .reply(200, { tier: 'bronze' })
+
+      // Act
+      const response = await request(app)
+        .get('/v1/api/user')
+        .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9')
+
+      //Assert should be like this make test cannot capture changes from server2 contract
+      expect(response.status).toBe(200)
+      expect(response.body.name).toEqual('John Doe')
+      expect(response.body.email).toEqual('john.doe@example.com')
+      expect(response.body.tier).toEqual('bronze')
+      expect(response.body.point).toEqual(undefined)
+
+      expect(response.header.authorization).toEqual(
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+      )
+    })
+
+    it('200 with user detail without point and tier WHEN cannot retrieve user point and tier', async () => {
+      // Arrange
+      const server2BasedUrl = 'http://localhost:4000'
+      nock(server2BasedUrl)
+        .get('/v1/api/user/point')
+        .reply(200, { notFoundPoint: 1000 })
+      nock(server2BasedUrl)
+        .get('/v1/api/user/tier')
+        .reply(200, { notFoundTier: 'bronze' })
+
+      // Act
+      const response = await request(app)
+        .get('/v1/api/user')
+        .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9')
+
+      //Assert should be like this make test cannot capture changes from server2 contract
+      expect(response.status).toBe(200)
+      expect(response.body.name).toEqual('John Doe')
+      expect(response.body.email).toEqual('john.doe@example.com')
+      expect(response.body.tier).toEqual(undefined)
+      expect(response.body.point).toEqual(undefined)
+
+      expect(response.header.authorization).toEqual(
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+      )
+    })
+
+    it('200 with user detail without point and tier WHEN the endpoint return error code', async () => {
+      // Arrange
+      const server2BasedUrl = 'http://localhost:4000'
+      nock(server2BasedUrl)
+        .get('/v1/api/user/point')
+        .reply(500, { error: 'Internal Server Error' })
+
+      nock(server2BasedUrl)
+        .get('/v1/api/user/tier')
+        .reply(500, { error: 'Internal Server Error' })
+
+      // Act
+      const response = await request(app)
+        .get('/v1/api/user')
+        .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9')
+
+      //Assert should be like this make test cannot capture changes from server2 contract
+      expect(response.status).toBe(200)
+      expect(response.body.name).toEqual('John Doe')
+      expect(response.body.email).toEqual('john.doe@example.com')
+      expect(response.body.tier).toEqual(undefined)
+      expect(response.body.point).toEqual(undefined)
+
+      expect(response.header.authorization).toEqual(
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+      )
+    })
   })
 
   it('401 Unauthorised WHEN authToken is invalid token', async () => {
