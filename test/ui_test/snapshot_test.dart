@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
+import 'package:mobiletesting/home_screen/home_screen.dart';
 import 'package:mobiletesting/home_screen/home_view_model.dart';
 import 'package:mobiletesting/login_screen/dot_view.dart';
 import 'package:mobiletesting/login_screen/login_screen.dart';
 import 'package:mobiletesting/login_screen/login_view_model.dart';
-import 'package:mobiletesting/login_screen/login_service.dart';
 import 'package:mobiletesting/login_screen/pin_grid_view.dart';
 import 'package:mobiletesting/login_screen/sort_order.dart';
 import 'package:mockito/annotations.dart';
@@ -14,11 +14,13 @@ import 'package:provider/provider.dart';
 
 import 'snapshot_test.mocks.dart';
 
-@GenerateMocks([LoginViewModel])
+@GenerateMocks([LoginViewModel, HomeViewModel])
 void main() {
   late MockLoginViewModel mockLoginViewModel;
+  late MockHomeViewModel mockHomeViewModel;
   setUpAll(() async {
     mockLoginViewModel = MockLoginViewModel();
+    mockHomeViewModel = MockHomeViewModel();
     //Load app font
     await loadAppFonts();
   });
@@ -50,15 +52,16 @@ void main() {
     // await screenMatchesGolden(tester, 'pin_grid_view_ascending');
   });
 
-  testGoldens('Login screen - dot unfilled - multiple screen size', (WidgetTester tester) async {
+  testGoldens('Login screen - dot unfilled - multiple screen size',
+      (WidgetTester tester) async {
     when(mockLoginViewModel.inputtedPin).thenReturn("");
     final builder = DeviceBuilder()
-    ..overrideDevicesForAllScenarios(devices: [
-      Device(size: Size(400, 800), name: "custome_device"),
-      Device.iphone11,
-      Device.tabletPortrait
+      ..overrideDevicesForAllScenarios(devices: [
+        Device(size: Size(400, 800), name: "custome_device"),
+        Device.iphone11,
+        Device.tabletPortrait
       ])
-    ..addScenario(widget: Dot(viewModel: mockLoginViewModel));
+      ..addScenario(widget: Dot(viewModel: mockLoginViewModel));
 
     await tester.pumpDeviceBuilder(builder);
     await screenMatchesGolden(tester, 'dot_unfilled_multiple_sceen_size');
@@ -66,22 +69,21 @@ void main() {
 
   testGoldens('Login screen - dot unfilled', (WidgetTester tester) async {
     when(mockLoginViewModel.inputtedPin).thenReturn("");
-    
-    await tester.pumpWidgetBuilder(
-        Dot(viewModel: mockLoginViewModel),
+
+    await tester.pumpWidgetBuilder(Dot(viewModel: mockLoginViewModel),
         surfaceSize: Size(400, 800));
     await screenMatchesGolden(tester, 'dot_unfilled');
   });
 
   testGoldens('Login screen - dot filled', (WidgetTester tester) async {
     when(mockLoginViewModel.inputtedPin).thenReturn("1234");
-    await tester.pumpWidgetBuilder(
-        Dot(viewModel: mockLoginViewModel),
+    await tester.pumpWidgetBuilder(Dot(viewModel: mockLoginViewModel),
         surfaceSize: Size(400, 800));
     await screenMatchesGolden(tester, 'dot_input_1234');
   });
 
-  testGoldens('Login screen - num pad asceding order', (WidgetTester tester) async {
+  testGoldens('Login screen - num pad asceding order',
+      (WidgetTester tester) async {
     await tester.pumpWidgetBuilder(
         PinGridView(
             sortOrder: SortOrder.ascending,
@@ -92,7 +94,8 @@ void main() {
     await screenMatchesGolden(tester, 'numpad_asc');
   });
 
-  testGoldens('Login screen - num pad desceding order', (WidgetTester tester) async {
+  testGoldens('Login screen - num pad desceding order',
+      (WidgetTester tester) async {
     await tester.pumpWidgetBuilder(
         PinGridView(
             sortOrder: SortOrder.descending,
@@ -103,18 +106,17 @@ void main() {
   });
 
   testGoldens('dialog', (WidgetTester tester) async {
-    await tester.pumpWidgetBuilder(
-        Center(
-            child: AlertDialog(
-          title: Text("Error"),
-          content: Text("Test test"),
-          actions: [
-            TextButton(
-              onPressed: () {},
-              child: Text('OK'),
-            ),
-          ],
-        )));
+    await tester.pumpWidgetBuilder(Center(
+        child: AlertDialog(
+      title: Text("Error"),
+      content: Text("Test test"),
+      actions: [
+        TextButton(
+          onPressed: () {},
+          child: Text('OK'),
+        ),
+      ],
+    )));
     await screenMatchesGolden(tester, 'dialog');
   });
 
@@ -137,4 +139,78 @@ void main() {
     await screenMatchesGolden(tester, 'login_screen');
   });
 
+  //Home Scree snapshot
+  testGoldens('Home screen - default tier', (WidgetTester tester) async {
+    when(mockHomeViewModel.userDetails).thenReturn({
+      'name': 'John Doe',
+      'email': 'john.doe@example.com',
+      'point': 100,
+    });
+
+    await tester.pumpWidgetBuilder(
+      ChangeNotifierProvider<HomeViewModel>(
+        create: (_) => mockHomeViewModel,
+        child: Scaffold(body: HomeScreen()),
+      ),
+      surfaceSize: Size(400, 800),
+    );
+
+    await screenMatchesGolden(tester, 'home_screen_no_tier');
+  });
+  testGoldens('Home screen - bronze tier', (WidgetTester tester) async {
+    when(mockHomeViewModel.userDetails).thenReturn({
+      'name': 'John Doe',
+      'email': 'john.doe@example.com',
+      'point': 100,
+      'tier': 'bronze'
+    });
+
+    await tester.pumpWidgetBuilder(
+      ChangeNotifierProvider<HomeViewModel>(
+        create: (_) => mockHomeViewModel,
+        child: Scaffold(body: HomeScreen()),
+      ),
+      surfaceSize: Size(400, 800),
+    );
+
+    await screenMatchesGolden(tester, 'home_screen_bronze_tier');
+  });
+
+  testGoldens('Home screen - silver tier', (WidgetTester tester) async {
+    when(mockHomeViewModel.userDetails).thenReturn({
+      'name': 'John Doe',
+      'email': 'john.doe@example.com',
+      'point': 100,
+      'tier': 'silver'
+    });
+
+    await tester.pumpWidgetBuilder(
+      ChangeNotifierProvider<HomeViewModel>(
+        create: (_) => mockHomeViewModel,
+        child: Scaffold(body: HomeScreen()),
+      ),
+      surfaceSize: Size(400, 800),
+    );
+
+    await screenMatchesGolden(tester, 'home_screen_silver_tier');
+  });
+
+  testGoldens('Home screen - gold tier', (WidgetTester tester) async {
+    when(mockHomeViewModel.userDetails).thenReturn({
+      'name': 'John Doe',
+      'email': 'john.doe@example.com',
+      'point': 100,
+      'tier': 'gold'
+    });
+
+    await tester.pumpWidgetBuilder(
+      ChangeNotifierProvider<HomeViewModel>(
+        create: (_) => mockHomeViewModel,
+        child: Scaffold(body: HomeScreen()),
+      ),
+      surfaceSize: Size(400, 800),
+    );
+
+    await screenMatchesGolden(tester, 'home_screen_gold_tier');
+  });
 }

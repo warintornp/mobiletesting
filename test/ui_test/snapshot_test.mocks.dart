@@ -7,6 +7,7 @@ import 'dart:async' as _i7;
 import 'dart:ui' as _i9;
 
 import 'package:flutter/material.dart' as _i8;
+import 'package:mobiletesting/home_screen/home_view_model.dart' as _i10;
 import 'package:mobiletesting/login_screen/login_service.dart' as _i2;
 import 'package:mobiletesting/login_screen/login_view_model.dart' as _i4;
 import 'package:mobiletesting/login_screen/pin_rules.dart' as _i3;
@@ -169,6 +170,73 @@ class MockLoginViewModel extends _i1.Mock implements _i4.LoginViewModel {
         ),
         returnValueForMissingStub: null,
       );
+
+  @override
+  void addListener(_i9.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeListener(_i9.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [HomeViewModel].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockHomeViewModel extends _i1.Mock implements _i10.HomeViewModel {
+  MockHomeViewModel() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  Map<String, dynamic> get userDetails => (super.noSuchMethod(
+        Invocation.getter(#userDetails),
+        returnValue: <String, dynamic>{},
+      ) as Map<String, dynamic>);
+
+  @override
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  _i7.Future<void> onDidLoad() => (super.noSuchMethod(
+        Invocation.method(
+          #onDidLoad,
+          [],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 
   @override
   void addListener(_i9.VoidCallback? listener) => super.noSuchMethod(
