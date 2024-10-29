@@ -9,6 +9,7 @@
   "license": "MIT",
   "description": "This node js app is a simple API and owned by non-Mock team",
   "dependencies": {
+    "@pact-foundation/pact": "^13.1.4",
     "express": "^4.20.0"
   },
   "devDependencies": {

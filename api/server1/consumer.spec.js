@@ -31,7 +31,7 @@ describe('Requesting point from server 2', () => {
             .withRequest('GET', '/v1/api/user/point', (builder) => {
                 builder.headers({ Authorization: 'Bearer 123' })
             })
-            .willRespondWith(200, (builder) => {
+            .willRespondWith(401, (builder) => {
                 builder.jsonBody({ point: undefined })
             })
             .executeTest( async (mockService) => {

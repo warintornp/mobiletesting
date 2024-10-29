@@ -64,3 +64,17 @@ Note: To run specific describe in test file, `npx jest app.test.js -t {describe 
 2. Running integration test 
 `flutter test integration_test/app_test.dart`
 
+
+## Contract Test (server1-server2)
+### Consumer - create contract file 
+1. Go to server 1 - Consumer
+`cd api/server1` 
+2. Create consumer contract file
+`npm run test consumer.spec.js`
+3. Consumer's Contract test file will be created in api/server1/pacts/server1-server2.json
+### Provider - verify consumer contract file
+1. Go to server2 - Provider 
+`cd api/server2` 
+`npm i -S @pact-foundation/pact@latest`
+2. Verify contract 
+`npm test provider.test.js`

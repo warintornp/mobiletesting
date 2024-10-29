@@ -54,4 +54,5 @@ app.get('/v1/api/user/tier', (req, res) => {
 var server = app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`)
 })
-module.exports = server
+
+module.exports.server = server

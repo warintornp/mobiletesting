@@ -65,7 +65,7 @@
             "application/json"
           ]
         },
-        "status": 200
+        "status": 401
       },
       "type": "Synchronous/HTTP"
     },
