@@ -75,7 +75,7 @@ app.get('/v1/api/user', (req, res) => {
       })
       .catch((error) => {
         console.log('Error:', error.message)
-        res.status(500).json({ error: 'Internal Server Error' })
+        res.status(200).json({ ...users[authToken] })
       })
   }
 })
