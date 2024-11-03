@@ -94,9 +94,15 @@ void main() {
         expect(loginViewModel.inputtedPin, '12345');
       });
       test(
-          'given inputted pin is not empty when delete button is click then last digit from inputtedPin will be removed',
-          () {},
-          tags: 'unit');
+          'given inputted pin is empty when delete button is click then _inputtedPin still empty',
+          () {
+        // Arrange
+
+        // Act
+        loginViewModel.onDeleteButtonPressed();
+        // Assert
+        expect(loginViewModel.inputtedPin, '');
+      }, tags: 'unit');
     });
 
     group('navigation', () {});
