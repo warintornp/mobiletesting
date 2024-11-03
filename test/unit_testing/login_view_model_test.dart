@@ -69,6 +69,31 @@ void main() {
     });
     group('onDeleteButtonPressed', () {
       test(
+          'given inputted pin is 1 digits when delete button is press then inputtedPin should be empty',
+          () {
+        // Arrange
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+        // Act
+        loginViewModel.onDeleteButtonPressed();
+        // Assert
+        expect(loginViewModel.inputtedPin, '');
+      });
+      test(
+          'given inputted pin is 6 digits when delete button is press then inputtedPin should be 5 digits',
+          () {
+        // Arrange
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+        loginViewModel.onDigitPressed(2, MockBuildContext());
+        loginViewModel.onDigitPressed(3, MockBuildContext());
+        loginViewModel.onDigitPressed(4, MockBuildContext());
+        loginViewModel.onDigitPressed(5, MockBuildContext());
+        loginViewModel.onDigitPressed(6, MockBuildContext());
+        // Act
+        loginViewModel.onDeleteButtonPressed();
+        // Assert
+        expect(loginViewModel.inputtedPin, '12345');
+      });
+      test(
           'given inputted pin is not empty when delete button is click then last digit from inputtedPin will be removed',
           () {},
           tags: 'unit');
