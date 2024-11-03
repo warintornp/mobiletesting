@@ -26,11 +26,7 @@ class LoginViewModel extends ChangeNotifier {
 
   //workshop 1
   void onDigitPressed(int digit, BuildContext context) {
-    final maxPinLength = 6;
-    if (_inputtedPin.length < maxPinLength) {
-      _inputtedPin = _inputtedPin + digit.toString();
-      notifyListeners();
-    }
+    _addPinDigit(digit);
 
     if (_inputtedPin.length < 6) {
       return;
@@ -38,6 +34,7 @@ class LoginViewModel extends ChangeNotifier {
 
     final errorMessage = pinRules.getErrorMessage(_inputtedPin);
     _dialogMessage = errorMessage ?? "Ready to submit pin";
+
     notifyListeners();
   }
 
@@ -46,7 +43,13 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   //workshop 1
-  void _addPinDigit(int digit) {}
+  void _addPinDigit(int digit) {
+    final maxPinLength = 6;
+    if (_inputtedPin.length < maxPinLength) {
+      _inputtedPin = _inputtedPin + digit.toString();
+      notifyListeners();
+    }
+  }
 
   //workshop 4
   Future<void> _submitPin(BuildContext context) async {
