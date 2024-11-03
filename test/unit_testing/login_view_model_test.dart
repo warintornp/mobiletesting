@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mobiletesting/login_screen/authorization_status.dart';
 import 'package:mobiletesting/login_screen/login_view_model.dart';
 import 'package:mobiletesting/login_screen/pin_rules.dart';
 import 'package:mobiletesting/login_screen/sort_order.dart';
@@ -165,7 +166,7 @@ void main() {
         // Arrange
         when(mockPinRules.getErrorMessage("123456")).thenReturn(null);
         when(mockLoginService.authenticate("123456"))
-            .thenAnswer((_) async => true);
+            .thenAnswer((_) async => AuthorizationStatus.success);
 
         loginViewModel.onDigitPressed(1, MockBuildContext());
         loginViewModel.onDigitPressed(2, MockBuildContext());
@@ -177,6 +178,46 @@ void main() {
         await loginViewModel.onDigitPressed(6, MockBuildContext());
         // Assert
         expect(loginViewModel.dialogMessage, "Login success");
+      });
+
+      test(
+          'when retrieve authorise error ‘Unauthorised’ then set dialogMessage as ‘Unauthorised’ ',
+          () async {
+        // Arrange
+        when(mockPinRules.getErrorMessage("123456")).thenReturn(null);
+        when(mockLoginService.authenticate("123456"))
+            .thenAnswer((_) async => AuthorizationStatus.unauthorised);
+
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+        loginViewModel.onDigitPressed(2, MockBuildContext());
+        loginViewModel.onDigitPressed(3, MockBuildContext());
+        loginViewModel.onDigitPressed(4, MockBuildContext());
+        loginViewModel.onDigitPressed(5, MockBuildContext());
+
+        // Act
+        await loginViewModel.onDigitPressed(6, MockBuildContext());
+        // Assert
+        expect(loginViewModel.dialogMessage, "Unauthorised");
+      });
+
+      test(
+          'when retrieve authorise error ‘non-Unauthorised’ then set dialogMessage as Facing technical difficulties ',
+          () async {
+        // Arrange
+        when(mockPinRules.getErrorMessage("123456")).thenReturn(null);
+        when(mockLoginService.authenticate("123456"))
+            .thenAnswer((_) async => AuthorizationStatus.technicalError);
+
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+        loginViewModel.onDigitPressed(2, MockBuildContext());
+        loginViewModel.onDigitPressed(3, MockBuildContext());
+        loginViewModel.onDigitPressed(4, MockBuildContext());
+        loginViewModel.onDigitPressed(5, MockBuildContext());
+
+        // Act
+        await loginViewModel.onDigitPressed(6, MockBuildContext());
+        // Assert
+        expect(loginViewModel.dialogMessage, "Facing technical difficulties");
       });
     });
   });

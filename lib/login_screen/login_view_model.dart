@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:mobiletesting/home_screen/home_screen.dart';
 import 'package:mobiletesting/home_screen/home_view_model.dart';
+import 'package:mobiletesting/login_screen/authorization_status.dart';
 import 'package:mobiletesting/login_screen/pin_rules.dart';
 import 'package:mobiletesting/login_screen/sort_order.dart';
 import 'package:mobiletesting/login_screen/login_service.dart';
@@ -35,13 +36,19 @@ class LoginViewModel extends ChangeNotifier {
     final errorMessage = pinRules.getErrorMessage(_inputtedPin);
     if (errorMessage == null) {
       //  ?? "Ready to submit pin";
-      final isAuthenticated = await loginService.authenticate(_inputtedPin);
-      if (isAuthenticated) {
+      final authenticateStatus = await loginService.authenticate(_inputtedPin);
+      if (authenticateStatus == AuthorizationStatus.success) {
         _dialogMessage = "Login success";
         notifyListeners();
         return;
+      } else if (authenticateStatus == AuthorizationStatus.unauthorised) {
+        _dialogMessage = "Unauthorised";
+        notifyListeners();
+        return;
       } else {
-        // TODO: workshop#4 AC#2, 3
+        _dialogMessage = "Facing technical difficulties";
+        notifyListeners();
+        return;
       }
     } else {
       _dialogMessage = errorMessage;

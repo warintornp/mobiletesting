@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:mobiletesting/login_screen/authorization_status.dart';
 import 'package:mobiletesting/secure_storage.dart';
 
 //workshop 4
@@ -11,7 +12,7 @@ class LoginService {
       : client = client ?? http.Client(),
         secureStorage = secureStorage ?? SecureStorage();
 
-  Future<bool> authenticate(String pin) async {
+  Future<AuthorizationStatus> authenticate(String pin) async {
     // Android emu - 10.0.2.2, iOS simu - localhost, physical device - your IP
     final url = Uri.parse('http://localhost:3000/v1/api/pin/validate');
     final body = jsonEncode({'pin': pin});
@@ -25,12 +26,14 @@ class LoginService {
         if (authToken != null && authToken != '') {
           //business accept risk to not check authToken format
           await secureStorage.store('authToken', authToken);
-          return true;
+          return AuthorizationStatus.success;
         }
+      } else if (response.statusCode == 401) {
+        return AuthorizationStatus.unauthorised;
       }
-      return false;
+      return AuthorizationStatus.technicalError;
     } catch (e) {
-      return false;
+      return AuthorizationStatus.technicalError;
     }
   }
 }
