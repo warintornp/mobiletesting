@@ -25,7 +25,7 @@ class LoginViewModel extends ChangeNotifier {
   String get dialogMessage => _dialogMessage;
 
   //workshop 1
-  void onDigitPressed(int digit, BuildContext context) {
+  Future<void> onDigitPressed(int digit, BuildContext context) async {
     _addPinDigit(digit);
 
     if (_inputtedPin.length < 6) {
@@ -33,9 +33,20 @@ class LoginViewModel extends ChangeNotifier {
     }
 
     final errorMessage = pinRules.getErrorMessage(_inputtedPin);
-    _dialogMessage = errorMessage ?? "Ready to submit pin";
-
-    notifyListeners();
+    if (errorMessage == null) {
+      //  ?? "Ready to submit pin";
+      final isAuthenticated = await loginService.authenticate(_inputtedPin);
+      if (isAuthenticated) {
+        _dialogMessage = "Login success";
+        notifyListeners();
+        return;
+      } else {
+        // TODO: workshop#4 AC#2, 3
+      }
+    } else {
+      _dialogMessage = errorMessage;
+      notifyListeners();
+    }
   }
 
   Future<void> onShowErrorDialogButtonPressed(BuildContext context) async {

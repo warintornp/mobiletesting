@@ -39,7 +39,7 @@ void main() {
 
       test(
           'given inputted pin is 5 digit when digit is pressed then inputted pin should be added',
-          () {
+          () async {
         // Arrange/Given
         when(mockPinRules.getErrorMessage("123456"))
             .thenReturn("Pin format is invalid");
@@ -51,7 +51,7 @@ void main() {
         loginViewModel.onDigitPressed(5, MockBuildContext());
 
         // Act/When
-        loginViewModel.onDigitPressed(6, MockBuildContext());
+        await loginViewModel.onDigitPressed(6, MockBuildContext());
 
         // Assert/Then
         expect(loginViewModel.inputtedPin, '123456');
@@ -59,7 +59,7 @@ void main() {
 
       test(
           'given inputted pin is 6 digits when digit is pressed then inputted pin should not be added',
-          () {
+          () async {
         // Arrange
         when(mockPinRules.getErrorMessage("123456"))
             .thenReturn("Pin format is invalid");
@@ -68,7 +68,7 @@ void main() {
         loginViewModel.onDigitPressed(3, MockBuildContext());
         loginViewModel.onDigitPressed(4, MockBuildContext());
         loginViewModel.onDigitPressed(5, MockBuildContext());
-        loginViewModel.onDigitPressed(6, MockBuildContext());
+        await loginViewModel.onDigitPressed(6, MockBuildContext());
         // Act
         loginViewModel.onDigitPressed(7, MockBuildContext());
         // Assert
@@ -77,7 +77,7 @@ void main() {
 
       test(
           'Given The customer is entering 6 digit a PIN when the PIN contains sequential digits then error message dialog displayed as “Pin format is invalid”',
-          () {
+          () async {
         // Arrange,
         when(mockPinRules.getErrorMessage("012345"))
             .thenReturn("Pin format is invalid");
@@ -88,29 +88,12 @@ void main() {
         loginViewModel.onDigitPressed(3, MockBuildContext());
         loginViewModel.onDigitPressed(4, MockBuildContext());
         // Act
-        loginViewModel.onDigitPressed(5, MockBuildContext());
+        await loginViewModel.onDigitPressed(5, MockBuildContext());
         // Assert
         expect(loginViewModel.dialogMessage, "Pin format is invalid");
       });
-      test(
-          'Given The customer is entering 6 digit a PIN when the PIN contains sequential digits then error message dialog displayed as null',
-          () {
-        // Arrange,
-        when(mockPinRules.getErrorMessage("012543")).thenReturn(null);
-
-        loginViewModel.onDigitPressed(0, MockBuildContext());
-        loginViewModel.onDigitPressed(1, MockBuildContext());
-        loginViewModel.onDigitPressed(2, MockBuildContext());
-        loginViewModel.onDigitPressed(5, MockBuildContext());
-        loginViewModel.onDigitPressed(4, MockBuildContext());
-        // Act
-        loginViewModel.onDigitPressed(3, MockBuildContext());
-        // Assert
-        expect(loginViewModel.dialogMessage, "Ready to submit pin");
-      }, tags: 'unit');
 
       group('FE pin validation', () {});
-      group('handle network call', () {});
     });
     group('onDeleteButtonPressed', () {
       test(
@@ -156,7 +139,7 @@ void main() {
     group('onDialogClose', () {
       test(
           'given dialogMessage is not empty when onDialogClose is called then dialogMessage should be set to empty string',
-          () {
+          () async {
         // Arrange
         when(mockPinRules.getErrorMessage("111111"))
             .thenReturn("Pin format is invalid");
@@ -165,11 +148,35 @@ void main() {
         loginViewModel.onDigitPressed(1, MockBuildContext());
         loginViewModel.onDigitPressed(1, MockBuildContext());
         loginViewModel.onDigitPressed(1, MockBuildContext());
-        loginViewModel.onDigitPressed(1, MockBuildContext());
+        await loginViewModel.onDigitPressed(1, MockBuildContext());
         // Act
         loginViewModel.onDialogClose();
         // Assert
         expect(loginViewModel.dialogMessage, "");
+      });
+    });
+
+    group(
+        'handle network call after 6 digits pin has no error message from getErrorMessage',
+        () {
+      test(
+          'when retrieve authorise success then set dialogMessage as ‘Login success’ ',
+          () async {
+        // Arrange
+        when(mockPinRules.getErrorMessage("123456")).thenReturn(null);
+        when(mockLoginService.authenticate("123456"))
+            .thenAnswer((_) async => true);
+
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+        loginViewModel.onDigitPressed(2, MockBuildContext());
+        loginViewModel.onDigitPressed(3, MockBuildContext());
+        loginViewModel.onDigitPressed(4, MockBuildContext());
+        loginViewModel.onDigitPressed(5, MockBuildContext());
+
+        // Act
+        await loginViewModel.onDigitPressed(6, MockBuildContext());
+        // Assert
+        expect(loginViewModel.dialogMessage, "Login success");
       });
     });
   });
