@@ -37,19 +37,9 @@ class LoginViewModel extends ChangeNotifier {
     if (errorMessage == null) {
       //  ?? "Ready to submit pin";
       final authenticateStatus = await loginService.authenticate(_inputtedPin);
-      if (authenticateStatus == AuthorizationStatus.success) {
-        _dialogMessage = "Login success";
-        notifyListeners();
-        return;
-      } else if (authenticateStatus == AuthorizationStatus.unauthorised) {
-        _dialogMessage = "Unauthorised";
-        notifyListeners();
-        return;
-      } else {
-        _dialogMessage = "Facing technical difficulties";
-        notifyListeners();
-        return;
-      }
+      _dialogMessage = authenticateStatus.getDisplayText();
+      notifyListeners();
+      return;
     } else {
       _dialogMessage = errorMessage;
       notifyListeners();
