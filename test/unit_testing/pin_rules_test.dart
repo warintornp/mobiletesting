@@ -21,4 +21,21 @@ void main() {
       expect(PinRules().getErrorMessage("012875"), null);
     }, tags: 'unit');
   });
+
+  group('isRepeatingDigits', () {
+    test('when isRepeatingDigits is true then return "Pin format is invalid"',
+        () {
+      // Arrange
+
+      // Act, Assert
+      expect(PinRules().getErrorMessage("011234"), "Pin format is invalid");
+    }, tags: 'unit');
+
+    test('when isRepeatingDigits is false then return null', () {
+      // Arrange
+
+      // Act, Assert
+      expect(PinRules().getErrorMessage("015234"), null);
+    }, tags: 'unit');
+  });
 }
