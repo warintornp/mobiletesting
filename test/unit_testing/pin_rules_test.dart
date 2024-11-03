@@ -13,13 +13,6 @@ void main() {
       expect(PinRules().getErrorMessage("543210"), "Pin format is invalid");
       expect(PinRules().getErrorMessage("123456"), "Pin format is invalid");
     }, tags: 'unit');
-
-    test('when the 6 digit PIN is not sequential digits then return null ', () {
-      // Arrange
-
-      // Act, Assert
-      expect(PinRules().getErrorMessage("012875"), null);
-    }, tags: 'unit');
   });
 
   group('isRepeatingDigits', () {
@@ -30,12 +23,25 @@ void main() {
       // Act, Assert
       expect(PinRules().getErrorMessage("011234"), "Pin format is invalid");
     }, tags: 'unit');
-
-    test('when isRepeatingDigits is false then return null', () {
+  });
+  group('isTotalEqualsToFifteen', () {
+    test(
+        'when isTotalEqualsToFifteen is true then return "Pin format is invalid"',
+        () {
       // Arrange
 
       // Act, Assert
-      expect(PinRules().getErrorMessage("015234"), null);
+      expect(PinRules().getErrorMessage("015234"), "Pin format is invalid");
+    }, tags: 'unit');
+
+    test(
+        'when pin is not sequential and not total equals to 15 and no repeating digit then return null',
+        () {
+      // Arrange
+
+      // Act, Assert
+      expect(PinRules().getErrorMessage("015238"), null);
+      expect(PinRules().getErrorMessage("012875"), null);
     }, tags: 'unit');
   });
 }
