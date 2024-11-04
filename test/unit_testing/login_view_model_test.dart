@@ -46,6 +46,23 @@ void main() {
         // Assert
         expect(loginViewModel.inputtedPin, "123456");
       }, tags: 'unit');
+
+      test(
+          'given inputted pin is 6 digits when digit is pressed then inputted pin should not be added',
+          () {
+        // Arrange
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+        loginViewModel.onDigitPressed(2, MockBuildContext());
+        loginViewModel.onDigitPressed(3, MockBuildContext());
+        loginViewModel.onDigitPressed(4, MockBuildContext());
+        loginViewModel.onDigitPressed(5, MockBuildContext());
+        loginViewModel.onDigitPressed(6, MockBuildContext());
+
+        // Act
+        loginViewModel.onDigitPressed(7, MockBuildContext());
+        // Assert
+        expect(loginViewModel.inputtedPin, "123456");
+      }, tags: 'unit');
       group('FE pin validation', () {});
       group('handle network call', () {});
     });
