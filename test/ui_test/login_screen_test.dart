@@ -80,4 +80,35 @@ void main() {
     expect(find.text("123456"), findsOneWidget);
   });
 
+  testWidgets('delete', (WidgetTester tester) async {
+    //arrange
+    //mock - login service - nothing เพราะว่ายังไม่ได้ยิง api call
+
+    final TestWidgetsFlutterBinding binding =
+        TestWidgetsFlutterBinding.ensureInitialized();
+    await binding.setSurfaceSize(Size(400, 800));
+
+    //create login screen
+    await tester.pumpWidget(MaterialApp(
+        home: ChangeNotifierProvider<LoginViewModel>(
+      create: (_) =>
+          LoginViewModel(mockLoginService, SortOrder.ascending, PinRules()),
+      child: LoginScreen(),
+    )));
+    // //act
+    await tester.tap(find.text("1"));
+    await tester.tap(find.text("2"));
+    await tester.tap(find.text("3"));
+    await tester.tap(find.text("4"));
+    await tester.tap(find.text("5"));
+    await tester.pumpAndSettle();
+    expect(find.text("12345"), findsOneWidget);
+
+    await tester.tap(find.byKey(Key("deleteButton")));
+    await tester.pumpAndSettle();
+
+    //assert
+    expect(find.text("1234"), findsOneWidget);
+  });
+
 }
