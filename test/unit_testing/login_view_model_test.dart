@@ -94,6 +94,17 @@ void main() {
         // Assert
         expect(loginViewModel.inputtedPin, "12345");
       }, tags: 'unit');
+
+      test(
+          'given inputted pin is 0 digit when delete button is click then remove no digit from inputtedPin',
+          () {
+        // Arrange
+
+        // Act
+        loginViewModel.onDeleteButtonPressed();
+        // Assert
+        expect(loginViewModel.inputtedPin, "");
+      }, tags: 'unit');
     });
 
     group('navigation', () {});
