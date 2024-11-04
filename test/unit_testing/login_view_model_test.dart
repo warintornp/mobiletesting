@@ -68,9 +68,32 @@ void main() {
     });
     group('onDeleteButtonPressed', () {
       test(
-          'given inputted pin is not empty when delete button is click then last digit from inputtedPin will be removed',
-          () {},
-          tags: 'unit');
+          'given inputted pin is 1 digit when delete button is click then last digit from inputtedPin will be "" ',
+          () {
+        // Arrange
+        loginViewModel.onDigitPressed(7, MockBuildContext());
+
+        // Act
+        loginViewModel.onDeleteButtonPressed();
+        // Assert
+        expect(loginViewModel.inputtedPin, "");
+      }, tags: 'unit');
+      test(
+          'given inputted pin is 6 digit when delete button is click then last digit from inputtedPin will be removed ',
+          () {
+        // Arrange
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+        loginViewModel.onDigitPressed(2, MockBuildContext());
+        loginViewModel.onDigitPressed(3, MockBuildContext());
+        loginViewModel.onDigitPressed(4, MockBuildContext());
+        loginViewModel.onDigitPressed(5, MockBuildContext());
+        loginViewModel.onDigitPressed(6, MockBuildContext());
+
+        // Act
+        loginViewModel.onDeleteButtonPressed();
+        // Assert
+        expect(loginViewModel.inputtedPin, "12345");
+      }, tags: 'unit');
     });
 
     group('navigation', () {});
