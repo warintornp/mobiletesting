@@ -70,4 +70,37 @@ void main() {
     //Assert
     expect(find.byType(AlertDialog), findsOneWidget);
   });
+
+  testWidgets('Pin validate success and navigate to Home',
+      (WidgetTester tester) async {
+    final TestWidgetsFlutterBinding binding =
+        TestWidgetsFlutterBinding.ensureInitialized();
+    await binding.setSurfaceSize(Size(400, 800));
+    //mock
+    when(mockLoginViewModel.dialogMessage).thenReturn("Test");
+    when(mockLoginViewModel.inputtedPin).thenReturn("132457");
+    when(mockLoginViewModel.isLoading).thenReturn(false);
+    when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
+    when(mockLoginViewModel.shouldNavigateToHome).thenReturn(true);
+
+    //Create widget
+    await tester.pumpWidget(
+      MaterialApp(
+          home: ChangeNotifierProvider<LoginViewModel>.value(
+        value: mockLoginViewModel,
+        child: LoginScreen(),
+      )),
+    );
+    //Act
+    await tester.tap(find.text("1"));
+    await tester.tap(find.text("3"));
+    await tester.tap(find.text("2"));
+    await tester.tap(find.text("4"));
+    await tester.tap(find.text("5"));
+    await tester.tap(find.text("7"));
+    await tester.pumpAndSettle();
+    //Assert
+    expect(find.byKey(Key("home_screen")), findsOneWidget);
+    //
+  });
 }
