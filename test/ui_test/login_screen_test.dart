@@ -111,4 +111,169 @@ void main() {
     expect(find.text("1234"), findsOneWidget);
   });
 
+  testWidgets('delete', (WidgetTester tester) async {
+    //arrange
+    //mock - login service - nothing เพราะว่ายังไม่ได้ยิง api call
+
+    final TestWidgetsFlutterBinding binding =
+        TestWidgetsFlutterBinding.ensureInitialized();
+    await binding.setSurfaceSize(Size(400, 800));
+
+    //create login screen
+    await tester.pumpWidget(MaterialApp(
+        home: ChangeNotifierProvider<LoginViewModel>(
+      create: (_) =>
+          LoginViewModel(mockLoginService, SortOrder.ascending, PinRules()),
+      child: LoginScreen(),
+    )));
+    // //act
+    await tester.tap(find.text("1"));
+    await tester.tap(find.text("2"));
+    await tester.tap(find.text("3"));
+    await tester.tap(find.text("4"));
+    await tester.tap(find.text("5"));
+    await tester.pumpAndSettle();
+    expect(find.text("12345"), findsOneWidget);
+
+    await tester.tap(find.byKey(Key("deleteButton")));
+    await tester.pumpAndSettle();
+
+    //assert
+    expect(find.text("1234"), findsOneWidget);
+  });
+
+  testWidgets('dialog display - success', (WidgetTester tester) async {
+    //arrange
+    //mock - login service - nothing เพราะว่ายังไม่ได้ยิง api call
+    when(mockLoginService.authenticate("123456"))
+        .thenAnswer((_) async => AuthorizationStatus.success);
+    when(mockPinRules.getErrorMessage("123456")).thenReturn(null);
+
+    final TestWidgetsFlutterBinding binding =
+        TestWidgetsFlutterBinding.ensureInitialized();
+    await binding.setSurfaceSize(Size(400, 800));
+
+    //create login screen
+    await tester.pumpWidget(MaterialApp(
+        home: ChangeNotifierProvider<LoginViewModel>(
+      create: (_) =>
+          LoginViewModel(mockLoginService, SortOrder.ascending, mockPinRules),
+      child: LoginScreen(),
+    )));
+    // //act
+    await tester.tap(find.text("1"));
+    await tester.tap(find.text("2"));
+    await tester.tap(find.text("3"));
+    await tester.tap(find.text("4"));
+    await tester.tap(find.text("5"));
+    await tester.tap(find.text("6"));
+    await tester.pumpAndSettle();
+    //assert
+    // expect(find.text("123456"), findsOneWidget);
+    expect(find.byType(AlertDialog), findsOneWidget);
+    expect(find.text("Login success"), findsOneWidget);
+    // await expectLater(
+    //     find.byType(MaterialApp), matchesGoldenFile('goldens/widget.png'));
+  });
+
+  testWidgets('dialog display - 401', (WidgetTester tester) async {
+    //arrange
+    //mock - login service - nothing เพราะว่ายังไม่ได้ยิง api call
+    when(mockLoginService.authenticate("123456"))
+        .thenAnswer((_) async => AuthorizationStatus.unauthorised);
+    when(mockPinRules.getErrorMessage("123456")).thenReturn(null);
+
+    final TestWidgetsFlutterBinding binding =
+        TestWidgetsFlutterBinding.ensureInitialized();
+    await binding.setSurfaceSize(Size(400, 800));
+
+    //create login screen
+    await tester.pumpWidget(MaterialApp(
+        home: ChangeNotifierProvider<LoginViewModel>(
+      create: (_) =>
+          LoginViewModel(mockLoginService, SortOrder.ascending, mockPinRules),
+      child: LoginScreen(),
+    )));
+    // //act
+    await tester.tap(find.text("1"));
+    await tester.tap(find.text("2"));
+    await tester.tap(find.text("3"));
+    await tester.tap(find.text("4"));
+    await tester.tap(find.text("5"));
+    await tester.tap(find.text("6"));
+    await tester.pumpAndSettle();
+    //assert
+    expect(find.byType(AlertDialog), findsOneWidget);
+    expect(find.text("Unauthorised"), findsOneWidget); 
+    // await expectLater(
+    //     find.byType(MaterialApp), matchesGoldenFile('goldens/widget.png'));
+  });
+
+  testWidgets('dialog display - !401', (WidgetTester tester) async {
+    //arrange
+    //mock - login service - nothing เพราะว่ายังไม่ได้ยิง api call
+    when(mockLoginService.authenticate("123456"))
+        .thenAnswer((_) async => AuthorizationStatus.technicalError);
+    when(mockPinRules.getErrorMessage("123456")).thenReturn(null);
+
+    final TestWidgetsFlutterBinding binding =
+        TestWidgetsFlutterBinding.ensureInitialized();
+    await binding.setSurfaceSize(Size(400, 800));
+
+    //create login screen
+    await tester.pumpWidget(MaterialApp(
+        home: ChangeNotifierProvider<LoginViewModel>(
+      create: (_) =>
+          LoginViewModel(mockLoginService, SortOrder.ascending, mockPinRules),
+      child: LoginScreen(),
+    )));
+    // //act
+    await tester.tap(find.text("1"));
+    await tester.tap(find.text("2"));
+    await tester.tap(find.text("3"));
+    await tester.tap(find.text("4"));
+    await tester.tap(find.text("5"));
+    await tester.tap(find.text("6"));
+    await tester.pumpAndSettle();
+    //assert
+    expect(find.byType(AlertDialog), findsOneWidget);
+    expect(find.text("Facing technical difficulties"), findsOneWidget); 
+    //Facing technical difficulties
+    // await expectLater(
+    //     find.byType(MaterialApp), matchesGoldenFile('goldens/widget.png'));
+  });
+
+  testWidgets('dialog display - PIn rule error', (WidgetTester tester) async {
+    //arrange
+    //mock - login service - nothing เพราะว่ายังไม่ได้ยิง api call
+    // when(mockLoginService.authenticate("123456"))
+    //     .thenAnswer((_) async => AuthorizationStatus.technicalError);
+    when(mockPinRules.getErrorMessage("123456")).thenReturn("Pin invalid format");
+
+    final TestWidgetsFlutterBinding binding =
+        TestWidgetsFlutterBinding.ensureInitialized();
+    await binding.setSurfaceSize(Size(400, 800));
+
+    //create login screen
+    await tester.pumpWidget(MaterialApp(
+        home: ChangeNotifierProvider<LoginViewModel>(
+      create: (_) =>
+          LoginViewModel(mockLoginService, SortOrder.ascending, mockPinRules),
+      child: LoginScreen(),
+    )));
+    // //act
+    await tester.tap(find.text("1"));
+    await tester.tap(find.text("2"));
+    await tester.tap(find.text("3"));
+    await tester.tap(find.text("4"));
+    await tester.tap(find.text("5"));
+    await tester.tap(find.text("6"));
+    await tester.pumpAndSettle();
+    //assert
+    expect(find.byType(AlertDialog), findsOneWidget);
+    expect(find.text("Pin invalid format"), findsOneWidget); 
+    //Facing technical difficulties
+    // await expectLater(
+    //     find.byType(MaterialApp), matchesGoldenFile('goldens/widget.png'));
+  });
 }
