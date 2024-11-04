@@ -1,7 +1,7 @@
 ## Mock app(Flutter app)
 
 ### Step to start Flutter app
-- [run app] `flutter run`
+- [run app] `flutter pub get | run`
 - [run app in chrome with disable -web-security] `flutter run -d chrome --web-browser-flag "--disable-web-security"`
 
 ### Generate Mock component using Mockito for test class 
