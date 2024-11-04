@@ -11,6 +11,7 @@ import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 
 import 'login_screen_test.mocks.dart';
+
 @GenerateMocks([BuildContext, LoginViewModel])
 void main() {
   late MockLoginViewModel mockLoginViewModel;
@@ -48,15 +49,16 @@ void main() {
     when(mockLoginViewModel.shouldNavigateToHome).thenReturn(false);
 
     //Set screen size before run test
-    final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized();
+    final TestWidgetsFlutterBinding binding =
+        TestWidgetsFlutterBinding.ensureInitialized();
     await binding.setSurfaceSize(Size(400, 800));
 
     //Create widget
     await tester.pumpWidget(
       MaterialApp(
           home: ChangeNotifierProvider<LoginViewModel>.value(
-            value:  mockLoginViewModel,
-            child: LoginScreen(),
+        value: mockLoginViewModel,
+        child: LoginScreen(),
       )),
     );
     //Act
@@ -69,5 +71,38 @@ void main() {
     await tester.pumpAndSettle();
     //Assert
     expect(find.byType(AlertDialog), findsOneWidget);
+  });
+
+  testWidgets('Pin validate success and navigate to Home',
+      (WidgetTester tester) async {
+    final TestWidgetsFlutterBinding binding =
+        TestWidgetsFlutterBinding.ensureInitialized();
+    await binding.setSurfaceSize(Size(400, 800));
+    //mock
+    when(mockLoginViewModel.dialogMessage).thenReturn("Test");
+    when(mockLoginViewModel.inputtedPin).thenReturn("132457");
+    when(mockLoginViewModel.isLoading).thenReturn(false);
+    when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
+    when(mockLoginViewModel.shouldNavigateToHome).thenReturn(true);
+
+    //Create widget
+    await tester.pumpWidget(
+      MaterialApp(
+          home: ChangeNotifierProvider<LoginViewModel>.value(
+        value: mockLoginViewModel,
+        child: LoginScreen(),
+      )),
+    );
+    //Act
+    await tester.tap(find.text("1"));
+    await tester.tap(find.text("3"));
+    await tester.tap(find.text("2"));
+    await tester.tap(find.text("4"));
+    await tester.tap(find.text("5"));
+    await tester.tap(find.text("7"));
+    await tester.pumpAndSettle();
+    //Assert
+    expect(find.byKey(Key("home_screen")), findsOneWidget);
+    //
   });
 }
