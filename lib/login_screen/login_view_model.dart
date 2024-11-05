@@ -42,7 +42,7 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   Future<void> onShowErrorDialogButtonPressed(BuildContext context) async {
-    _showErrorDialog("Workshop1", context);
+    // _showErrorDialog("Workshop1", context);
   }
 
   //workshop 1
@@ -71,32 +71,16 @@ class LoginViewModel extends ChangeNotifier {
     );
   }
 
-  //workshop 0
-  void _showErrorDialog(String content, BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Error"),
-          content: Text(content),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   //workshop 2
   void onDeleteButtonPressed() {
     if (_inputtedPin.isNotEmpty) {
       _inputtedPin = _inputtedPin.substring(0, _inputtedPin.length - 1);
       notifyListeners();
     }
+  }
+
+  void onDialogClose() {
+    _dialogMessage = "";
+    // notifyListeners();
   }
 }

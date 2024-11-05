@@ -165,6 +165,24 @@ void main() {
       }, tags: 'unit');
     });
 
-    group('navigation', () {});
+    group('onDialogClose', () {
+      test(
+          'given dialogMessage is not empty when onDialogClose is called then dialogMessage should be set to empty string',
+          () {
+        // Arrange
+        when(mockPinRules.getErrorMessage("111111"))
+            .thenReturn("Pin format is invalid");
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+        // Act
+        loginViewModel.onDialogClose();
+        // Assert
+        expect(loginViewModel.dialogMessage, "");
+      });
+    });
   });
 }
