@@ -303,7 +303,7 @@ void main() {
     //     find.byType(MaterialApp), matchesGoldenFile('goldens/widget_v2-1.png'));
   });
 
-  testWidgets('display text - v2 - delete', (WidgetTester tester) async {
+  testWidgets('display text - v2 - enter', (WidgetTester tester) async {
     //Mock
     when(mockLoginViewModel.dialogMessage).thenReturn("");
     when(mockLoginViewModel.inputtedPin).thenReturn("1327");
