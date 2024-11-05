@@ -12,14 +12,17 @@ import 'package:provider/provider.dart';
 class LoginViewModel extends ChangeNotifier {
   String _inputtedPin = '';
   bool _isLoading = false;
+  String _dialogMessage = '';
 
   final LoginService loginService;
   final SortOrder keyPadsortOrder;
+  final PinRules pinRules;
 
-  LoginViewModel(this.loginService, this.keyPadsortOrder);
+  LoginViewModel(this.loginService, this.keyPadsortOrder, this.pinRules);
 
   String get inputtedPin => _inputtedPin;
   bool get isLoading => _isLoading;
+  String get dialogMessage => _dialogMessage;
 
   //workshop 1
   void onDigitPressed(int digit, BuildContext context) {
@@ -28,6 +31,14 @@ class LoginViewModel extends ChangeNotifier {
       _inputtedPin = _inputtedPin + digit.toString();
       notifyListeners();
     }
+
+    if (_inputtedPin.length < 6) {
+      return;
+    }
+
+    final errorMessage = pinRules.getErrorMessage(_inputtedPin);
+    _dialogMessage = errorMessage ?? "Ready to submit pin.";
+    notifyListeners();
   }
 
   Future<void> onShowErrorDialogButtonPressed(BuildContext context) async {

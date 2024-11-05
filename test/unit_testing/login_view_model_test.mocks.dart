@@ -10,6 +10,7 @@ import 'package:flutter/src/widgets/framework.dart' as _i2;
 import 'package:flutter/src/widgets/notification_listener.dart' as _i6;
 import 'package:http/http.dart' as _i4;
 import 'package:mobiletesting/login_screen/login_service.dart' as _i7;
+import 'package:mobiletesting/login_screen/pin_rules.dart' as _i9;
 import 'package:mobiletesting/secure_storage.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -277,4 +278,19 @@ class MockLoginService extends _i1.Mock implements _i7.LoginService {
         ),
         returnValue: _i8.Future<bool>.value(false),
       ) as _i8.Future<bool>);
+}
+
+/// A class which mocks [PinRules].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockPinRules extends _i1.Mock implements _i9.PinRules {
+  MockPinRules() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String? getErrorMessage(String? pin) => (super.noSuchMethod(Invocation.method(
+        #getErrorMessage,
+        [pin],
+      )) as String?);
 }
