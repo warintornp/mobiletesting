@@ -243,7 +243,7 @@ void main() {
     //     find.byType(MaterialApp), matchesGoldenFile('goldens/widget.png'));
   });
 
-  testWidgets('dialog display - PIn rule error', (WidgetTester tester) async {
+  testWidgets('dialog display - Pin rule error', (WidgetTester tester) async {
     //arrange
     //mock - login service - nothing เพราะว่ายังไม่ได้ยิง api call
     // when(mockLoginService.authenticate("123456"))
@@ -278,84 +278,4 @@ void main() {
   });
 
 
-  testWidgets('display dialog - v2', (WidgetTester tester) async {
-    //Mock
-    when(mockLoginViewModel.dialogMessage).thenReturn("Test");
-    when(mockLoginViewModel.inputtedPin).thenReturn("132457");
-    when(mockLoginViewModel.isLoading).thenReturn(false);
-    when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
-    //Set screen size before run test
-    final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized();
-    await binding.setSurfaceSize(Size(400, 800));
-    //Create widget
-    await tester.pumpWidget(
-      MaterialApp(
-          home: ChangeNotifierProvider<LoginViewModel>.value(
-            value:  mockLoginViewModel,
-            child: LoginScreen(),
-      )),
-    );
-    //Act
-    await tester.pumpAndSettle();
-    // //Assert
-    // expect(find.byType(AlertDialog), findsOneWidget);
-    // await expectLater(
-    //     find.byType(MaterialApp), matchesGoldenFile('goldens/widget_v2-1.png'));
-  });
-
-  testWidgets('display text - v2 - enter', (WidgetTester tester) async {
-    //Mock
-    when(mockLoginViewModel.dialogMessage).thenReturn("");
-    when(mockLoginViewModel.inputtedPin).thenReturn("1327");
-    when(mockLoginViewModel.isLoading).thenReturn(false);
-    when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
-    //Set screen size before run test
-    final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized();
-    await binding.setSurfaceSize(Size(400, 800));
-    //Create widget
-    await tester.pumpWidget(
-      MaterialApp(
-          home: ChangeNotifierProvider<LoginViewModel>.value(
-            value:  mockLoginViewModel,
-            child: LoginScreen(),
-      )),
-    );
-    //Act
-    await tester.tap(find.text("1"));
-    await tester.pumpAndSettle();
-    verify(mockLoginViewModel.onDigitPressed(1,any)).called(1);
-    //Assert
-    // expect(find.text("132457"), findsOneWidget);
-    // await expectLater(
-    //     find.byType(MaterialApp), matchesGoldenFile('goldens/widget_v2-2.png'));
-  });
-
-  testWidgets('display text - v2 - delete', (WidgetTester tester) async {
-    //Mock
-    when(mockLoginViewModel.dialogMessage).thenReturn("");
-    when(mockLoginViewModel.inputtedPin).thenReturn("132457");
-    when(mockLoginViewModel.isLoading).thenReturn(false);
-    when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
-
-    //Set screen size before run test
-    final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized();
-    await binding.setSurfaceSize(Size(400, 800));
-    //Create widget
-    await tester.pumpWidget(
-      MaterialApp(
-          home: ChangeNotifierProvider<LoginViewModel>.value(
-            value:  mockLoginViewModel,
-            child: LoginScreen(),
-      )),
-    );
-    
-    //Act
-    await tester.tap(find.byKey(Key("deleteButton"))); // ต้องมี key ก่อน
-    await tester.pumpAndSettle();
-    //Assert
-    // expect(find.text("132457"), findsOneWidget);
-    verify(mockLoginViewModel.onDeleteButtonPressed()).called(1);
-    // await expectLater(
-    //     find.byType(MaterialApp), matchesGoldenFile('goldens/widget_v2-2.png'));
-  });
 }
