@@ -3,13 +3,16 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i7;
+import 'dart:ui' as _i9;
 
-import 'package:http/http.dart' as _i2;
-import 'package:mobiletesting/login_screen/authorization_status.dart' as _i6;
-import 'package:mobiletesting/login_screen/login_service.dart' as _i4;
-import 'package:mobiletesting/secure_storage.dart' as _i3;
+import 'package:flutter/material.dart' as _i8;
+import 'package:mobiletesting/login_screen/login_service.dart' as _i2;
+import 'package:mobiletesting/login_screen/login_view_model.dart' as _i4;
+import 'package:mobiletesting/login_screen/pin_rules.dart' as _i3;
+import 'package:mobiletesting/login_screen/sort_order.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:mockito/src/dummies.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -24,8 +27,8 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeClient_0 extends _i1.SmartFake implements _i2.Client {
-  _FakeClient_0(
+class _FakeLoginService_0 extends _i1.SmartFake implements _i2.LoginService {
+  _FakeLoginService_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -34,8 +37,8 @@ class _FakeClient_0 extends _i1.SmartFake implements _i2.Client {
         );
 }
 
-class _FakeSecureStorage_1 extends _i1.SmartFake implements _i3.SecureStorage {
-  _FakeSecureStorage_1(
+class _FakePinRules_1 extends _i1.SmartFake implements _i3.PinRules {
+  _FakePinRules_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -44,40 +47,147 @@ class _FakeSecureStorage_1 extends _i1.SmartFake implements _i3.SecureStorage {
         );
 }
 
-/// A class which mocks [LoginService].
+/// A class which mocks [LoginViewModel].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoginService extends _i1.Mock implements _i4.LoginService {
-  MockLoginService() {
+class MockLoginViewModel extends _i1.Mock implements _i4.LoginViewModel {
+  MockLoginViewModel() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.Client get client => (super.noSuchMethod(
-        Invocation.getter(#client),
-        returnValue: _FakeClient_0(
+  _i2.LoginService get loginService => (super.noSuchMethod(
+        Invocation.getter(#loginService),
+        returnValue: _FakeLoginService_0(
           this,
-          Invocation.getter(#client),
+          Invocation.getter(#loginService),
         ),
-      ) as _i2.Client);
+      ) as _i2.LoginService);
 
   @override
-  _i3.SecureStorage get secureStorage => (super.noSuchMethod(
-        Invocation.getter(#secureStorage),
-        returnValue: _FakeSecureStorage_1(
-          this,
-          Invocation.getter(#secureStorage),
-        ),
-      ) as _i3.SecureStorage);
+  _i5.SortOrder get keyPadsortOrder => (super.noSuchMethod(
+        Invocation.getter(#keyPadsortOrder),
+        returnValue: _i5.SortOrder.ascending,
+      ) as _i5.SortOrder);
 
   @override
-  _i5.Future<_i6.AuthorizationStatus> authenticate(String? pin) =>
+  _i3.PinRules get pinRules => (super.noSuchMethod(
+        Invocation.getter(#pinRules),
+        returnValue: _FakePinRules_1(
+          this,
+          Invocation.getter(#pinRules),
+        ),
+      ) as _i3.PinRules);
+
+  @override
+  String get inputtedPin => (super.noSuchMethod(
+        Invocation.getter(#inputtedPin),
+        returnValue: _i6.dummyValue<String>(
+          this,
+          Invocation.getter(#inputtedPin),
+        ),
+      ) as String);
+
+  @override
+  bool get isLoading => (super.noSuchMethod(
+        Invocation.getter(#isLoading),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  String get dialogMessage => (super.noSuchMethod(
+        Invocation.getter(#dialogMessage),
+        returnValue: _i6.dummyValue<String>(
+          this,
+          Invocation.getter(#dialogMessage),
+        ),
+      ) as String);
+
+  @override
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  _i7.Future<void> onDigitPressed(
+    int? digit,
+    _i8.BuildContext? context,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
-          #authenticate,
-          [pin],
+          #onDigitPressed,
+          [
+            digit,
+            context,
+          ],
         ),
-        returnValue: _i5.Future<_i6.AuthorizationStatus>.value(
-            _i6.AuthorizationStatus.success),
-      ) as _i5.Future<_i6.AuthorizationStatus>);
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+
+  @override
+  _i7.Future<void> onShowErrorDialogButtonPressed(_i8.BuildContext? context) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #onShowErrorDialogButtonPressed,
+          [context],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+
+  @override
+  void onDeleteButtonPressed() => super.noSuchMethod(
+        Invocation.method(
+          #onDeleteButtonPressed,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void onDialogClose() => super.noSuchMethod(
+        Invocation.method(
+          #onDialogClose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addListener(_i9.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeListener(_i9.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
