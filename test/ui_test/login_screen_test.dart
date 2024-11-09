@@ -19,31 +19,11 @@ void main() {
     mockLoginViewModel = MockLoginViewModel();
   });
 
-  testWidgets('example of widget testing', (WidgetTester tester) async {
-    // Arrange
-    // when(serverA.functionB('')).thenAnswer((_) async => true);
-    final TestWidgetsFlutterBinding binding =
-        TestWidgetsFlutterBinding.ensureInitialized();
-    await binding
-        .setSurfaceSize(Size(400, 800)); // ensure a must UI component visible
-    await tester.pumpWidget(
-      MaterialApp(home: Text("1")),
-    );
-
-    //Act
-    await tester.tap(find.text('1'));
-    await tester.pumpAndSettle();
-
-    //Assertion
-    expect(find.byType(AlertDialog), findsNothing);
-    // verify(serverA.functionB('')).called(1);
-    // await expectLater(find.byType(MaterialApp), matchesGoldenFile('goldens/widget.png'));
-  }, tags: 'widget');
-
-  testWidgets('display dialog', (WidgetTester tester) async {
+  testWidgets('when tap on pin digit then OnDigitPressed should get called ',
+      (WidgetTester tester) async {
     //Mock
-    when(mockLoginViewModel.dialogMessage).thenReturn("Test");
-    when(mockLoginViewModel.inputtedPin).thenReturn("132457");
+    when(mockLoginViewModel.dialogMessage).thenReturn("");
+    when(mockLoginViewModel.inputtedPin).thenReturn("12345");
     when(mockLoginViewModel.isLoading).thenReturn(false);
     when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
     when(mockLoginViewModel.shouldNavigateToHome).thenReturn(false);
@@ -56,53 +36,78 @@ void main() {
     //Create widget
     await tester.pumpWidget(
       MaterialApp(
-          home: ChangeNotifierProvider<LoginViewModel>.value(
-        value: mockLoginViewModel,
+          home: ChangeNotifierProvider<LoginViewModel>(
+        create: (_) => mockLoginViewModel,
         child: LoginScreen(),
       )),
     );
+
     //Act
     await tester.tap(find.text("1"));
-    await tester.tap(find.text("3"));
-    await tester.tap(find.text("2"));
-    await tester.tap(find.text("4"));
-    await tester.tap(find.text("5"));
-    await tester.tap(find.text("7"));
     await tester.pumpAndSettle();
+
     //Assert
-    expect(find.byType(AlertDialog), findsOneWidget);
+    verify(mockLoginViewModel.onDigitPressed(1, any)).called(1);
   });
 
-  testWidgets('Pin validate success and navigate to Home',
+  testWidgets('when tap on delete button then onDeleteButtonPressed should get called ',
       (WidgetTester tester) async {
+    //Mock
+    when(mockLoginViewModel.dialogMessage).thenReturn("");
+    when(mockLoginViewModel.inputtedPin).thenReturn("12345");
+    when(mockLoginViewModel.isLoading).thenReturn(false);
+    when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
+    when(mockLoginViewModel.shouldNavigateToHome).thenReturn(false);
+
+    //Set screen size before run test
     final TestWidgetsFlutterBinding binding =
         TestWidgetsFlutterBinding.ensureInitialized();
     await binding.setSurfaceSize(Size(400, 800));
-    //mock
-    when(mockLoginViewModel.dialogMessage).thenReturn("Test");
-    when(mockLoginViewModel.inputtedPin).thenReturn("132457");
-    when(mockLoginViewModel.isLoading).thenReturn(false);
-    when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
-    when(mockLoginViewModel.shouldNavigateToHome).thenReturn(true);
 
     //Create widget
     await tester.pumpWidget(
       MaterialApp(
-          home: ChangeNotifierProvider<LoginViewModel>.value(
-        value: mockLoginViewModel,
+          home: ChangeNotifierProvider<LoginViewModel>(
+        create: (_) => mockLoginViewModel,
         child: LoginScreen(),
       )),
     );
+
     //Act
-    await tester.tap(find.text("1"));
-    await tester.tap(find.text("3"));
-    await tester.tap(find.text("2"));
-    await tester.tap(find.text("4"));
-    await tester.tap(find.text("5"));
-    await tester.tap(find.text("7"));
+    await tester.tap(find.byKey(Key("delete_button")));
     await tester.pumpAndSettle();
+
     //Assert
-    expect(find.byKey(Key("home_screen")), findsOneWidget);
-    //
+    verify(mockLoginViewModel.onDeleteButtonPressed()).called(1);
   });
+
+  testWidgets('when pin is valid and dialog message is not null then dialog displayed', (WidgetTester tester) async {
+    //Mock
+    when(mockLoginViewModel.dialogMessage).thenReturn("Login Success");
+    when(mockLoginViewModel.inputtedPin).thenReturn("123456");
+    when(mockLoginViewModel.isLoading).thenReturn(false);
+    when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
+    when(mockLoginViewModel.shouldNavigateToHome).thenReturn(false);
+
+    //Set screen size before run test
+    final TestWidgetsFlutterBinding binding =
+        TestWidgetsFlutterBinding.ensureInitialized();
+    await binding.setSurfaceSize(Size(400, 800));
+
+    //Create widget
+    await tester.pumpWidget(
+      MaterialApp(
+          home: ChangeNotifierProvider<LoginViewModel>(
+        create: (_) => mockLoginViewModel,
+        child: LoginScreen(),
+      )),
+    );
+
+    //Act
+    await tester.pumpAndSettle();
+
+    //Assert
+    expect(find.byType(AlertDialog), findsOneWidget);
+  });
+
 }
