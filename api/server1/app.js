@@ -145,3 +145,4 @@ var server = app.listen(port, () => {
 
 module.exports.app = server
 module.exports.fetchUserPoint = fetchUserPoint
+module.exports.fetchUserTier = fetchUserTier

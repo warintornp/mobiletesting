@@ -1,8 +1,7 @@
 const { Verifier } = require('@pact-foundation/pact');
 const path = require('path');
-
 //Start server 2
-const { server } = require('./app.js');
+const { app } = require('./app.js');
 // const server = app.listen('4000');
 
 describe('Pact verification', () => {
@@ -16,6 +15,7 @@ describe('Pact verification', () => {
 
         return new Verifier(opts).verifyProvider().then(output => {
             console.log(output);
-        }).finally(() => server.close()); //Close server2
+        }).finally(() => app.close()); //Close server2
     });
+    
 });
