@@ -1,6 +1,6 @@
 const request = require('supertest')
 const nock = require('nock')
-const app = require('./app')
+const { app } = require('./app')
 
 describe('POST pin validation', () => {
   it('return 200 when pin exists', async () => {
@@ -9,6 +9,7 @@ describe('POST pin validation', () => {
       .send({ pin: '132495' })
 
     expect(response.status).toBe(200)
+    expect(response.header.authorization).toEqual("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
   })
 
   it('return 401 when pin exists', async () => {
@@ -17,6 +18,7 @@ describe('POST pin validation', () => {
       .send({ pin: '132496' })
 
     expect(response.status).toBe(401)
+    expect(response.body.error).toBe("Unauthorised")
   })
 
   it('return 400 when pin input is null', async () => {
@@ -25,6 +27,7 @@ describe('POST pin validation', () => {
       .send({ pin: null })
 
     expect(response.status).toBe(400)
+    expect(response.body.error).toBe("Invalid request")
   })
 
   it('return 400 when pin input is empty', async () => {
@@ -33,18 +36,20 @@ describe('POST pin validation', () => {
       .send({ pin: '' })
 
     expect(response.status).toBe(400)
+    expect(response.body.error).toBe("Invalid request")
   })
 
   it('return 400 when pin input is undefined', async () => {
     const response = await request(app).post('/v1/api/pin/validate').send()
 
     expect(response.status).toBe(400)
+    expect(response.body.error).toBe("Invalid request")
   })
 
-  // afterAll((done) => {
-  //   app.close()
-  //   done()
-  // })
+  afterAll((done) => {
+    app.close()
+    done()
+  })
 })
 
 describe('GET user detail', () => {

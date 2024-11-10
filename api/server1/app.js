@@ -62,6 +62,7 @@ app.get('/v1/api/user', (req, res) => {
     console.log('will call getUserData ja')
     getUserData()
   }
+
   function getUserData() {
     const server2BasedUrl = 'http://localhost:4000'
     Promise.all([
@@ -72,6 +73,8 @@ app.get('/v1/api/user', (req, res) => {
         console.log('can retrieve tier and point ja')
         res.setHeader('Authorization', req.headers.authorization)
         res.status(200).json({ ...users[authToken], ...userTier, ...userPoint })
+        console.log("tier" + userTier)
+        console.log("point" + userPoint)
       })
       .catch((error) => {
         console.log('Error:', error.message)
@@ -79,6 +82,7 @@ app.get('/v1/api/user', (req, res) => {
       })
   }
 })
+
 function fetchUserPoint(basedUrl, authToken) {
   return new Promise((resolve, reject) => {
     http
@@ -138,5 +142,6 @@ function fetchUserTier(basedUrl, authToken) {
 var server = app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`)
 })
-module.exports.server = server
+
+module.exports.app = server
 module.exports.fetchUserPoint = fetchUserPoint

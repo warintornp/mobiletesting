@@ -24,6 +24,7 @@ class PinGridView extends StatelessWidget {
         if (index == 10) {
           // Last item, render delete button
           return IconButton(
+              key: Key("delete_button"),
               icon: const Icon(Icons.backspace),
               onPressed: deleteButtonOnPressed);
         }

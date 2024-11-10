@@ -39,6 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     userDetails: viewModel.userDetails,
                   ),
                   const SizedBox(height: 50),
+                  Text(
+                      'point: ${viewModel.userDetails['point']?.toString() ?? 'N/A'}'),
                   const SizedBox(height: 150),
                   //News Section Header
                   newsheader(),

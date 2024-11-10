@@ -1,5 +1,5 @@
 const request = require('supertest')
-const app = require('./app')
+const {app} = require('./app')
 
 describe('GET user point', () => {
   it('200', async () => {
@@ -31,6 +31,7 @@ describe('GET user point', () => {
     expect(response.header.authorization).toEqual(
       'Bearer eyJlbWFpbCI6InBhdEBleGFtcGxlLmNvbSJ9'
     )
+    expect(response.body.point).toBe(200)
   })
   it('401 Unauthorised WHEN authToken is invalid token', async () => {
     // Act

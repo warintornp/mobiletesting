@@ -11,8 +11,7 @@ import 'package:mobiletesting/login_screen/sort_order.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
-
-import 'snapshot_test.mocks.dart';
+import 'login_screen_snapshot_test.mocks.dart';
 
 @GenerateMocks([LoginViewModel])
 void main() {

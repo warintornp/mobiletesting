@@ -55,4 +55,4 @@ var server = app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`)
 })
 
-module.exports.server = server
+module.exports.app = server
