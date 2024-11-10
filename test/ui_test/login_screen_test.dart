@@ -157,7 +157,7 @@ void main() {
       'when enter pin 5 digits and tap delete then last inputted pin should be removed',
       (WidgetTester tester) async {
     //arrange
-    //mock - login service - do nothing
+    //Set screen size before run test
     final TestWidgetsFlutterBinding binding =
         TestWidgetsFlutterBinding.ensureInitialized();
     await binding.setSurfaceSize(Size(400, 800));
@@ -190,6 +190,7 @@ void main() {
     when(mockLoginService.authenticate("132495"))
         .thenAnswer((_) async => AuthorizationStatus.success);
 
+    //Set screen size before run test
      final TestWidgetsFlutterBinding binding =
         TestWidgetsFlutterBinding.ensureInitialized();
     await binding.setSurfaceSize(Size(400, 800));
@@ -225,6 +226,7 @@ void main() {
     when(mockLoginService.authenticate("132495"))
         .thenAnswer((_) async => AuthorizationStatus.unauthorised);
 
+    //Set screen size before run test
      final TestWidgetsFlutterBinding binding =
         TestWidgetsFlutterBinding.ensureInitialized();
     await binding.setSurfaceSize(Size(400, 800));
@@ -258,6 +260,7 @@ void main() {
     when(mockLoginService.authenticate("132495"))
         .thenAnswer((_) async => AuthorizationStatus.technicalError);
 
+    //Set screen size before run test
      final TestWidgetsFlutterBinding binding =
         TestWidgetsFlutterBinding.ensureInitialized();
     await binding.setSurfaceSize(Size(400, 800));
@@ -282,5 +285,37 @@ void main() {
     //assert
     expect(find.byType(AlertDialog), findsOneWidget);
     expect(find.text("Facing technical difficulties"), findsOneWidget);
+  });
+
+  testWidgets(
+      'when enter invalid pin 6 digits then dialog should be displayed with `Pin format is invalid`',
+      (WidgetTester tester) async {
+    //arrange
+
+    //Set screen size before run test
+     final TestWidgetsFlutterBinding binding =
+        TestWidgetsFlutterBinding.ensureInitialized();
+    await binding.setSurfaceSize(Size(400, 800));
+
+    //create login screen
+    await tester.pumpWidget(MaterialApp(
+        home: ChangeNotifierProvider<LoginViewModel>(
+      create: (_) =>
+          LoginViewModel(mockLoginService, SortOrder.ascending, PinRules()),
+      child: LoginScreen(),
+    )));
+
+    //act
+    await tester.tap(find.text("1"));
+    await tester.tap(find.text("1"));
+    await tester.tap(find.text("1"));
+    await tester.tap(find.text("1"));
+    await tester.tap(find.text("1"));
+    await tester.tap(find.text("1"));
+    await tester.pumpAndSettle();
+
+    //assert
+    expect(find.byType(AlertDialog), findsOneWidget);
+    expect(find.text("Pin format is invalid"), findsOneWidget);
   });
 }
