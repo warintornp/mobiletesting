@@ -7,15 +7,14 @@ const { app } = require('./app.js');
 describe('Pact verification', () => {
 
     it('should validate the contract with ConsumerService', () => {
-        const opts = {
+        const config = {
             providerBaseUrl: "http://localhost:4000",
             provider: "server2",
             pactUrls: [path.resolve(__dirname, '../server1/pacts/server1-server2.json')]
         };
 
-        return new Verifier(opts).verifyProvider().then(output => {
-            console.log(output);
+        return new Verifier(config).verifyProvider().then(output => {
+            console.log("result" + output);
         }).finally(() => app.close()); //Close server2
     });
-    
 });

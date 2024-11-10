@@ -20,6 +20,7 @@ describe('Requesting point from server 2', () => {
                 builder.jsonBody({ point: 100 })
             })
             .executeTest( async (mockService) => {
+                console.log(mockService.url)
                 const response = await fetchUserPoint(mockService.url, 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9')
                 expect(response.point).toBe(100);
             })
