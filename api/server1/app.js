@@ -26,7 +26,7 @@ const users = {
 
 app.use(bodyParser.json())
 // พบระเบิด ณ workshop#5. workshop#4 - call api จะทำเเค่ flutter app
-app.post('/v1/api/pin/validate', (req, res) => {
+app.post('/api/v1/pin/validate', (req, res) => {
   const pin = req.body.pin
   // const pin = req.body.body //hidden bug for scenario#2
   console.log(`req.body + ${JSON.stringify(req.body)}`)
