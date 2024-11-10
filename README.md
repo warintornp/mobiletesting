@@ -50,6 +50,8 @@ Note: To run specific describe in test file, `npx jest app.test.js -t {describe 
 4. verify server health by running `app.consumer.http`. Need to install vscode extension, [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) first.
 5. Run e2e testing
 `npx jest app.test.js`
+6. check code coverage 
+`npx jest --coverage`
 
 
 
