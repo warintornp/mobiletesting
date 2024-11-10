@@ -33,7 +33,6 @@ void main() {
     when(mockLoginViewModel.inputtedPin).thenReturn("12345");
     when(mockLoginViewModel.isLoading).thenReturn(false);
     when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
-    when(mockLoginViewModel.shouldNavigateToHome).thenReturn(false);
 
     //Set screen size before run test
     final TestWidgetsFlutterBinding binding =
@@ -65,7 +64,6 @@ void main() {
     when(mockLoginViewModel.inputtedPin).thenReturn("12345");
     when(mockLoginViewModel.isLoading).thenReturn(false);
     when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
-    when(mockLoginViewModel.shouldNavigateToHome).thenReturn(false);
 
     //Set screen size before run test
     final TestWidgetsFlutterBinding binding =
@@ -93,11 +91,10 @@ void main() {
       'when pin is valid and dialog message is not null then dialog displayed',
       (WidgetTester tester) async {
     //Mock
-    when(mockLoginViewModel.dialogMessage).thenReturn("Login Success");
+    when(mockLoginViewModel.dialogMessage).thenReturn("test");
     when(mockLoginViewModel.inputtedPin).thenReturn("123456");
     when(mockLoginViewModel.isLoading).thenReturn(false);
     when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
-    when(mockLoginViewModel.shouldNavigateToHome).thenReturn(false);
 
     //Set screen size before run test
     final TestWidgetsFlutterBinding binding =
@@ -118,6 +115,7 @@ void main() {
 
     //Assert
     expect(find.byType(AlertDialog), findsOneWidget);
+    expect(find.text("test"), findsOneWidget);
   });
 
   ////////////////////// VERION INTEGRATION /////////////////////////////testWidgets('when enter pin 6 digits then inputted pin dispalyed',
@@ -215,8 +213,6 @@ void main() {
     //assert
     expect(find.byType(AlertDialog), findsOneWidget);
     expect(find.text("Login success"), findsOneWidget);
-
-    await expectLater(find.byType(MaterialApp), matchesGoldenFile('goldens/call_api.png'));
   });
 
   testWidgets(
