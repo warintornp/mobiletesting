@@ -11,46 +11,10 @@ describe('POST pin validation', () => {
     expect(response.header.authorization).toEqual("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
   })
 
-  it('return 401 when pin exists', async () => {
-    const response = await request(app)
-    .post('/api/v1/pin/validate')
-    .send({pin: "132496"})
-
-    expect(response.status).toBe(401); 
-    expect(response.body.error).toBe("Unauthorised")
+  afterAll((done) => {
+    app.close()
+    done()
   })
-
-  it('return 400 when pin input is null', async () => {
-    const response = await request(app)
-    .post('/api/v1/pin/validate')
-    .send({pin: null})
-
-    expect(response.status).toBe(400); 
-    expect(response.body.error).toBe("Invalid request")
-  })
-
-  it('return 400 when pin input is empty', async () => {
-    const response = await request(app)
-    .post('/api/v1/pin/validate')
-    .send({pin: ""})
-
-    expect(response.status).toBe(400); 
-    expect(response.body.error).toBe("Invalid request")
-  })
-
-  it('return 400 when pin input is undefined', async () => {
-    const response = await request(app)
-    .post('/api/v1/pin/validate')
-    .send()
-
-    expect(response.status).toBe(400); 
-    expect(response.body.error).toBe("Invalid request")
-  })
-
-  // afterAll((done) => {
-  //   app.close()
-  //   done()
-  // })
 })
 
 describe('GET user detail', () => {

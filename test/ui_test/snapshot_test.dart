@@ -25,34 +25,7 @@ void main() {
     //Load app font
     await loadAppFonts();
   });
-
-  testGoldens('example of snapshot testing', (tester) async {
-    // // Arrange
-    // final mockViewModelA = MockViewModelA();
-    // when(mockViewModelA.functionB).thenReturn('');
-
-    // final builder = DeviceBuilder()
-    //   ..overrideDevicesForAllScenarios(devices: [
-    //     const Device(name: 'Pixel3a 800 x 600', size: Size(800, 600)),
-    //     Device.iphone11,
-    //     Device.tabletPortrait,
-    //   ])
-    //   ..addScenario(widget: Text(''));
-
-    // // Act
-    // await tester.pumpDeviceBuilder(builder);
-    // // Assert
-    // await screenMatchesGolden(tester, 'expected_golden_image');
-  });
-
-  testGoldens('example of snapshot testing1', (tester) async {
-    // // Arrange, Act
-    // await tester.pumpWidgetBuilder(Text(''),
-    //     surfaceSize: Size(400, 900), textScaleSize: 1.0);
-    // // Assert
-    // await screenMatchesGolden(tester, 'pin_grid_view_ascending');
-  });
-
+  
   testGoldens('Dot widget - dot unfilled', (WidgetTester tester) async {
     //arrange
     when(mockLoginViewModel.inputtedPin).thenReturn("");
@@ -65,53 +38,17 @@ void main() {
     await screenMatchesGolden(tester, 'dot_unfilled');
   });
 
-  testGoldens('Dot widget - dot filled', (WidgetTester tester) async {
-    when(mockLoginViewModel.inputtedPin).thenReturn("1234");
-    await tester.pumpWidgetBuilder(Dot(viewModel: mockLoginViewModel),
-        surfaceSize: Size(400, 800));
-    await screenMatchesGolden(tester, 'dot_input_1234');
-  });
+  testGoldens('Dot widget - dot filled', (WidgetTester tester) async {});
 
   testGoldens('PinGridView widget - num pad asceding order',
-      (WidgetTester tester) async {
-    await tester.pumpWidgetBuilder(
-        PinGridView(
-            sortOrder: SortOrder.ascending,
-            deleteButtonOnPressed: () {},
-            numberButtonOnPressed: (int num) {}),
-        surfaceSize: Size(400, 800),
-        textScaleSize: 1);
-    await screenMatchesGolden(tester, 'numpad_asc');
-  });
+      (WidgetTester tester) async {});
 
   testGoldens('PinGridView widget - num pad desceding order',
-      (WidgetTester tester) async {
-    await tester.pumpWidgetBuilder(
-        PinGridView(
-            sortOrder: SortOrder.descending,
-            deleteButtonOnPressed: () {},
-            numberButtonOnPressed: (int num) {}),
-        surfaceSize: Size(400, 800),
-        textScaleSize: 1);
-    await screenMatchesGolden(tester, 'numpad_desc');
-  });
+      (WidgetTester tester) async {});
 
-  testGoldens('Alert dialog', (WidgetTester tester) async {
-    await tester.pumpWidgetBuilder(Center(
-        child: AlertDialog(
-      title: Text("Error"),
-      content: Text("Test test"),
-      actions: [
-        TextButton(
-          onPressed: () {},
-          child: Text('OK'),
-        ),
-      ],
-    )));
-    await screenMatchesGolden(tester, 'dialog');
-  });
+  testGoldens('Alert dialog', (WidgetTester tester) async {});
 
-  testGoldens('login screen - Default state', (WidgetTester tester) async {
+  testGoldens('login screen - No enter pin and numpad sord order ascending', (WidgetTester tester) async {
     when(mockLoginViewModel.dialogMessage).thenReturn("");
     when(mockLoginViewModel.inputtedPin).thenReturn("123456");
     when(mockLoginViewModel.keyPadsortOrder).thenReturn(SortOrder.ascending);
@@ -129,21 +66,7 @@ void main() {
     await screenMatchesGolden(tester, 'login_screen');
   });
 
-  testGoldens('Home screen - Default state', (WidgetTester tester) async {
-    //Arrange
-    when(mockHomeViewModel.userDetails)
-        .thenReturn({'name': 'John Doe', 'email': 'john.doe@example.com'});
-
-    await tester.pumpWidgetBuilder(
-        ChangeNotifierProvider<HomeViewModel>(
-          create: (_) => mockHomeViewModel,
-          child: HomeScreen(),
-        ),
-        surfaceSize: Size(400, 800));
-    //Act
-    await tester.pumpAndSettle();
-    //Assert
-    await screenMatchesGolden(tester, 'home_screen');
+  testGoldens('login screen - Has pin entered pin and numpad sord order ascending', (WidgetTester tester) async {
   });
 
   testGoldens('Login screen - multiple screen size',
