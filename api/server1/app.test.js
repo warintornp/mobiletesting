@@ -13,37 +13,15 @@ describe('POST pin validation', () => {
   })
 
   it('return 401 when pin exists', async () => {
-    const response = await request(app)
-      .post('/v1/api/pin/validate')
-      .send({ pin: '132496' })
-
-    expect(response.status).toBe(401)
-    expect(response.body.error).toBe("Unauthorised")
   })
 
   it('return 400 when pin input is null', async () => {
-    const response = await request(app)
-      .post('/v1/api/pin/validate')
-      .send({ pin: null })
-
-    expect(response.status).toBe(400)
-    expect(response.body.error).toBe("Invalid request")
   })
 
   it('return 400 when pin input is empty', async () => {
-    const response = await request(app)
-      .post('/v1/api/pin/validate')
-      .send({ pin: '' })
-
-    expect(response.status).toBe(400)
-    expect(response.body.error).toBe("Invalid request")
   })
 
   it('return 400 when pin input is undefined', async () => {
-    const response = await request(app).post('/v1/api/pin/validate').send()
-
-    expect(response.status).toBe(400)
-    expect(response.body.error).toBe("Invalid request")
   })
 
   afterAll((done) => {

@@ -34,14 +34,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   //User profile
-
                   UserProfileView(
                     userDetails: viewModel.userDetails,
                   ),
-                  const SizedBox(height: 50),
-                  Text(
-                      'point: ${viewModel.userDetails['point']?.toString() ?? 'N/A'}'),
-                  const SizedBox(height: 150),
+                  point(viewModel),
                   //News Section Header
                   newsheader(),
                   ImageCarousel(),
@@ -79,6 +75,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ]),
       ),
     );
+  }
+
+  Widget point(HomeViewModel viewModel) {
+    return Column(key: Key("point"), children: [
+      const SizedBox(height: 50),
+      Text('point: ${viewModel.userDetails['point']?.toString() ?? 'N/A'}'),
+      const SizedBox(height: 150),
+    ]);
   }
 
 // News section header
