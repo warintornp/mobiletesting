@@ -20,7 +20,8 @@ void main() {
         LoginService(client: mockClient, secureStorage: mockSecureStorage);
   });
   group('authenticate', () {
-    test('API call return 400 status code', () async {
+    test('return technical error when API call return 400 status code',
+        () async {
       // Arrange
       when(mockClient.post(
               Uri.parse('http://localhost:3000/v1/api/pin/validate'),
@@ -32,7 +33,8 @@ void main() {
       // Assert
       expect(result, AuthorizationStatus.technicalError);
     }, tags: 'unit');
-    test('API call return 401 status code', () async {
+    test('return unauthorised error when API call return 401 status code',
+        () async {
       // Arrange
       when(mockClient.post(
               Uri.parse('http://localhost:3000/v1/api/pin/validate'),
@@ -45,7 +47,9 @@ void main() {
       expect(result, AuthorizationStatus.unauthorised);
     }, tags: 'unit');
     group('API call return 200 status code', () {
-      test('API call return null authorization token', () async {
+      test(
+          'return technical error when API call return null authorization token',
+          () async {
         // Arrange
         when(mockClient.post(
                 Uri.parse('http://localhost:3000/v1/api/pin/validate'),
@@ -58,7 +62,9 @@ void main() {
         // Assert
         expect(result, AuthorizationStatus.technicalError);
       }, tags: 'unit');
-      test('API call return empty string authorization token', () async {
+      test(
+          'return technical error when API call return empty string authorization token',
+          () async {
         when(mockClient.post(
                 Uri.parse('http://localhost:3000/v1/api/pin/validate'),
                 body: jsonEncode({'pin': '123456'}),
@@ -71,7 +77,8 @@ void main() {
         // Assert
         expect(result, AuthorizationStatus.technicalError);
       }, tags: 'unit');
-      test('API call return authorization token and error when store the token',
+      test(
+          'return Technical error when API call return authorization token and error when store the token',
           () async {
         // Arrange
         when(mockClient.post(
@@ -90,7 +97,7 @@ void main() {
       }, tags: 'unit');
 
       test(
-          'API call return authorization token and successfully or failed store the token',
+          'return success when API call return authorization token and successfully or failed store the token',
           () async {
         // Arrange
         when(mockClient.post(
