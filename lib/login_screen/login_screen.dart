@@ -29,14 +29,14 @@ class LoginScreen extends StatelessWidget {
                 });
               });
             }
-
-            if (viewModel.shouldNavigateToHome) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                _navigateToUserDetailsScreen(context, () {
-                  viewModel.onDoneNavigation();
-                });
-              });
-            }
+            //Enable for workshop E2E
+            // if (viewModel.shouldNavigateToHome) {
+            //   WidgetsBinding.instance.addPostFrameCallback((_) {
+            //     _navigateToUserDetailsScreen(context, () {
+            //       viewModel.onDoneNavigation();
+            //     });
+            //   });
+            // }
             return Column(
               children: <Widget>[
                 Dot(

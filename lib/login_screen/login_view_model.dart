@@ -38,20 +38,31 @@ class LoginViewModel extends ChangeNotifier {
 
     if (errorMessage == null) {
       final isAuthenticated = await loginService.authenticate(_inputtedPin);
-      if (isAuthenticated == AuthorizationStatus.success) {
-        // _navigateToUserDetailsScreen(context);
-        _shouldNavigateToHome = true;
-        notifyListeners();
-        return;
-      } else {
         _dialogMessage = isAuthenticated.getDisplayText();
         notifyListeners();
         return;
-      }
     } else {
       _dialogMessage = errorMessage;
       notifyListeners();
     }
+
+    //Enable for workshop E2E
+    // if (errorMessage == null) {
+    //   final isAuthenticated = await loginService.authenticate(_inputtedPin);
+    //   if (isAuthenticated == AuthorizationStatus.success) {
+    //     // _navigateToUserDetailsScreen(context);
+    //     _shouldNavigateToHome = true;
+    //     notifyListeners();
+    //     return;
+    //   } else {
+    //     _dialogMessage = isAuthenticated.getDisplayText();
+    //     notifyListeners();
+    //     return;
+    //   }
+    // } else {
+    //   _dialogMessage = errorMessage;
+    //   notifyListeners();
+    // }
   }
 
   Future<void> onShowErrorDialogButtonPressed(BuildContext context) async {
