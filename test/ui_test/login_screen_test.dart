@@ -125,19 +125,20 @@ void main() {
   testWidgets('when enter pin 6 digits then inputted pin dispalyed',
       (WidgetTester tester) async {
     //Mock
-
+    
     //Set screen size before run test
     final TestWidgetsFlutterBinding binding =
         TestWidgetsFlutterBinding.ensureInitialized();
     await binding.setSurfaceSize(Size(400, 800));
 
     //Create widget
-    MaterialApp(
+    await tester.pumpWidget(MaterialApp(
         home: ChangeNotifierProvider<LoginViewModel>(
       create: (_) =>
           LoginViewModel(mockLoginService, SortOrder.ascending, PinRules()),
       child: LoginScreen(),
-    ));
+    )));
+
     await tester.tap(find.text("1"));
     await tester.tap(find.text("2"));
     await tester.tap(find.text("3"));
@@ -147,9 +148,7 @@ void main() {
     await tester.pumpAndSettle();
 
     //Assert
-    // expect(find.text("123456"), findsOneWidget);
-    expect(find.byKey(Key("home_screen")), findsOneWidget);
-
+    expect(find.text("123456"), findsOneWidget);
   });
 
   testWidgets(
