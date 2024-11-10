@@ -1,6 +1,6 @@
 const { PactV4 } = require('@pact-foundation/pact')
 const path = require('path')
-const { server, fetchUserPoint } = require('./app');
+const { app, fetchUserPoint } = require('./app');
 
 const provider = new PactV4({
     consumer: 'server1',
@@ -40,7 +40,7 @@ describe('Requesting point from server 2', () => {
             })
     })
     afterAll((done) => {
-        server.close()
+        app.close()
         done()
       })
 })
