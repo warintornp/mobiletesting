@@ -1,7 +1,7 @@
 ## Mock app(Flutter app)
 
 # Remark:
-## This GitHub repository is owned and licensed by Ann and Imm for educational purposes. Anyone wishing to extend or reuse the repository must obtain permission from both Imm and Ann.
+## This GitHub repository is owned and licensed by [Ann Siroratt](https://github.com/ssuntro) and [Imm](https://github.com/warintornp) for educational purposes. Anyone wishing to extend or reuse the repository must obtain permission from both Imm and Ann.
 
 ### Step to start Flutter app
 - [run app] `flutter run`
