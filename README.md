@@ -1,5 +1,8 @@
 ## Mock app(Flutter app)
 
+# Remark:
+## This GitHub repository is owned and licensed by Ann and Imm for educational purposes. Anyone wishing to extend or reuse the repository must obtain permission from both Imm and Ann.
+
 ### Step to start Flutter app
 - [run app] `flutter run`
 - [run app in chrome with disable -web-security] `flutter run -d chrome --web-browser-flag "--disable-web-security"`
